@@ -6,6 +6,14 @@ When a company faces a crisis such as a data breach, cyberattack, product recall
 
 CrisisCoord turns the crisis response into a shared, auditable Band room where specialized agents coordinate in sequence and in parallel.
 
+## What We Are Building
+
+We are building the first working version of a crisis command room.
+
+The app will let a reviewer launch a synthetic incident, watch specialized agents coordinate through Band, inspect the legal and technical findings that gate communications, review draft messages, and approve or escalate human decisions. Supabase stores the incident record, agent outputs, decisions, and audit events so the workflow can be replayed and explained.
+
+See [docs/product/build-plan.md](./docs/product/build-plan.md) for the product scope, build order, MVP boundaries, and research status.
+
 ## Hackathon Context
 
 - Event: Band of Agents Hackathon by lablab.ai
@@ -57,7 +65,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, API details, and the project build approach.
+See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/product/build-plan.md](./docs/product/build-plan.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, product scope, API details, and the project build approach.
 
 ## Collaboration Policy
 
