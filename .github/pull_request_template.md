@@ -9,6 +9,7 @@ Select the project skill used for this change:
 - [ ] `crisiscoord-collaboration`
 - [ ] `crisiscoord-ui-ux`
 - [ ] `crisiscoord-backend-agents`
+- [ ] `crisiscoord-doc-consistency`
 
 Tool or app used:
 
@@ -56,3 +57,4 @@ Failure state:
 - [ ] I did not commit secrets.
 - [ ] I did not push directly to `main`.
 - [ ] If this touches agents/model providers, it preserves required Band, AI/ML API, and Featherless usage.
+- [ ] If this touches master docs, diagrams, phases, or sandbox scenarios, I ran `node scripts/check-master-doc-consistency.mjs`.

@@ -12,7 +12,7 @@ This folder holds the Gamma-ready presentation materials for the CrisisCoord hac
 
 ## Rule
 
-The deck may explain the architecture concept, but it must clearly mark detailed architecture as provisional until the team finalizes implementation choices.
+The deck may explain the architecture concept, using the master implementation guide as the source of truth. It must clearly distinguish what is built, seeded, planned, or not part of the demo.
 
 ## Gamma Workflow
 

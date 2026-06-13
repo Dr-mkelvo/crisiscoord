@@ -25,6 +25,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
 - [Demo day failure plan](../demo/demo-day-failure-plan.md): live, assisted, and seeded demo modes plus failure matrix and readiness checklist.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
+- [Skepticism audit](../research/skepticism-audit.md): current gap review, build blockers, drift risks, and recommended next work order.
 - [Competitive UI notes](../research/competitive-ui-notes.md): public incident-management and adjacent hackathon submission research.
 - [Competitor landscape](../research/competitor-landscape.md): closest product categories, competitor patterns, and CrisisCoord differentiation.
 - [Technology partner plan](../research/technology-partners.md): required Band, AI/ML API, and Featherless usage plus Codeband/lablab.ai/AgentOps boundaries.
@@ -64,7 +65,7 @@ Inside Phase 1, the implementation order should remain:
 3. Data model: Supabase tables for incidents, rooms, agent runs, outputs, decisions, and audit events.
 4. Band adapter: a thin service layer for Band agent identity, room state, messages, and events.
 5. Agent contracts: Zod schemas for each agent input and output.
-6. API routes: Hono or Fastify endpoints for incident intake, agent runs, decisions, and timeline reads.
+6. API routes: Hono endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
 8. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
 9. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
@@ -115,6 +116,7 @@ Already covered:
 - cross-platform contributor setup and responsive viewport requirements
 - automation boundaries, five-agent default, human escalation rules, and global guardrails plan
 - phased delivery path from demo sandbox to integration sandbox and controlled enterprise pilot
+- skepticism audit of remaining gaps and execution risks
 
 Research still needed during implementation:
 

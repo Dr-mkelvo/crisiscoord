@@ -75,7 +75,7 @@ Read [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-ru
 ### Backend
 
 - TypeScript
-- Hono or Fastify for API routes
+- Hono for API routes
 - Zod for request, response, and environment validation
 - OpenAPI later if we expose a formal API contract
 - Background jobs through scripts or a lightweight worker
@@ -107,8 +107,8 @@ Recommendation: use Supabase unless setup speed becomes a blocker.
 
 Recommended path:
 
-- Use Supabase Auth if we want one platform for auth, database, RLS, and storage.
-- Use Clerk only if we want a more polished auth UX quickly.
+- Use Supabase Auth first so auth, database, RLS, and storage stay in one explainable platform.
+- Use Clerk only if Supabase Auth becomes a demo-blocking issue.
 
 For judging, Supabase Auth plus RLS is easier to explain as a regulated-workflow architecture.
 
@@ -195,7 +195,7 @@ pnpm db:seed
 
 1. Validate Band agent keys with `GET /me` relative to the Band agent base URL.
 2. Confirm Band SDK setup path and whether to use platform agents, remote agents, or a mix.
-3. Choose Supabase Auth vs Clerk.
+3. Confirm Supabase Auth setup and RLS role mapping.
 4. Define the crisis-room schema.
 5. Define structured output contracts for each agent.
 6. Build the model-provider wrapper for AI/ML API and Featherless.

@@ -42,7 +42,7 @@ The deck should include these proof objects:
 - a dependency gate where Legal and Technical unlock Communications
 - a human decision queue
 - an audit ledger with source, timestamp, owner, and status
-- a simple provisional architecture map
+- a simple operating architecture map
 
 ## Avoid
 
@@ -55,7 +55,7 @@ Do not use:
 - generic AI imagery
 - stock-photo cyber drama
 - decorative gradients without information
-- architecture boxes that look final before the team has decided
+- architecture boxes that imply planned pieces are already live
 
 ## Hero Direction
 
@@ -79,4 +79,4 @@ That is the reason Band matters. Without that handoff, the product becomes a nor
 - Are AI/ML API and Featherless visible in the actual workflow?
 - Are fake numbers removed?
 - Are legal and compliance claims phrased as review support?
-- Is the architecture explicitly provisional?
+- Does the architecture clearly distinguish built, seeded, planned, and out-of-demo pieces?

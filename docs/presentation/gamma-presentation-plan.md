@@ -23,7 +23,7 @@ Create a concise hackathon pitch that explains:
 - how AI/ML API and Featherless are used
 - where human approval fits
 - what the 60-second demo will show
-- which architecture details are provisional until the team finalizes them
+- which implementation details are built, planned, or seeded for the demo
 
 ## Quality Bar
 
@@ -50,9 +50,9 @@ Legal finding + Technical finding
   -> Audit trail preserved
 ```
 
-## Provisional Architecture
+## Operating Architecture
 
-Until the team meeting finalizes implementation, show only this level of architecture:
+Use the master implementation guide as the source of truth. In the deck, show only this level of architecture unless a deeper detail has already been built:
 
 ```text
 Command-room UI
@@ -63,7 +63,7 @@ Command-room UI
   -> AI/ML API and Featherless model providers
 ```
 
-Do not present final database schema, final runtime topology, production deployment choices, or unavailable screenshots as if they are already built.
+Do not present database schema, runtime topology, production deployment choices, or unavailable screenshots as live if they are still planned.
 
 ## Team Meeting Questions
 
