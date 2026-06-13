@@ -10,7 +10,7 @@ Band is the collaboration layer. The agents should not be hidden behind a single
 
 The actual agents are not implemented yet. This document is the implementation rulebook for adding them without each contributor inventing a different pattern.
 
-The five-agent architecture is the recommended default. See [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the automation ladder, human-only decisions, and escalation rules that agent implementations must follow.
+The five-agent architecture is the recommended default. See [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the Six Thinking Hats guardrails plan, AI autonomy boundaries, human-only decisions, and escalation rules that agent implementations must follow.
 
 ## Architecture Decision
 

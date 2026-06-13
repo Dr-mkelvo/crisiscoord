@@ -146,4 +146,4 @@ For the hackathon, success means:
 - the app feels like an enterprise command center, not a chatbot
 - the architecture is credible enough for a regulated workflow
 
-See [decision-guardrails-questionnaire.md](./decision-guardrails-questionnaire.md) for the detailed automation boundary and human-escalation recommendation matrix.
+See [decision-guardrails-questionnaire.md](./decision-guardrails-questionnaire.md) for the Six Thinking Hats decision guardrails plan, automation boundaries, data-protection controls, and human-escalation rules.

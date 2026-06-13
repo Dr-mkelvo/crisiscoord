@@ -6,7 +6,7 @@ Last updated: June 13, 2026.
 
 This document captures the technology partners and adjacent tools CrisisCoord must account for. It turns the hackathon resource list into project decisions.
 
-For the decision guardrails that explain what these partners may automate, draft, or escalate to humans, see [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md).
+For the decision guardrails that explain what these partners may automate, draft, protect, or escalate to humans, see [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md).
 
 ## Partner Usage Policy
 
