@@ -15,6 +15,7 @@ For the newer live-data patterns inspired by external cybersecurity references, 
 - [mockups/README.md](./mockups/README.md)
 - [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg)
 - [../../scripts/generate-figma-triptych-svg.mjs](../../scripts/generate-figma-triptych-svg.mjs)
+- [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md)
 
 ## Editable Figma File
 
@@ -27,9 +28,11 @@ Current Figma status:
 - Uses the Starter-plan fallback structure because the selected Figma team is limited by MCP quota.
 - Live canvas update completed on June 13, 2026: the old board was replaced through the Figma browser UI with the generated global responsive board.
 - The current source of truth for the responsive board is [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg).
-- That generated board has seven workspace sections and three responsive versions per section: desktop, tablet, and mobile.
+- That generated board has seven workspace sections, three responsive versions per section, and one click-result interaction state per section.
+- The board now has 28 layouts total: 21 baseline responsive layouts plus 7 interaction-state layouts.
 - The generated board now includes the action layer: Notification Center, acknowledgement ladder, Communications delivery package, Band handoff map, and simulated provider status.
 - The June 13 repair pass removed the repeated map from non-command pages, centered contextual buttons, added visible post-click outcomes, and replaced generic panels with page-specific working panels.
+- The latest pass added page-level tabs on desktop, tablet, and mobile, plus click-result drawers/modals for launch, incident open, notifications, email/SMS, escalation, export, and provider setup.
 - Re-import the generated SVG into Figma whenever the source changes, so the team does not rebuild the structure by hand.
 - A later native Figma component pass should rebuild the same structure as true Figma frames/components once MCP write access is available again.
 
@@ -106,6 +109,7 @@ Start from the `01 Responsive Workspaces` board in Figma or from the generated S
 5. Decision Desk: desktop, tablet, mobile.
 6. Evidence And Audit: desktop, tablet, mobile.
 7. Integrations And Demo Readiness: desktop, tablet, mobile.
+8. Interaction state for each workspace section.
 
 The Crisis Command Room remains the hero frame. Other pages should support the demo story without becoming broad admin dashboards.
 
@@ -117,3 +121,5 @@ The Crisis Command Room remains the hero frame. Other pages should support the d
 - Show the after-click outcome close to the action so reviewers understand whether the system opens a room, starts an agent, notifies a human, queues a simulated package, or writes an audit event.
 - Use `Communications` as the full UI label. Avoid unexplained shorthand.
 - Mobile frames must prioritize active decision, post-click outcome, Notification Center, and one contextual action panel above the bottom navigation.
+- Keep tabs inside the seven existing pages instead of adding more top-level routes.
+- Email/SMS actions open an in-app drawer with channel tabs, editable draft fields, provider status, safe-recipient checks, and delivery status.

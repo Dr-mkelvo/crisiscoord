@@ -55,6 +55,22 @@ The UI should not feel like a static dashboard. Each page should answer one work
 | Evidence And Audit | Can we prove what happened and why? | Export facts, agent outputs, approvals, provider metadata, and notification logs. |
 | Integrations And Demo Readiness | Are our providers and demo modes ready? | Check Band, Supabase, AI/ML API, Featherless, notification providers, and seeded fallback. |
 
+## Tabs Inside The Seven Pages
+
+The app should keep seven top-level pages, but each page can use tabs for local work modes.
+
+| Workspace | Tabs |
+| --- | --- |
+| Signal Intake And Sandbox Launcher | Sources, Sandbox, Validation |
+| Incident Registry | Active, Deadlines, Owners |
+| Crisis Command Room | Overview, Handoffs, Notifications, Audit |
+| Communications Review | Drafts, Review, Send Log |
+| Decision Desk | Pending, Escalated, Resolved |
+| Evidence And Audit | Timeline, Evidence, Exports |
+| Integrations And Demo Readiness | Providers, Secrets, Demo |
+
+Tabs are local UI states, not new routes unless implementation needs deep links later.
+
 ## What The Five Agent Nodes Mean
 
 The agent nodes must not be decorative. They are a map of work state.
@@ -176,6 +192,16 @@ Examples:
 - `Customer notice requires approval from Incident Commander.`
 - `Primary reviewer has not acknowledged in 10 minutes. Escalating to backup.`
 
+Clicking a notification opens the Notification Center drawer inside CrisisCoord. The drawer should show:
+
+- channel tabs: in-app, Band, email, SMS
+- assigned owner or role
+- message preview
+- acknowledgement timer
+- delivery attempts
+- escalation level
+- audit reference
+
 ### 2. Internal Human Escalations
 
 These notify people inside the business:
@@ -212,11 +238,35 @@ Rule:
 Possible delivery channels:
 
 - email provider, such as Resend, SendGrid, Postmark, or Amazon SES
+- SMTP relay for teams that already have email infrastructure
 - CRM/support export
 - status page draft
 - legal/regulatory portal attachment, usually manual or enterprise-specific
 
 For the MVP, external sending should be simulated or held in `queued_for_human_send` unless the team explicitly enables a safe demo email provider with test recipients only.
+
+Clicking Email, SMS, Queue Package, or Send Test should open an in-app drawer. It should not jump to a random external platform.
+
+The Email tab should show:
+
+- safe recipient allowlist
+- subject
+- editable body
+- facts used
+- missing facts and warnings
+- SMTP/API provider status
+- send-test, queue, or disabled-send button
+
+The SMS tab should show:
+
+- owner or test recipient
+- phone/test destination
+- message body
+- segment count
+- unresolved placeholder warning
+- provider status
+
+The Status tab should show queued, simulated, sent, failed, acknowledged, timed out, or escalated attempts.
 
 Useful provider docs:
 

@@ -78,9 +78,11 @@ The first visual mockups and screenshot gallery live in [ui-design-mockups.md](.
 
 The UI interaction rules live in [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md). Treat that document as the source of truth for button behavior, notification destinations, human escalation, agent-node meaning, and demo sandbox count.
 
+Page tabs and click-result overlays live in [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md). Keep the seven top-level pages, but use tabs, drawers, sheets, and modals inside those pages to show real working states.
+
 The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). The page `01 Responsive Workspaces` contains the repaired responsive sketch board: seven workspace sections, each with desktop, tablet, and mobile versions.
 
-The repaired board was imported from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg) because the selected Figma Starter team is still blocking MCP write calls. Treat it as the clean visual baseline for UI planning. When MCP write access is available again, rebuild the same layout as native Figma frames/components.
+The repaired board was imported from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg) because the selected Figma Starter team is still blocking MCP write calls. Treat it as the clean visual baseline for UI planning. It now includes 28 layouts: 21 responsive baseline layouts and 7 click-result interaction layouts. When MCP write access is available again, rebuild the same layout as native Figma frames/components.
 
 Live-data UI components inspired by external references are documented in [live-data-ui-components.md](./live-data-ui-components.md). They do not change the page count. They add real source feeds, search, status strips, event ledgers, provider health, mobile action navigation, and confidence labels to the existing seven workspaces.
 
@@ -165,6 +167,7 @@ Create these before frontend polish:
 7. Desktop audit tab: provider metadata, Band references, and notification delivery log.
 8. Mobile command room: active decision and escalation ladder.
 9. Settings: partner/demo readiness diagnostics.
+10. Click-result states for launch, open incident, notification, email/SMS, escalation, export, and provider setup.
 
 ## Required Components
 

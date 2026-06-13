@@ -34,6 +34,7 @@ const workspaces = [
     subtitle: "Turn a real business signal into a controlled crisis workspace.",
     accent: C.cyan,
     route: "/signals",
+    tabs: ["Sources", "Sandbox", "Validation"],
     metrics: [["Signals", "8"], ["Live feeds", "5"], ["Sandbox", "Finance"], ["Ready", "5 agents"]],
     feed: ["CISA KEV: payment gateway CVE match", "SIEM alert: unusual card-token query volume", "GitHub advisory: dependency risk found"],
     primary: {
@@ -54,6 +55,17 @@ const workspaces = [
       title: "Expected Response Flow",
       rows: ["Assessment classifies severity", "Legal and Technical read shared context", "Communications stays blocked until facts exist", "Escalation opens a human decision when needed"],
     },
+    interaction: {
+      title: "Launch Confirmation Drawer",
+      subtitle: "Opened from Launch Room after the user reviews sanitized facts.",
+      tabs: ["Signal", "Agents", "Safety"],
+      leftTitle: "Before launch",
+      leftRows: ["Signal source locked", "Sandbox selected", "Sensitive fields redacted", "Expected agents previewed"],
+      drawerTitle: "Launch Command Room",
+      drawerRows: ["Create incident record", "Open Band room", "Queue Assessment agent", "Write audit event"],
+      actions: ["Cancel", "Launch Room"],
+      outcome: "User lands in Command Room with room ID, agent roster, and notification status.",
+    },
   },
   {
     n: "02",
@@ -62,6 +74,7 @@ const workspaces = [
     subtitle: "Prioritize active crises without burying users in dense tables.",
     accent: C.blue,
     route: "/incidents",
+    tabs: ["Active", "Deadlines", "Owners"],
     metrics: [["Open", "12"], ["Critical", "3"], ["Decisions", "5"], ["Next SLA", "71h"]],
     feed: ["Payment system access review", "Healthcare portal data anomaly", "Supplier recall coordination"],
     primary: {
@@ -82,6 +95,17 @@ const workspaces = [
       title: "Registry Behavior",
       rows: ["Sort by severity plus deadline", "Show owner and next action", "Avoid dense tables on mobile", "Keep demo incident pinned for judges"],
     },
+    interaction: {
+      title: "Incident Detail Drawer",
+      subtitle: "Opened from Open Room or any incident list row.",
+      tabs: ["Summary", "Owners", "History"],
+      leftTitle: "Selected incident",
+      leftRows: ["Severity and phase", "Deadline risk", "Decision status", "Primary owner"],
+      drawerTitle: "Open Incident Workspace",
+      drawerRows: ["Load Command Room", "Carry active filters", "Preserve owner context", "Show latest Band event"],
+      actions: ["Back", "Open Room"],
+      outcome: "Command Room opens with the selected incident, owner, deadline, and active agent state.",
+    },
   },
   {
     n: "03",
@@ -90,6 +114,7 @@ const workspaces = [
     subtitle: "The hero workspace where five agents coordinate through Band.",
     accent: C.violet,
     route: "/incidents/:incidentId",
+    tabs: ["Overview", "Handoffs", "Notifications", "Audit"],
     metrics: [["Severity", "Critical"], ["Records", "50k"], ["EU confirmed", "12.4k"], ["Gate", "Blocked"]],
     feed: ["Assessment: breach signal classified", "Legal: GDPR Article 33 clock active", "Technical: containment evidence pending"],
     timeline: ["02:47 signal received", "02:49 Assessment posted", "02:54 Legal obligation posted", "03:02 Technical scope posted"],
@@ -112,6 +137,17 @@ const workspaces = [
       title: "Dependency Gate",
       rows: ["Communications blocked until Legal facts exist", "Technical scope required before customer wording", "Human decision required before proactive notice", "No external send before approval"],
     },
+    interaction: {
+      title: "Notification Drawer",
+      subtitle: "Opened from Notify Owner, Email/SMS, or escalation items.",
+      tabs: ["In-app", "Email", "SMS", "Band"],
+      leftTitle: "Notification queue",
+      leftRows: ["Primary owner pending", "Band mention sent", "Email draft ready", "SMS fallback armed"],
+      drawerTitle: "Notify Human Owner",
+      drawerRows: ["Choose channel", "Confirm recipient role", "Preview message", "Start acknowledgement timer"],
+      actions: ["Save Draft", "Send Test", "Escalate"],
+      outcome: "Creates notification and attempt records; real sends require configured safe recipients.",
+    },
   },
   {
     n: "04",
@@ -120,6 +156,7 @@ const workspaces = [
     subtitle: "Draft regulator, customer, and executive communications from verified facts only.",
     accent: C.amber,
     route: "/incidents/:incidentId/communications",
+    tabs: ["Drafts", "Review", "Send Log"],
     metrics: [["Drafts", "3"], ["Facts used", "9"], ["Missing", "2"], ["Review", "Legal"]],
     feed: ["Regulator notice uses confirmed EU scope", "Customer notice waiting on proactive decision", "Executive brief ready for review"],
     primary: {
@@ -140,6 +177,17 @@ const workspaces = [
       title: "Outbound Package State",
       rows: ["Draft only until approved", "Queue is simulated for demo safety", "Provider ID stored when enabled", "Audit shows audience, facts, approver, and status"],
     },
+    interaction: {
+      title: "Email Composer Drawer",
+      subtitle: "Opened from Email/SMS or Queue Package after human approval checks.",
+      tabs: ["Email", "SMS", "Status"],
+      leftTitle: "Communication package",
+      leftRows: ["Audience selected", "Subject generated", "Facts locked", "Missing facts visible"],
+      drawerTitle: "Approved Email Draft",
+      drawerRows: ["To: test-safe recipients only", "Subject and body editable", "Facts used and warnings shown", "SMTP/provider status checked"],
+      actions: ["Save Draft", "Send Test", "Queue"],
+      outcome: "Queued communication writes provider status, simulated flag, Band reference, and audit event.",
+    },
   },
   {
     n: "05",
@@ -148,6 +196,7 @@ const workspaces = [
     subtitle: "Human-in-the-loop decisions with approve, wait, and escalate tradeoffs.",
     accent: C.violet,
     route: "/decisions",
+    tabs: ["Pending", "Escalated", "Resolved"],
     metrics: [["Pending", "4"], ["Urgent", "2"], ["Escalated", "1"], ["Owners", "3"]],
     feed: ["Notify customers proactively?", "Pause payment processing?", "Disclose to secondary regulator?"],
     primary: {
@@ -168,6 +217,17 @@ const workspaces = [
       title: "Acknowledgement Ladder",
       rows: ["Primary owner notified", "If no acknowledgement, backup owner is notified", "Incident Commander sees final escalation", "Decision remains visible until resolved"],
     },
+    interaction: {
+      title: "Escalation Action Sheet",
+      subtitle: "Opened from Escalate, Need Facts, or an unacknowledged decision.",
+      tabs: ["Decision", "Channels", "Timer"],
+      leftTitle: "Decision context",
+      leftRows: ["Risk if approving", "Risk if waiting", "Evidence links", "Assigned owner"],
+      drawerTitle: "Escalate Decision",
+      drawerRows: ["Notify backup owner", "Send Band mention", "Optional email/SMS if configured", "Reset acknowledgement timer"],
+      actions: ["Need Facts", "Notify", "Escalate"],
+      outcome: "Escalation advances the ladder and records who was notified, by channel, and when.",
+    },
   },
   {
     n: "06",
@@ -176,6 +236,7 @@ const workspaces = [
     subtitle: "Every fact, model result, source, timestamp, and human action is traceable.",
     accent: C.green,
     route: "/incidents/:incidentId/audit",
+    tabs: ["Timeline", "Evidence", "Exports"],
     metrics: [["Events", "128"], ["Sources", "7"], ["Exports", "2"], ["Integrity", "OK"]],
     feed: ["CISA KEV source snapshot", "Band message reference", "AI provider metadata redacted"],
     primary: {
@@ -196,6 +257,17 @@ const workspaces = [
       title: "Audit Rules",
       rows: ["Raw sensitive data is redacted", "Every external draft has an approver", "Every notification attempt is stored", "Every model call has provider metadata"],
     },
+    interaction: {
+      title: "Export Review Modal",
+      subtitle: "Opened from Export Package or Verify Chain.",
+      tabs: ["Package", "Chain", "Redactions"],
+      leftTitle: "Export contents",
+      leftRows: ["Facts and sources", "Agent outputs", "Human decisions", "Notification attempts"],
+      drawerTitle: "Audit Export",
+      drawerRows: ["Redactions confirmed", "Provider metadata included", "Band references linked", "Integrity check passed"],
+      actions: ["Cancel", "Export"],
+      outcome: "Creates a review-safe audit artifact without exposing raw sensitive data.",
+    },
   },
   {
     n: "07",
@@ -204,6 +276,7 @@ const workspaces = [
     subtitle: "Show the partner stack, diagnostics, fallback mode, and demo safety.",
     accent: C.blue,
     route: "/settings",
+    tabs: ["Providers", "Secrets", "Demo"],
     metrics: [["Band", "OK"], ["Supabase", "OK"], ["AI/ML", "Ready"], ["Fallback", "Seeded"]],
     feed: ["Band room active", "Supabase RLS check passed", "Featherless fallback model ready"],
     primary: {
@@ -224,6 +297,17 @@ const workspaces = [
     detail: {
       title: "Demo Safety",
       rows: ["Live, assisted, seeded, and simulated labels are visible", "No production incident data enters prompts", "Notification providers require safe test recipients", "Fallback still shows the full workflow"],
+    },
+    interaction: {
+      title: "Provider Setup Drawer",
+      subtitle: "Opened from Run Diagnostics, Email/SMS status, or provider cards.",
+      tabs: ["Email", "SMS", "Band", "Models"],
+      leftTitle: "Provider checklist",
+      leftRows: ["SMTP or API key configured", "Verified sender domain", "Test recipients only", "Fallback mode ready"],
+      drawerTitle: "Email/SMS Configuration",
+      drawerRows: ["SMTP host or Resend API key", "From address and reply-to", "Safe recipient allowlist", "Last diagnostic result"],
+      actions: ["Test Email", "Test SMS", "Save"],
+      outcome: "Provider setup enables test sends only; production sends stay disabled until policy checks pass.",
     },
   },
 ];
@@ -374,14 +458,43 @@ function metricCards(x, y, w, ws, mode) {
   const cols = mobile ? 2 : 4;
   const gap = mobile ? 10 : 16;
   const cardW = (w - gap * (cols - 1)) / cols;
+  const cardH = mobile ? 64 : 86;
+  const rowStep = mobile ? 72 : 0;
   ws.metrics.forEach((metric, i) => {
     const xx = x + (i % cols) * (cardW + gap);
-    const yy = y + Math.floor(i / cols) * (mobile ? 86 : 0);
-    out.push(rect(xx, yy, cardW, mobile ? 76 : 86, C.surface, C.border, 12));
-    out.push(text(xx + 14, yy + 28, metric[0], mobile ? 10 : 12, C.muted, 700));
-    out.push(text(xx + 14, yy + 60, metric[1], mobile ? 20 : 28, C.ink, 800));
-    out.push(circle(xx + cardW - 20, yy + 23, 6, ws.accent));
+    const yy = y + Math.floor(i / cols) * rowStep;
+    out.push(rect(xx, yy, cardW, cardH, C.surface, C.border, 12));
+    out.push(text(xx + 14, yy + (mobile ? 24 : 28), metric[0], mobile ? 9 : 12, C.muted, 700));
+    out.push(text(xx + 14, yy + (mobile ? 50 : 60), metric[1], mobile ? 18 : 28, C.ink, 800));
+    out.push(circle(xx + cardW - 20, yy + (mobile ? 20 : 23), 6, ws.accent));
   });
+  return out.join("");
+}
+
+function tabBar(x, y, w, ws, mode) {
+  const tabs = ws.tabs ?? [];
+  const compact = mode === "mobile";
+  const visibleTabs = compact ? tabs.slice(0, 3) : tabs;
+  const gap = compact ? 6 : 8;
+  const h = compact ? 28 : 34;
+  const out = [];
+  const calculated = visibleTabs.map((label) =>
+    compact ? 0 : Math.max(102, Math.min(156, label.length * 8 + 34)),
+  );
+  const chipW = compact
+    ? (w - gap * (visibleTabs.length - 1)) / visibleTabs.length
+    : Math.min(156, (w - gap * (visibleTabs.length - 1)) / visibleTabs.length);
+  let xx = x;
+  visibleTabs.forEach((label, i) => {
+    const active = i === 0;
+    const width = compact ? chipW : Math.min(calculated[i], chipW);
+    out.push(rect(xx, y, width, h, active ? ws.accent : C.surface, active ? "none" : C.border, h / 2));
+    out.push(text(xx + width / 2, y + (compact ? 18 : 22), label, compact ? 9 : 12, active ? C.text : C.ink, 800, "middle"));
+    xx += width + gap;
+  });
+  if (compact && tabs.length > visibleTabs.length) {
+    out.push(text(x + w - 4, y + 18, "...", 10, C.muted, 800, "end"));
+  }
   return out.join("");
 }
 
@@ -525,6 +638,44 @@ function dependencyGate(x, y, w, h, ws) {
   return out.join("");
 }
 
+function interactionFrame(x, y, ws) {
+  const w = 1440;
+  const h = 320;
+  const out = [labelFrame(x, y, `Interaction State / ${ws.short}`, w)];
+  out.push(rect(x, y, w, h, C.canvas, C.border, 18));
+  out.push(rect(x, y, w, 70, C.surface, "none", 18));
+  out.push(text(x + 28, y + 32, ws.interaction.title, 22, C.ink, 900));
+  out.push(wrappedText(x + 28, y + 54, ws.interaction.subtitle, 12, C.muted, 650, 100, 15, "start", 1));
+  out.push(pill(x + w - 282, y + 20, "Click-result layout", "#FFF7ED", C.orange, 210));
+  out.push(pill(x + w - 516, y + 20, "Tabs stay inside page", "#E0F2FE", C.cyan, 220));
+  out.push(tabBar(x + 28, y + 92, 520, { ...ws, tabs: ws.interaction.tabs }, "desktop"));
+
+  out.push(rect(x + 28, y + 144, 340, 142, C.surface, C.border, 14));
+  out.push(text(x + 46, y + 174, ws.interaction.leftTitle, 17, C.ink, 800));
+  ws.interaction.leftRows.slice(0, 4).forEach((row, i) => {
+    const yy = y + 204 + i * 24;
+    out.push(circle(x + 52, yy, 6, [ws.accent, C.green, C.amber, C.violet][i % 4]));
+    out.push(wrappedText(x + 68, yy + 4, row, 10, C.ink, 750, 42, 12, "start", 1));
+  });
+
+  out.push(rect(x + 392, y + 92, 532, 194, C.surface, C.border, 14));
+  out.push(text(x + 412, y + 126, ws.interaction.drawerTitle, 19, C.ink, 900));
+  ws.interaction.drawerRows.slice(0, 4).forEach((row, i) => {
+    const yy = y + 158 + i * 27;
+    out.push(rect(x + 412, yy - 16, 220, 22, "#F8FAFC", "#E2E8F0", 8));
+    out.push(circle(x + 426, yy - 5, 5, [ws.accent, C.cyan, C.green, C.amber][i % 4]));
+    out.push(wrappedText(x + 438, yy - 2, row, 10, C.ink, 700, 34, 12, "start", 1));
+  });
+  out.push(buttonRow(x + 412, y + 242, 492, ws.interaction.actions, ws.accent, "desktop"));
+
+  out.push(rect(x + 948, y + 92, 464, 194, "#FFF7ED", "#FDBA74", 14));
+  out.push(text(x + 968, y + 126, "Result after click", 18, C.orange, 900));
+  out.push(wrappedText(x + 968, y + 154, ws.interaction.outcome, 12, "#9A3412", 750, 58, 16, "start", 4));
+  out.push(line(x + 968, y + 230, x + 1388, y + 230, "#FDBA74", 1));
+  out.push(text(x + 968, y + 256, "Backend records: action result, delivery/provider status when relevant, audit event", 11, "#9A3412", 800));
+  return out.join("");
+}
+
 function desktopFrame(x, y, ws) {
   const w = 1440;
   const h = 960;
@@ -535,19 +686,21 @@ function desktopFrame(x, y, ws) {
   const cy = y + top + 28;
   const cw = w - side - 56;
   out.push(metricCards(cx, cy, cw, ws, "desktop"));
+  out.push(tabBar(cx, cy + 104, cw * 0.68, ws, "desktop"));
+  const mainY = cy + 150;
   if (ws.n === "03") {
-    out.push(agentMap(cx, cy + 120, 590, 350, ws, "desktop"));
-    out.push(timeline(cx + 614, cy + 120, 360, 350, ws, "desktop"));
-    out.push(decisionCard(cx + 998, cy + 120, cw - 998, 218, ws, "desktop"));
-    out.push(notificationPanel(cx + 998, cy + 360, cw - 998, 246, ws, "desktop"));
-    out.push(dependencyGate(cx, cy + 500, 974, 320, ws));
+    out.push(agentMap(cx, mainY, 590, 326, ws, "desktop"));
+    out.push(timeline(cx + 614, mainY, 360, 326, ws, "desktop"));
+    out.push(decisionCard(cx + 998, mainY, cw - 998, 206, ws, "desktop"));
+    out.push(notificationPanel(cx + 998, mainY + 226, cw - 998, 224, ws, "desktop"));
+    out.push(dependencyGate(cx, cy + 520, 974, 300, ws));
   } else {
-    out.push(sourceFeed(cx, cy + 118, 408, 350, ws, "desktop"));
-    out.push(primaryPanel(cx + 432, cy + 118, 462, 350, ws, "desktop"));
-    out.push(decisionCard(cx + 918, cy + 118, cw - 918, 200, ws, "desktop"));
-    out.push(notificationPanel(cx + 918, cy + 338, cw - 918, 212, ws, "desktop"));
-    out.push(outcomeStrip(cx + 918, cy + 570, cw - 918, 98, ws, "desktop"));
-    out.push(detailPanel(cx, cy + 500, 894, 320, ws, "desktop"));
+    out.push(sourceFeed(cx, mainY, 408, 326, ws, "desktop"));
+    out.push(primaryPanel(cx + 432, mainY, 462, 326, ws, "desktop"));
+    out.push(decisionCard(cx + 918, mainY, cw - 918, 196, ws, "desktop"));
+    out.push(notificationPanel(cx + 918, mainY + 216, cw - 918, 202, ws, "desktop"));
+    out.push(outcomeStrip(cx + 918, mainY + 438, cw - 918, 88, ws, "desktop"));
+    out.push(detailPanel(cx, cy + 530, 894, 290, ws, "desktop"));
   }
   return out.join("");
 }
@@ -562,12 +715,14 @@ function tabletFrame(x, y, ws) {
   const cy = y + top + 24;
   const cw = w - side - 48;
   out.push(metricCards(cx, cy, cw, ws, "tablet"));
-  out.push(primaryPanel(cx, cy + 118, cw, 292, ws, "tablet"));
-  out.push(timeline(cx, cy + 430, cw * 0.48, 226, ws, "tablet"));
-  out.push(notificationPanel(cx + cw * 0.52, cy + 430, cw * 0.48, 226, ws, "tablet"));
-  out.push(decisionCard(cx, cy + 676, cw, 164, ws, "tablet"));
-  out.push(outcomeStrip(cx, cy + 860, cw, 92, ws, "tablet"));
-  out.push(detailPanel(cx, cy + 972, cw, 100, ws, "tablet"));
+  out.push(tabBar(cx, cy + 104, cw, ws, "tablet"));
+  const mainY = cy + 148;
+  out.push(primaryPanel(cx, mainY, cw, 270, ws, "tablet"));
+  out.push(timeline(cx, mainY + 290, cw * 0.48, 210, ws, "tablet"));
+  out.push(notificationPanel(cx + cw * 0.52, mainY + 290, cw * 0.48, 210, ws, "tablet"));
+  out.push(decisionCard(cx, mainY + 520, cw, 150, ws, "tablet"));
+  out.push(outcomeStrip(cx, mainY + 688, cw, 78, ws, "tablet"));
+  out.push(detailPanel(cx, mainY + 784, cw, 58, ws, "tablet"));
   return out.join("");
 }
 
@@ -578,13 +733,14 @@ function mobileFrame(x, y, ws) {
   const { svg, top } = chrome(x, y, w, h, ws, "mobile");
   out.push(svg);
   const cx = x + 18;
-  const cy = y + top + 18;
+  const cy = y + top + 50;
   const cw = w - 36;
+  out.push(tabBar(cx, y + top + 8, cw, ws, "mobile"));
   out.push(metricCards(cx, cy, cw, ws, "mobile"));
-  out.push(decisionCard(cx, cy + 170, cw, 140, ws, "mobile"));
-  out.push(outcomeStrip(cx, cy + 322, cw, 76, ws, "mobile"));
-  out.push(notificationPanel(cx, cy + 410, cw, 110, ws, "mobile"));
-  out.push(primaryPanel(cx, cy + 532, cw, 128, ws, "mobile"));
+  out.push(decisionCard(cx, cy + 148, cw, 124, ws, "mobile"));
+  out.push(outcomeStrip(cx, cy + 282, cw, 70, ws, "mobile"));
+  out.push(notificationPanel(cx, cy + 362, cw, 94, ws, "mobile"));
+  out.push(primaryPanel(cx, cy + 466, cw, 92, ws, "mobile"));
   return out.join("");
 }
 
@@ -599,18 +755,19 @@ function section(x, y, ws) {
   out.push(desktopFrame(x, fy, ws));
   out.push(tabletFrame(x + 1520, fy, ws));
   out.push(mobileFrame(x + 2434, fy, ws));
+  out.push(interactionFrame(x, fy + 1064, ws));
   return out.join("");
 }
 
 const boardW = 2924;
-const sectionH = 1280;
+const sectionH = 1480;
 const margin = 90;
 const boardH = margin * 2 + workspaces.length * sectionH;
 const parts = [];
 parts.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${boardW}" height="${boardH}" viewBox="0 0 ${boardW} ${boardH}">`);
 parts.push(rect(0, 0, boardW, boardH, C.page));
 parts.push(text(margin, 58, "CrisisCoord Responsive Workspace Triptychs", 38, "#111827", 900));
-parts.push(text(margin, 88, "Seven product workspaces, each shown as desktop, tablet, and mobile. Buttons now show visible after-click outcomes.", 15, "#475569", 650));
+parts.push(text(margin, 88, "Seven product workspaces, each shown as desktop, tablet, mobile, and click-result state. Tabs stay inside the same seven pages.", 15, "#475569", 650));
 parts.push(pill(boardW - 798, 44, "Palette: graphite, cyan, blue, amber, red, green, violet", "#FFFFFF", "#0F172A", 510));
 parts.push(pill(boardW - 270, 44, "Generated source", "#FFFFFF", "#0F172A", 160));
 workspaces.forEach((ws, i) => parts.push(section(margin, 150 + i * sectionH, ws)));
