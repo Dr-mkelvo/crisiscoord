@@ -76,6 +76,10 @@ The first visual mockups and screenshot gallery live in [ui-design-mockups.md](.
 
 The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). It currently contains the token board, paint and text styles, and local component references. The full responsive frame pass is still pending because the selected Figma Starter team hit its MCP tool quota during generation.
 
+Live-data UI components inspired by external references are documented in [live-data-ui-components.md](./live-data-ui-components.md). They do not change the page count. They add real source feeds, search, status strips, event ledgers, provider health, mobile action navigation, and confidence labels to the existing seven workspaces.
+
+The Figma repair target is documented in [figma-repair-spec.md](./figma-repair-spec.md). The correct structure is seven workspace triptychs: desktop, tablet, and mobile for each existing page.
+
 ## Page Count
 
 Best recommendation: seven real workspaces.
@@ -158,13 +162,20 @@ Create these before frontend polish:
 - incident bar
 - agent rail row
 - Band timeline item
+- global command/search bar
+- operational status strip
 - handoff/dependency gate
+- handoff topology map
 - legal finding card
 - technical finding card
 - draft review panel
 - decision card
+- source/intel feed item
 - audit event row
 - provider badge
+- provider/feed status card
+- last-updated/confidence label
+- mobile bottom action bar
 - demo mode banner
 - redaction/synthetic-data badge
 - loading, blocked, failed, fallback, and needs-review states

@@ -128,6 +128,7 @@ Key guides:
 - [Band API notes](./docs/api/band-api.md)
 - [Supabase API notes](./docs/api/supabase-api.md)
 - [Model provider API notes](./docs/api/model-provider-apis.md)
+- [Live data API notes](./docs/api/live-data-apis.md)
 - [Technology partner plan](./docs/research/technology-partners.md)
 - [Partner implementation requirements](./docs/architecture/partner-implementation-requirements.md)
 - [Runtime and rate-limit notes](./docs/api/runtime-and-rate-limits.md)
@@ -166,6 +167,9 @@ AIML_DEFAULT_MODEL=google/gemma-3-4b-it
 FEATHERLESS_API_BASE_URL=https://api.featherless.ai/v1
 FEATHERLESS_API_KEY=
 FEATHERLESS_DEFAULT_MODEL=Qwen/Qwen2.5-7B-Instruct
+
+# Optional live-data providers are listed in .env.example.
+# Keep all provider keys server-side.
 ```
 
 Never commit `.env.local`, Band API keys, Supabase service-role keys, model API keys, or deployment tokens.
@@ -199,9 +203,11 @@ pnpm db:seed
 4. Define the crisis-room schema.
 5. Define structured output contracts for each agent.
 6. Build the model-provider wrapper for AI/ML API and Featherless.
-7. Prove the demo path uses AI/ML API and Featherless with provider metadata in the audit trail.
-8. Build the synthetic 60-second demo scenario.
-9. Create the first UI wireframe for the crisis command room.
+7. Build public live-data adapters for CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, and openFDA.
+8. Prove the demo path uses AI/ML API and Featherless with provider metadata in the audit trail.
+9. Build the synthetic 60-second demo scenario.
+10. Repair the Figma file into seven desktop/tablet/mobile workspace triptychs.
+11. Create the first UI wireframe for the crisis command room.
 
 ## Product Direction
 

@@ -24,8 +24,11 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Final UI/UX build brief](../design/final-ui-ux-brief.md): final command-room direction, route ceiling, Figma frame list, and business placement.
 - [UI design mockups](../design/ui-design-mockups.md): static screenshot gallery and editable HTML/CSS reference for the seven workspaces.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
+- [Live-data UI components](../design/live-data-ui-components.md): real source feed, search, status strip, event ledger, provider health, mobile action bar, and confidence-label placement.
+- [Figma repair spec](../design/figma-repair-spec.md): required seven workspace triptych structure for desktop, tablet, and mobile frames.
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
+- [Live data APIs](../api/live-data-apis.md): CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, optional OTX/AbuseIPDB/URLhaus, and adapter rules.
 - [Demo day failure plan](../demo/demo-day-failure-plan.md): live, assisted, and seeded demo modes plus failure matrix and readiness checklist.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
 - [Skepticism audit](../research/skepticism-audit.md): current gap review, build blockers, drift risks, and recommended next work order.
@@ -69,11 +72,12 @@ Inside Phase 1, the implementation order should remain:
 4. Band adapter: a thin service layer for Band agent identity, room state, messages, and events.
 5. Agent contracts: Zod schemas for each agent input and output.
 6. API routes: Hono endpoints for incident intake, agent runs, decisions, and timeline reads.
-7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
-8. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
-9. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
-10. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
-11. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
+7. Live-data adapters: CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional keyed threat-intel sources behind feature flags.
+8. UI components: incident bar, global command bar, operational status strip, source feed, agent rail, handoff topology map, Band timeline, dependency gate, draft review panel, decision queue, audit log, provider health cards, mobile bottom action bar, and confidence labels.
+9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
+10. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
+11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
+12. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
 ## MVP Scope
 
@@ -116,6 +120,7 @@ Already covered:
 - crisis signal model and upload-first anti-pattern
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
+- live-data API plan for source feeds, search, event ledger, and provider/feed health
 - cross-platform contributor setup and responsive viewport requirements
 - automation boundaries, five-agent default, human escalation rules, and global guardrails plan
 - phased delivery path from demo sandbox to integration sandbox and controlled enterprise pilot
@@ -128,6 +133,7 @@ Research still needed during implementation:
 - confirm final Supabase project setup and local migration flow
 - confirm which model provider is fastest and stable enough for the demo
 - confirm the command-room color tokens in Figma before final UI polish
+- confirm the Figma file can be repaired into seven desktop/tablet/mobile workspace triptychs once the Figma MCP quota resets or the team plan changes
 - verify any regulatory wording used in public demo copy before submission
 - test Vercel deployment behavior, environment variables, and rate limits
 - test live, assisted, and seeded demo modes before submission

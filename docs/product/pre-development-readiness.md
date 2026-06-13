@@ -32,6 +32,8 @@ The remaining gaps are implementation blockers, not planning blockers:
 - Supabase migrations and seed data do not exist yet.
 - Sandbox fixtures do not exist yet.
 - Figma frames need to be created from the final UI/UX brief.
+- Figma repair is needed so the file becomes seven workspace triptychs instead of a component-foundation canvas.
+- Live-data adapters are planned, but not implemented.
 - Provider diagnostics need to confirm live AI/ML API and Featherless model availability.
 - `demo:check` does not exist yet.
 
@@ -50,6 +52,7 @@ The following areas are documented enough to start:
 - global sector sandboxes
 - production stack standards
 - UI page plan and command-room anatomy
+- live-data source API plan and UI component placement
 - color system and responsive rules
 - demo-day failure plan
 - skepticism audit

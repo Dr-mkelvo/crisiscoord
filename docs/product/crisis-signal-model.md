@@ -59,6 +59,10 @@ Future production sources:
 - payment processor alert
 - vulnerability intelligence
 - CISA KEV/CVE match
+- SEC filing or public-company disclosure event
+- product, device, drug, or food recall notice
+- open-source package advisory
+- IP/domain/hash/URL threat-intelligence match
 - vendor breach notice
 - customer support escalation
 - regulator inquiry
@@ -124,6 +128,11 @@ type CrisisSignal = {
     | "cloud"
     | "dlp"
     | "vendor_notice"
+    | "vulnerability_intelligence"
+    | "public_filing"
+    | "recall_notice"
+    | "package_advisory"
+    | "threat_intel"
     | "customer_report"
     | "regulator_inquiry"
     | "legal_notice"

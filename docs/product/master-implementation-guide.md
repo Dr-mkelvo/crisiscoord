@@ -29,12 +29,14 @@ The major unfinished pieces are:
 4. Agent contracts: Zod schemas for every agent input and output.
 5. Band adapter: room creation, participant lookup, agent messages, structured events, context reads, and retry handling.
 6. Model-provider adapter: AI/ML API, Featherless, fallback behavior, JSON validation, provider metadata, and timeouts.
-7. Five-agent loop: one complete agent end to end, then the remaining four agents.
-8. Server-side gates: especially Communications waiting on Legal and Technical.
-9. Global sandbox catalog: finance, health, and product/supply-chain demo contexts.
-10. UI data wiring: command room, agent rail, timeline, dependency gate, draft review, decision desk, and audit view.
-11. Demo modes: live, assisted, and seeded fallback.
-12. Verification: contract tests, agent tests, Playwright demo path, responsive checks, and doc consistency checks.
+7. Live-data adapters: CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional OTX/AbuseIPDB/URLhaus.
+8. Five-agent loop: one complete agent end to end, then the remaining four agents.
+9. Server-side gates: especially Communications waiting on Legal and Technical.
+10. Global sandbox catalog: finance, health, and product/supply-chain demo contexts.
+11. UI data wiring: global command bar, operational status strip, source feed, command room, agent rail, handoff topology, timeline, dependency gate, draft review, decision desk, provider health, and audit view.
+12. Demo modes: live, assisted, and seeded fallback.
+13. Figma repair: seven workspace triptychs with desktop, tablet, and mobile frames.
+14. Verification: contract tests, agent tests, Playwright demo path, responsive checks, and doc consistency checks.
 
 ## Relationship To Phases
 
@@ -54,6 +56,8 @@ Use this Mermaid diagram as the source structure for the project. If the agent o
 flowchart TD
   CrisisSignal["Crisis signal"]
   SandboxCatalog["Sandbox catalog: finance, health, product + supply chain"]
+  LiveSourceAdapters["Live source adapters: KEV, CVE, EPSS, OSV, SEC, FDA"]
+  SourceSnapshots["Source snapshots + observations"]
   BackendRules["Backend API + workflow rules"]
   SupabaseAudit["Supabase state + audit trail"]
   BandRoom["Band crisis room"]
@@ -69,6 +73,9 @@ flowchart TD
   UICommandRoom["Command room UI"]
 
   SandboxCatalog --> CrisisSignal
+  LiveSourceAdapters --> SourceSnapshots
+  SourceSnapshots --> CrisisSignal
+  SourceSnapshots --> BackendRules
   CrisisSignal --> BackendRules
   BackendRules --> SupabaseAudit
   BackendRules --> BandRoom

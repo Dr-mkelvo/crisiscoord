@@ -15,6 +15,7 @@ flowchart LR
   User["Incident commander / reviewer"]
   UI["React command room UI"]
   API["Hono TypeScript API"]
+  Sources["Live source adapters"]
   DB["Supabase Postgres + Auth + Storage"]
   Band["Band room + Agent API + WebSocket"]
   Agents["Specialized agent workers"]
@@ -23,6 +24,7 @@ flowchart LR
 
   User --> UI
   UI --> API
+  Sources --> API
   API --> DB
   API --> Band
   Band <--> Agents
@@ -32,6 +34,8 @@ flowchart LR
   DB --> Audit
   Audit --> UI
 ```
+
+Live source adapters include CISA KEV, NVD, FIRST EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional keyed threat-intelligence sources. They enrich crisis signals and evidence snapshots, but Supabase and Band remain the product's system of record.
 
 ## Frontend Section
 
@@ -58,10 +62,14 @@ Primary screen:
 Required regions:
 
 - incident summary bar
+- global command/search bar
+- operational status strip
 - severity, phase, deadline, and refresh state
 - agent rail
 - Band room timeline
+- source/intel feed rail
 - handoff/dependency map
+- handoff topology map
 - legal obligations panel
 - technical findings panel
 - communications draft review
@@ -166,6 +174,8 @@ Suggested API routes:
 ```text
 POST /api/incidents
 POST /api/integrations/signals
+GET  /api/search/global
+GET  /api/ops/status
 GET  /api/incidents/:incidentId
 POST /api/incidents/:incidentId/start-room
 POST /api/incidents/:incidentId/agents/:agentName/run
@@ -174,6 +184,7 @@ POST /api/incidents/:incidentId/drafts
 POST /api/decisions/:decisionId/approve
 POST /api/decisions/:decisionId/reject
 GET  /api/health
+GET  /api/health/providers
 ```
 
 ## Agent Architecture
