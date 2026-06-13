@@ -8,6 +8,8 @@ This document is not legal advice. CrisisCoord should present regulatory outputs
 
 API-specific notes live in [docs/api/README.md](../api/README.md).
 
+Platform and responsive support rules live in [docs/platform-support.md](../platform-support.md).
+
 ## Standards Map
 
 - 00 - Current Operating Principles
@@ -45,6 +47,8 @@ Rules:
 - Human decision gates must be visible in the product.
 - Every important action should be traceable through Band room state, database records, or audit events.
 - Build the crisis command room first.
+- Development setup must work on macOS, Linux, and Windows.
+- The UI must work on mobile, tablet, laptop, desktop, and wide desktop screens.
 
 ## 01 - Frontend and Client Experience
 
@@ -70,6 +74,7 @@ Rules:
 - Show explicit states: `waiting`, `running`, `blocked`, `needs review`, `approved`, `drafted`, `failed`.
 - Avoid layout shifts during agent updates.
 - Do not store sensitive values in unsafe browser storage.
+- Verify mobile, tablet, laptop, and desktop behavior before merging major UI work.
 
 ## 02 - Backend APIs and Domain Logic
 
@@ -185,6 +190,7 @@ Rules:
 - Document variable names in `.env.example`.
 - Keep real values in local environment files or platform secret stores.
 - Use separate local/demo values where possible.
+- Keep setup commands portable across macOS, Linux, and Windows.
 
 ## 07 - Hosting, Runtime, Cloud, and Networking
 

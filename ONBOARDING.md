@@ -16,6 +16,31 @@ This guide explains how contributors should set up and work on CrisisCoord.
 - Do not push directly to `main`.
 - Create a branch for every change and open a pull request.
 - Run `./scripts/setup-git-hooks.sh` after cloning so Git blocks direct pushes to `main`.
+- On Windows, run `.\scripts\setup-git-hooks.ps1` from PowerShell for the same local push protection.
+
+## Platform Support
+
+CrisisCoord must support contributors on macOS, Linux, and Windows 10/11.
+
+The product UI must support mobile, tablet, laptop, desktop, and wide desktop screens. Use [docs/platform-support.md](./docs/platform-support.md) as the source of truth for:
+
+- cross-platform scripting rules
+- path and environment-variable handling
+- Git hook setup on macOS/Linux/Windows
+- responsive breakpoints and viewport targets
+- UI acceptance criteria for mobile, tablet, and desktop
+
+Normal development commands should run through package scripts once implementation starts:
+
+```bash
+pnpm install
+pnpm dev
+pnpm test
+pnpm lint
+pnpm build
+```
+
+Do not add bash-only commands to normal project scripts unless there is a Windows-compatible wrapper.
 
 ## Shared Skills
 

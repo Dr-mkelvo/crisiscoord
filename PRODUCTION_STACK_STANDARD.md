@@ -10,10 +10,13 @@ For API research and implementation notes, see [docs/api/README.md](./docs/api/R
 
 For the build approach and merge checklist, see [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
 
+For operating system and responsive UI requirements, see [docs/platform-support.md](./docs/platform-support.md).
+
 For product vision, system architecture, research planning, and trigger modeling, see:
 
 - [docs/product/project-vision.md](./docs/product/project-vision.md)
 - [docs/product/build-plan.md](./docs/product/build-plan.md)
+- [docs/platform-support.md](./docs/platform-support.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
 - [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)
 - [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
@@ -28,6 +31,8 @@ For product vision, system architecture, research planning, and trigger modeling
 - Use Band as the actual collaboration layer.
 - Keep generated communications in draft/review state until a human approves them.
 - Make every important action traceable through Band room state, database records, or audit events.
+- Keep local development runnable on macOS, Linux, and Windows.
+- Keep the product UI responsive across mobile, tablet, laptop, desktop, and wide desktop screens.
 
 ## 18 Production Standards
 
@@ -66,6 +71,7 @@ For product vision, system architecture, research planning, and trigger modeling
 - Models: AI/ML API required for main-path reasoning, Featherless AI required for visible open-model inference, both through an OpenAI-compatible wrapper
 - Hosting: Vercel
 - Tests: Vitest and Playwright
+- Platform support: cross-platform package scripts, PowerShell/POSIX setup paths, and responsive Playwright checks
 
 ## Database Decision
 

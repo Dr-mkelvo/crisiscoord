@@ -14,6 +14,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
+- [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
@@ -55,7 +56,7 @@ The build should happen in layers:
 7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
 8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct.
 9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
-10. Verification: unit tests for contracts and Playwright checks for the demo path.
+10. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
 11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
 12. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
@@ -100,6 +101,7 @@ Already covered:
 - crisis signal model and upload-first anti-pattern
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
+- cross-platform contributor setup and responsive viewport requirements
 
 Research still needed during implementation:
 
@@ -121,3 +123,5 @@ That means we should not pause for broad research. We should start building, and
 - Use synthetic data only.
 - Keep all copied material out of the repo unless its license and purpose are clear.
 - Keep every doc written as CrisisCoord-owned project guidance.
+- Keep scripts and setup instructions portable across macOS, Linux, and Windows.
+- Verify major UI work at mobile, tablet, laptop, and desktop viewport sizes.

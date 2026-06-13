@@ -46,6 +46,15 @@ Mobile layout:
 - timeline and audit collapsed behind tabs
 - no dense table above the fold
 
+Tablet layout:
+
+- keep the incident bar first
+- collapse the agent rail into a compact horizontal rail, drawer, or accordion
+- move the decision desk below the main workspace or into a persistent review panel
+- avoid forcing the full three-column desktop layout into tablet width
+
+See [../platform-support.md](../platform-support.md) for viewport targets and responsive acceptance criteria.
+
 ## Top Incident Bar
 
 Must include:
@@ -329,3 +338,5 @@ Keep the same seven-route plan, but build depth in this order:
 - Tables appear only where they support review.
 - The right decision desk always shows what the human needs to do next.
 - Mobile view makes decisions possible without reading a dense dashboard.
+- Tablet view stays usable without squeezed three-column panels.
+- The page passes mobile, tablet, laptop, and desktop screenshot checks once the app exists.
