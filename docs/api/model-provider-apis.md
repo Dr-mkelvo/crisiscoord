@@ -8,17 +8,17 @@ We do not strictly need OpenAI as a hosted model provider. If we use the `openai
 
 ## Provider Strategy
 
-Primary path:
+Required partner path:
 
-- Use AI/ML API for general agent reasoning and structured outputs.
-- Use Featherless AI as fallback or for open-model experiments.
+- Use AI/ML API for main-path agent reasoning and structured outputs.
+- Use Featherless AI for at least one visible agent run or review step in the demo path.
 - Keep OpenAI-compatible request shapes so provider switching is mostly `baseURL`, `apiKey`, and `model`.
 - Add direct OpenAI only if we later choose it deliberately for reliability.
 
-Partner path:
+Required assignments:
 
-- Use AI/ML API meaningfully enough to qualify for the partner-use category: at least Assessment, Legal, Technical, or Escalation should make real model calls through AI/ML API during the demo path.
-- Use Featherless meaningfully enough to qualify as an open-model fallback: at minimum, support one Featherless-backed agent run or diagnostic model call and show provider metadata in the audit timeline.
+- AI/ML API must be used meaningfully enough to qualify for the partner-use category: Assessment, Legal, and Escalation should make real model calls through AI/ML API during the demo path.
+- Featherless must be used meaningfully enough to qualify for the partner-use category: Technical Forensics should make a real model call through Featherless during the demo path.
 - Keep both providers replaceable. The agents should call our internal `model-provider`, not provider SDKs directly.
 
 Recommended internal config:
@@ -149,13 +149,13 @@ AI/ML API also documents OpenAI SDK usage with `base_url` / `baseURL` set to `ht
 
 Recommended CrisisCoord usage:
 
-| Agent | Temperature | Notes |
+| Agent | Required provider | Temperature | Notes |
 | --- | --- | --- |
-| Assessment | `0.1` to `0.2` | Deterministic classification and severity. |
-| Legal & Regulatory | `0.1` | Conservative obligations summary. Include "not legal advice" in output. |
-| Technical Forensics | `0.1` to `0.2` | Structured scope and containment output. |
-| Communications | `0.3` to `0.5` | Drafting can be warmer, but must use Legal and Technical facts. |
-| Escalation | `0.1` | Conflict detection and decision routing. |
+| Assessment | AI/ML API | `0.1` to `0.2` | Deterministic classification and severity. |
+| Legal & Regulatory | AI/ML API | `0.1` | Conservative obligations summary. Include "not legal advice" in output. |
+| Technical Forensics | Featherless AI | `0.1` to `0.2` | Structured scope and containment output through open-model inference. |
+| Communications | AI/ML API, with Featherless fallback | `0.3` to `0.5` | Drafting can be warmer, but must use Legal and Technical facts. |
+| Escalation | AI/ML API | `0.1` | Conflict detection and decision routing. |
 
 Implementation checklist:
 
@@ -164,7 +164,8 @@ Implementation checklist:
 - Set `AIML_API_BASE_URL=https://api.aimlapi.com/v1`.
 - Pick one fast default chat model for the demo and store it in `AIML_DEFAULT_MODEL`.
 - Use the same OpenAI-compatible client shape as other providers.
-- Record all agent calls in `agent_runs` with provider `aimlapi`.
+- Record all AI/ML API calls in `agent_runs` with provider `aimlapi`.
+- Ensure the demo path includes at least Assessment, Legal, and Escalation calls through AI/ML API.
 - Never expose the key to the browser.
 
 ## Featherless AI
@@ -231,8 +232,9 @@ Implementation checklist:
 - Set `FEATHERLESS_API_BASE_URL=https://api.featherless.ai/v1`.
 - Run a setup diagnostic against `GET /models?available_on_current_plan=true`.
 - Choose a chat-capable default model and store it in `FEATHERLESS_DEFAULT_MODEL`.
-- Use Featherless when AI/ML API fails, when we deliberately demo open-source inference, or when we need a specialized open model.
-- Record all fallback calls in `agent_runs` with provider `featherless`.
+- Use Featherless for the Technical Forensics Agent in the demo path.
+- Use Featherless as fallback when AI/ML API fails, when we deliberately demo open-source inference, or when we need a specialized open model.
+- Record all Featherless calls in `agent_runs` with provider `featherless`.
 
 Recommended diagnostic route once the backend exists:
 
@@ -281,7 +283,18 @@ Implementation rule:
 4. If both fail, post a Band `error` event and route to Escalation.
 5. Do not silently skip an agent output.
 
-Fallback should be explicit in the UI and audit log. If Communications uses Featherless because AI/ML API failed, the draft review panel should still show that the content is model-generated, draft-only, and provider-switched.
+Provider usage and fallback should be explicit in the UI and audit log. If Communications uses Featherless because AI/ML API failed, the draft review panel should still show that the content is model-generated, draft-only, and provider-switched.
+
+## Demo Proof Requirements
+
+The demo is incomplete unless it can show:
+
+- at least three Band-connected agents collaborating through Band
+- AI/ML API-backed runs for Assessment, Legal, and Escalation
+- a Featherless-backed run for Technical Forensics
+- provider/model metadata in `agent_runs`
+- provider badges or safe metadata in the UI/audit panel
+- no committed API keys or raw secret-bearing logs
 
 Minimum error fields to record:
 

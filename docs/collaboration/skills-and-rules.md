@@ -171,8 +171,9 @@ Rules:
 - Model output is untrusted until Zod validation passes.
 - Supabase service-role keys never reach the browser.
 - Band records collaboration; Supabase records app state and audit queries.
-- AI/ML API is the primary model provider for agent reasoning unless implementation testing changes the decision.
-- Featherless is the fallback and open-source-model option.
+- AI/ML API must be used in the main demo path.
+- Featherless must be used in the visible demo path.
+- Every model-backed agent run must record provider and model metadata.
 - Optional model or observability partners must go through the same `model-provider` or `agent-observability` abstraction instead of leaking vendor code across agents.
 
 ## Agent Consistency Rules

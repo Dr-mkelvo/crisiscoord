@@ -392,7 +392,7 @@ Example rule families for demo research:
 - Storage: Supabase Storage for synthetic evidence packets
 - Migrations: Supabase CLI or Drizzle Kit
 - Agent layer: Band SDK / Agent API
-- Model providers: AI/ML API primary, Featherless AI fallback through an OpenAI-compatible wrapper
+- Model providers: AI/ML API required for main-path reasoning, Featherless AI required for visible open-model inference, both through an OpenAI-compatible wrapper
 - Deployment: Vercel app + Supabase project + Band agents
 - Tests: Vitest + Playwright
 

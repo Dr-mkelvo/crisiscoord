@@ -131,6 +131,7 @@ Required docs:
 
 - `docs/architecture/system-architecture.md`
 - `docs/architecture/agent-implementation-plan.md`
+- `docs/architecture/partner-implementation-requirements.md`
 - `docs/api/README.md`
 - `docs/api/model-provider-apis.md`
 - `docs/research/technology-partners.md`
@@ -172,7 +173,7 @@ Every agent needs:
 
 ## Provider Playbook
 
-Use AI/ML API as the primary model provider and Featherless as fallback/open-model provider.
+Use both AI/ML API and Featherless in the submitted demo.
 
 Rules:
 
@@ -186,8 +187,8 @@ Rules:
 
 Recommended provider order:
 
-1. AI/ML API for normal agent reasoning and structured outputs.
-2. Featherless if AI/ML API fails or when demonstrating open-source model inference.
+1. AI/ML API for Assessment, Legal, Communications, and Escalation reasoning.
+2. Featherless for Technical Forensics or another visible open-model review step.
 3. Direct OpenAI only if deliberately added later for reliability.
 
 ## PR Review Rule

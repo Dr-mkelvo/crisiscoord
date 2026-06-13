@@ -219,6 +219,7 @@ Recommended use:
 - Use Codeband ideas only for our development process, not as product code.
 - Use AgentOps-style observability only if setup is fast and does not distract from the demo.
 - See [../research/technology-partners.md](../research/technology-partners.md) for the partner/provider plan.
+- See [partner-implementation-requirements.md](./partner-implementation-requirements.md) for required partner proof before submission.
 
 ## Model Provider Decision
 
@@ -228,8 +229,8 @@ The project needs an OpenAI-compatible client shape because AI/ML API and Feathe
 
 Recommended model strategy:
 
-- Primary: AI/ML API
-- Fallback: Featherless AI
+- Required main-path provider: AI/ML API
+- Required visible open-model provider: Featherless AI
 - Optional direct OpenAI: only if we deliberately choose it later for reliability
 - Optional AgentOps: observability only, after the core demo works
 
@@ -241,6 +242,7 @@ Implementation rule:
 - Keep AI/ML API and Featherless provider-specific code inside the provider layer.
 - Store provider, model, latency, retry count, and failure reason on agent runs.
 - Surface provider fallback in the UI/audit log so the demo remains explainable.
+- The demo is incomplete unless at least one visible run uses Featherless and multiple main-path runs use AI/ML API.
 
 ## Data Architecture
 

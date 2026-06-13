@@ -4,18 +4,38 @@ Last updated: June 13, 2026.
 
 ## Purpose
 
-This document captures the technology partners and adjacent tools we should consider for CrisisCoord. It turns the hackathon resource list into project decisions.
+This document captures the technology partners and adjacent tools CrisisCoord must account for. It turns the hackathon resource list into project decisions.
+
+## Partner Usage Policy
+
+CrisisCoord must visibly use the hackathon partner stack in the submitted demo.
+
+Required:
+
+- Band must be the active multi-agent collaboration layer, not a final notification channel.
+- Codeband patterns must inform the team workflow: branch isolation, planning/review handoffs, scoped PRs, and risk-aware merge rules.
+- AI/ML API must power real agent reasoning in the main demo path.
+- Featherless AI must power at least one real agent run or review step in the visible demo path.
+- The UI and audit trail must show which provider powered each agent run.
+- The submission notes must mention Band, AI/ML API, and Featherless AI as used technologies.
+
+Not required for runtime:
+
+- Codeband is a required development-process reference, not product runtime.
+- lablab.ai is the hackathon/submission platform, not a runtime dependency.
+- NativelyAI appears in event/community context, but the official technology partners called out for model/provider use are AI/ML API and Featherless AI.
+- AgentOps is useful observability research, but it is not required for the MVP unless the team explicitly decides to include it after the core demo works.
 
 ## Confirmed Hackathon Technology Stack
 
 The official hackathon page centers the build around:
 
-| Technology | Role in CrisisCoord | Use now? |
+| Technology | Role in CrisisCoord | Use requirement |
 | --- | --- | --- |
-| Band | Agent collaboration, shared crisis room, handoffs, room messages, events, and human-in-the-loop coordination. | Yes. Core requirement. |
-| Codeband | Reference for coding-agent collaboration, planning/review handoffs, branch discipline, and multi-agent development workflows. | Use as reference only, not product runtime. |
-| AI/ML API | Primary model-provider option for agent reasoning, extraction, summarization, and structured outputs. | Yes. Primary provider. |
-| Featherless AI | Serverless inference for open-source models, model discovery, and fallback inference. | Yes. Fallback and partner-prize path. |
+| Band | Agent collaboration, shared crisis room, handoffs, room messages, events, and human-in-the-loop coordination. | Required. Core requirement. |
+| Codeband | Reference for coding-agent collaboration, planning/review handoffs, branch discipline, and multi-agent development workflows. | Required as development-process influence, not product runtime. |
+| AI/ML API | Model-provider for agent reasoning, extraction, summarization, and structured outputs. | Required in main demo path. |
+| Featherless AI | Serverless inference for open-source models, model discovery, and partner-prize path. | Required in visible demo path. |
 | lablab.ai | Hackathon submission, partner access coordination, credits, event rules, judging, and community channel. | Yes. Submission and access only. |
 
 ## Partner Credits And Access
@@ -32,13 +52,19 @@ Do not commit API keys, billing screenshots, coupon screenshots, or account deta
 
 ## How We Use AI/ML API
 
-Use AI/ML API as the primary model provider for:
+Use AI/ML API as the required primary model provider for:
 
 - Crisis Assessment classification and severity scoring.
 - Legal and regulatory obligation extraction.
-- Technical finding summarization.
-- Communications draft generation after dependency gates pass.
 - Escalation conflict detection and decision request drafting.
+
+Recommended main-path assignment:
+
+| Agent | Provider | Why |
+| --- | --- | --- |
+| Crisis Assessment Agent | AI/ML API | Fast, deterministic classification and routing. |
+| Legal & Regulatory Agent | AI/ML API | Conservative structured obligation extraction. |
+| Escalation & Decision Agent | AI/ML API | Conflict detection and human decision routing. |
 
 Implementation rules:
 
@@ -51,11 +77,20 @@ Implementation rules:
 
 ## How We Use Featherless AI
 
-Use Featherless as:
+Use Featherless as a required open-model partner, not only as emergency fallback.
 
-- fallback provider when AI/ML API is unavailable, slow, rate-limited, or missing a model we need
-- open-source model path for the Featherless partner prize
-- model discovery source for chat-capable, tool-capable, or longer-context open models
+Required visible use:
+
+| Agent or workflow | Provider | Why |
+| --- | --- | --- |
+| Technical Forensics Agent | Featherless AI | Open-source model inference for technical-scope summarization and containment reasoning. |
+| Provider diagnostic panel | Featherless AI | Shows model discovery and current-plan availability before the demo run. |
+
+Additional fallback use:
+
+- Use Featherless when AI/ML API is unavailable, slow, rate-limited, or missing a model we need.
+- Use Featherless for open-source model experiments if we add extra scenarios.
+- Use Featherless model discovery for chat-capable, tool-capable, or longer-context open models.
 
 Implementation rules:
 
@@ -93,12 +128,24 @@ Use:
 
 1. Band as the required collaboration layer.
 2. Supabase as application state and audit storage.
-3. AI/ML API as primary model inference.
-4. Featherless as fallback and open-model inference.
-5. Codeband ideas for team workflow only.
-6. AgentOps only after the core demo works.
+3. AI/ML API as required main-path model inference.
+4. Featherless as required visible open-model inference.
+5. Codeband ideas for team workflow only, with branch/PR rules and playbooks carrying that influence.
+6. AgentOps only after the core demo works and only if time allows.
 
-This gives us enough partner usage for the hackathon without turning the architecture into a vendor showcase.
+This gives us clear partner usage for the hackathon without turning the architecture into a vendor showcase.
+
+## Partner Proof Checklist
+
+Before submission, verify:
+
+- Band room shows at least three specialized agents collaborating through messages or events.
+- AI/ML API is used by at least two main-path agents.
+- Featherless is used by at least one main-path or visible demo agent.
+- `agent_runs` records include provider and model for every model-backed run.
+- The command-room UI shows provider badges or metadata in the agent detail/audit panel.
+- The demo script names why each partner matters.
+- Submission tags include Band, AI/ML API, and Featherless AI.
 
 ## Sources
 

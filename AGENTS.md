@@ -59,11 +59,12 @@ These skills are portable project playbooks. Codex can load them automatically, 
 
 ## Backend And Agent Rules
 
-- Read `docs/architecture/system-architecture.md`, `docs/architecture/agent-implementation-plan.md`, `docs/api/README.md`, and `docs/compliance/trigger-model.md` before backend or agent work.
+- Read `docs/architecture/system-architecture.md`, `docs/architecture/agent-implementation-plan.md`, `docs/architecture/partner-implementation-requirements.md`, `docs/api/README.md`, and `docs/compliance/trigger-model.md` before backend or agent work.
 - Enforce critical workflow gates server-side.
 - Communications cannot run until Legal and Technical findings exist.
 - Model output is untrusted until validated with Zod.
 - Store source facts, agent findings, communication drafts, human decisions, and audit events separately.
 - Band is the collaboration layer.
 - Supabase is the app state and queryable audit record.
+- AI/ML API and Featherless are both required in the visible demo path.
 - Generated communications remain drafts until human approval.
