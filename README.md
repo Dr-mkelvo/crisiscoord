@@ -6,6 +6,12 @@ When a company faces a crisis such as a data breach, cyberattack, product recall
 
 CrisisCoord turns the crisis response into a shared, auditable Band room where specialized agents coordinate in sequence and in parallel.
 
+## Problem
+
+During regulated crises, companies often investigate, review, communicate, and escalate in disconnected tools. That creates missed deadlines, stale facts, inconsistent messaging, unclear human ownership, and weak audit trails.
+
+CrisisCoord solves the coordination problem: it gives Legal, Technical, Communications, Compliance, and Executive reviewers one Band-backed crisis room where agent handoffs, dependency gates, draft communications, deadlines, evidence, and human decisions are visible together.
+
 ## What We Are Building
 
 We are building the first working version of a crisis command room.
