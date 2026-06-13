@@ -20,6 +20,8 @@ Best direction:
 
 Color should communicate state, not decoration. Pair every color with text, icon, or shape.
 
+See [ui-design-mockups.md](./ui-design-mockups.md) for screenshots that apply these colors to the seven planned UI workspaces.
+
 ## Core Tokens
 
 Use these as the first Figma and Tailwind token draft.

@@ -92,13 +92,17 @@ if (!mermaidMatch) {
 requireContains("README.md", ["docs/product/master-implementation-guide.md"]);
 requireContains("README.md", ["docs/product/pre-development-readiness.md"]);
 requireContains("README.md", ["docs/design/final-ui-ux-brief.md"]);
+requireContains("README.md", ["docs/design/ui-design-mockups.md"]);
 requireContains("docs/product/build-plan.md", ["master-implementation-guide.md"]);
 requireContains("docs/product/build-plan.md", ["pre-development-readiness.md"]);
 requireContains("docs/product/build-plan.md", ["final-ui-ux-brief.md"]);
+requireContains("docs/product/build-plan.md", ["ui-design-mockups.md"]);
 requireContains("docs/product/project-vision.md", ["master-implementation-guide.md"]);
 requireContains("docs/architecture/system-architecture.md", ["master-implementation-guide.md"]);
 requireContains("docs/architecture/agent-implementation-plan.md", ["master-implementation-guide.md"]);
 requireContains("docs/design/design-direction.md", ["final-ui-ux-brief.md"]);
+requireContains("docs/design/final-ui-ux-brief.md", ["ui-design-mockups.md"]);
+requireContains("docs/design/ui-page-plan.md", ["ui-design-mockups.md"]);
 requireContains("docs/collaboration/skills-and-rules.md", ["crisiscoord-doc-consistency"]);
 requireContains("docs/collaboration/project-playbooks.md", ["check-master-doc-consistency.mjs"]);
 
@@ -140,6 +144,9 @@ const checkedDocs = [
   "docs/architecture/agent-implementation-plan.md",
   "docs/architecture/business-integration-plan.md",
   "docs/design/final-ui-ux-brief.md",
+  "docs/design/ui-design-mockups.md",
+  "docs/design/ui-page-plan.md",
+  "docs/design/ui-color-system.md",
   "docs/collaboration/skills-and-rules.md",
   "docs/collaboration/project-playbooks.md",
 ];
