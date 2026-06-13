@@ -10,7 +10,7 @@ Band is the collaboration layer. The agents should not be hidden behind a single
 
 The actual agents are not implemented yet. This document is the implementation rulebook for adding them without each contributor inventing a different pattern.
 
-The five-agent architecture is the recommended default. Keep five agents for the MVP instead of adding more specialist agents before the first stable demo. See [../product/phased-delivery-plan.md](../product/phased-delivery-plan.md) for the phase-by-phase delivery plan and [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the global guardrails plan, AI autonomy boundaries, human-only decisions, and escalation rules that agent implementations must follow.
+The five-agent architecture is the recommended default. Keep five agents for the MVP instead of adding more specialist agents before the first stable demo. See [../product/master-implementation-guide.md](../product/master-implementation-guide.md) for the agent communication model, global sandboxes, and implementation sequence. See [../product/phased-delivery-plan.md](../product/phased-delivery-plan.md) for the phase-by-phase delivery plan and [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the global guardrails plan, AI autonomy boundaries, human-only decisions, and escalation rules that agent implementations must follow.
 
 ## Agent Count Decision
 

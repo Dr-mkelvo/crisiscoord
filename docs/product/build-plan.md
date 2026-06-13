@@ -13,6 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
+- [Master implementation guide](./master-implementation-guide.md): final operating model for five agents, Band communication, sandboxes, contributor roles, and implementation steps.
 - [Phased delivery plan](./phased-delivery-plan.md): three-phase plan from demo sandbox to integration sandbox to controlled enterprise pilot.
 - [Decision guardrails plan](./decision-guardrails-questionnaire.md): global operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
@@ -49,6 +50,8 @@ The app must not start from a CSV/PDF upload. Evidence upload can be added later
 ## How We Are Building It
 
 Build in phases, not one giant pass. The full phase breakdown is in [phased-delivery-plan.md](./phased-delivery-plan.md).
+
+Use [master-implementation-guide.md](./master-implementation-guide.md) as the implementation map for agent communication, sandbox design, contributor roles, and the remaining build checklist.
 
 1. Phase 1, Demo Sandbox Foundation: app shell, synthetic crisis scenario, five-agent command room, Band handoffs, Supabase audit trail, partner-provider metadata, Communications dependency gate, and seeded demo fallback.
 2. Phase 2, Integration Sandbox: read-only signal gateway, fake-company tenant setup, redaction, webhook safety, RLS checks, rate limits, and tabletop exercises with no real sensitive data.

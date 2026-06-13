@@ -146,4 +146,4 @@ For the hackathon, success means:
 - the app feels like an enterprise command center, not a chatbot
 - the architecture is credible enough for a regulated workflow
 
-See [phased-delivery-plan.md](./phased-delivery-plan.md) for the three-phase delivery path and [decision-guardrails-questionnaire.md](./decision-guardrails-questionnaire.md) for the global decision guardrails plan, automation boundaries, data-protection controls, and human-escalation rules.
+See [master-implementation-guide.md](./master-implementation-guide.md) for the five-agent operating model, Band communication flow, global sandboxes, and implementation roadmap. See [phased-delivery-plan.md](./phased-delivery-plan.md) for the three-phase delivery path and [decision-guardrails-questionnaire.md](./decision-guardrails-questionnaire.md) for the global decision guardrails plan, automation boundaries, data-protection controls, and human-escalation rules.

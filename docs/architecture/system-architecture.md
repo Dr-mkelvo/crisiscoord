@@ -6,7 +6,7 @@ Last updated: June 13, 2026.
 
 Build a visible, auditable, multi-agent crisis workflow where the frontend, backend, database, Band room, model providers, and human-review gates all reinforce the same product story.
 
-For how this architecture connects to existing business systems after the demo, see [business-integration-plan.md](./business-integration-plan.md).
+For how this architecture connects to existing business systems after the demo, see [business-integration-plan.md](./business-integration-plan.md). For the final agent communication model, global sandboxes, contributor roles, and implementation sequence, see [../product/master-implementation-guide.md](../product/master-implementation-guide.md).
 
 ## System Map
 
@@ -179,6 +179,8 @@ GET  /api/health
 ## Agent Architecture
 
 The five agents should be distinct in Band and in our data model.
+
+The detailed operating model for how these agents communicate through Band messages, Band events, and Supabase records is defined in [../product/master-implementation-guide.md](../product/master-implementation-guide.md).
 
 Agents:
 
