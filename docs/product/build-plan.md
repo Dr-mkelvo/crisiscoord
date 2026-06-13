@@ -13,7 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
-- [Decision guardrails plan](./decision-guardrails-questionnaire.md): Six Thinking Hats operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
+- [Decision guardrails plan](./decision-guardrails-questionnaire.md): global operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Business integration plan](../architecture/business-integration-plan.md): staged path for integrating CrisisCoord with existing business systems safely.
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
@@ -104,7 +104,7 @@ Already covered:
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
 - cross-platform contributor setup and responsive viewport requirements
-- automation boundaries, five-agent default, human escalation rules, and Six Thinking Hats operating plan
+- automation boundaries, five-agent default, human escalation rules, and global guardrails plan
 - staged business integration path from manual signals to read-only connectors and human-approved outbound updates
 
 Research still needed during implementation:
