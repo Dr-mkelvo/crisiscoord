@@ -6,13 +6,13 @@ These files provide a reproducible fallback for the responsive Figma sketches wh
 
 - [crisiscoord-responsive-triptychs.svg](./crisiscoord-responsive-triptychs.svg)
 
-The SVG contains one clean board with seven workspace sections. Each section includes:
+The SVG contains one clean board with seven top-level workspace sections. Each section includes four tab states, and every tab state is shown at:
 
 - desktop sketch
 - tablet sketch
 - mobile sketch
 
-That gives the planned 21 responsive views without adding more product pages.
+That gives the planned 84 responsive frames: seven product pages, four tabs per page, and three breakpoints per tab. This adds interaction depth without adding more top-level product pages.
 
 ## Regenerate
 

@@ -26,7 +26,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [UI design mockups](../design/ui-design-mockups.md): static screenshot gallery and editable HTML/CSS reference for the seven workspaces.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Live-data UI components](../design/live-data-ui-components.md): real source feed, search, status strip, event ledger, provider health, mobile action bar, and confidence-label placement.
-- [Figma repair spec](../design/figma-repair-spec.md): required seven workspace triptych structure for desktop, tablet, and mobile frames.
+- [Figma repair spec](../design/figma-repair-spec.md): required responsive tab-state matrix for seven routes, four tabs per route, and desktop, tablet, and mobile frames.
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
 - [Live data APIs](../api/live-data-apis.md): CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, optional OTX/AbuseIPDB/URLhaus, and adapter rules.
@@ -140,7 +140,7 @@ Research still needed during implementation:
 - confirm final Supabase project setup and local migration flow
 - confirm which model provider is fastest and stable enough for the demo
 - confirm the command-room color tokens in Figma before final UI polish
-- confirm the Figma file can be repaired into seven desktop/tablet/mobile workspace triptychs once the Figma MCP quota resets or the team plan changes
+- confirm the Figma file can be rebuilt natively as the responsive tab-state matrix once the Figma MCP quota resets or the team plan changes
 - verify any regulatory wording used in public demo copy before submission
 - test Vercel deployment behavior, environment variables, and rate limits
 - test live, assisted, and seeded demo modes before submission

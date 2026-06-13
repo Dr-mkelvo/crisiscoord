@@ -31,8 +31,8 @@ The remaining gaps are implementation blockers, not planning blockers:
 - Shared Zod contracts do not exist yet.
 - Supabase migrations and seed data do not exist yet.
 - Sandbox fixtures do not exist yet.
-- Figma frames need to be created from the final UI/UX brief.
-- Figma repair is needed so the file becomes seven workspace triptychs instead of a component-foundation canvas.
+- Native Figma component frames still need to be created from the final UI/UX brief.
+- Figma repair now uses the responsive tab-state matrix: seven routes, four tabs per route, and desktop/tablet/mobile frames for every tab.
 - Notification Center, acknowledgement, escalation ladder, and simulated send packages are documented but not implemented.
 - Live-data adapters are planned, but not implemented.
 - Provider diagnostics need to confirm live AI/ML API and Featherless model availability.

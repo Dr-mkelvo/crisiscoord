@@ -37,7 +37,7 @@ The major unfinished pieces are:
 11. Notification model: in-app Notification Center, acknowledgement state, escalation ladder, simulated outbound communication, provider status, and delivery attempts.
 12. UI data wiring: global command bar, operational status strip, source feed, command room, agent rail, handoff topology, timeline, dependency gate, draft review, notification center, decision desk, provider health, and audit view.
 13. Demo modes: live, assisted, and seeded fallback.
-14. Figma repair: seven workspace triptychs with desktop, tablet, and mobile frames.
+14. Figma repair: responsive tab-state matrix with seven routes, four tabs per route, and desktop, tablet, and mobile frames.
 15. Verification: contract tests, agent tests, Playwright demo path, responsive checks, and doc consistency checks.
 
 ## Relationship To Phases

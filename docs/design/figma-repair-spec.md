@@ -15,7 +15,7 @@ What exists:
 - color/token board
 - local paint and text styles
 - editable component references
-- imported responsive board with seven workspace sections and desktop, tablet, and mobile versions
+- imported responsive board with seven workspace sections, four tabs per workspace, and desktop/tablet/mobile frames for every tab state
 - source-controlled SVG generator for the imported board
 
 What is still limited:
@@ -27,67 +27,72 @@ What is still limited:
 
 ## Required Repair
 
-The product plan stays the same. We need seven app workspaces. Each workspace must have desktop, tablet, mobile, and one interaction-state sketch.
+The product plan stays the same. We need seven app workspaces, but each workspace needs real tabs. Each tab must have desktop, tablet, and mobile sketches.
+
+Current target:
+
+- 7 top-level routes
+- 4 tabs per route
+- 28 tab states
+- 84 responsive frames total
 
 Correct structure:
 
 ```text
 00 Cover And Tokens
 01 Signal Intake And Sandbox Launcher
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Signals: Desktop / Tablet / Mobile
+  Scenarios: Desktop / Tablet / Mobile
+  Redaction: Desktop / Tablet / Mobile
+  Launch Review: Desktop / Tablet / Mobile
 02 Incident Registry
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Queue: Desktop / Tablet / Mobile
+  Details: Desktop / Tablet / Mobile
+  Owners: Desktop / Tablet / Mobile
+  Deadlines: Desktop / Tablet / Mobile
 03 Crisis Command Room
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Overview: Desktop / Tablet / Mobile
+  Agents: Desktop / Tablet / Mobile
+  Messaging: Desktop / Tablet / Mobile
+  Decisions: Desktop / Tablet / Mobile
 04 Communications Review
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Drafts: Desktop / Tablet / Mobile
+  Email: Desktop / Tablet / Mobile
+  SMS: Desktop / Tablet / Mobile
+  Delivery Log: Desktop / Tablet / Mobile
 05 Decision Desk
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Pending: Desktop / Tablet / Mobile
+  Evidence Needed: Desktop / Tablet / Mobile
+  Escalations: Desktop / Tablet / Mobile
+  Resolved: Desktop / Tablet / Mobile
 06 Evidence And Audit
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Timeline: Desktop / Tablet / Mobile
+  Evidence: Desktop / Tablet / Mobile
+  Agent Reasoning: Desktop / Tablet / Mobile
+  Exports: Desktop / Tablet / Mobile
 07 Integrations And Demo Readiness
-  Desktop / 1440 x 960
-  Tablet / 834 x 1112
-  Mobile / 390 x 844
-  Interaction State / click-result layout
+  Providers: Desktop / Tablet / Mobile
+  Notification Channels: Desktop / Tablet / Mobile
+  Secrets And Policies: Desktop / Tablet / Mobile
+  Demo Readiness: Desktop / Tablet / Mobile
 ```
 
 If the team remains on Figma Starter, use this fallback physical-page structure:
 
 ```text
 00 Cover And Tokens
-01 Workspace Triptychs
-  01 Signal Intake section
-  02 Incident Registry section
-  03 Crisis Command Room section
-  04 Communications Review section
-  05 Decision Desk section
-  06 Evidence And Audit section
-  07 Integrations And Demo Readiness section
+01 Responsive Tab-State Matrix
+  01 Signal Intake section with four tab rows
+  02 Incident Registry section with four tab rows
+  03 Crisis Command Room section with four tab rows
+  04 Communications Review section with four tab rows
+  05 Decision Desk section with four tab rows
+  06 Evidence And Audit section with four tab rows
+  07 Integrations And Demo Readiness section with four tab rows
 02 States And References
 ```
 
-The fallback still keeps the seven workspaces separate as clearly labeled sections.
-
-Each section should have page tabs inside the frame. Tabs do not increase the top-level page count. See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md).
+The fallback still keeps the seven workspaces separate as clearly labeled sections. Tabs do not increase the top-level route count. See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md).
 
 ## Fallback Repair Asset
 
@@ -102,15 +107,15 @@ Run this command to regenerate the import asset:
 node scripts/generate-figma-triptych-svg.mjs
 ```
 
-Then paste or import the SVG into the Figma page named `01 Responsive Workspaces`.
+Then paste or import the SVG into the Figma page named `01 Responsive Workspaces` or a clean replacement page named `01 Responsive Tab-State Matrix`.
 
 ## Layout Rules
 
-Each workspace section should have a horizontal responsive triptych plus one supporting interaction-state frame:
+Each workspace section should have four tab rows. Each tab row should have a horizontal responsive triptych:
 
 ```text
+Tab name
 Desktop frame | Tablet frame | Mobile frame
-Interaction State frame below the triptych
 ```
 
 Use these frame sizes:
@@ -118,9 +123,8 @@ Use these frame sizes:
 - desktop: `1440 x 960`
 - tablet: `834 x 1112`
 - mobile: `390 x 844`
-- interaction state: flexible desktop-width frame, currently `1440 x 320`
 
-Place sections vertically with enough spacing that designers can zoom and review one workspace at a time.
+Place sections vertically with enough spacing that designers can zoom and review one tab state at a time.
 
 ## Components To Use
 
@@ -153,16 +157,18 @@ The repaired Figma frames must include:
 - readiness/provider status card
 - mobile bottom action bar
 - last-updated/confidence label
-- page-level tabs
-- click-result drawer or modal
-- email/SMS composer drawer
+- page-level tabs with selected tab content
+- thread inbox and selected-message panel
+- email/SMS composer tab state
+- delivery status and attempt log
+- contextual drawer or modal where a tab alone is not enough
 - provider setup drawer
 
 See [live-data-ui-components.md](./live-data-ui-components.md) for placement rules.
 
 See [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md) for button behavior, notification destinations, human escalation, and agent-node meaning.
 
-See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md) for the tab map and action overlay rules.
+See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md) for the tab map and action-state rules.
 
 ## Workspace Frame Content
 

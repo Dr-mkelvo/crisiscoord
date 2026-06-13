@@ -36,7 +36,7 @@ Live-data component placement is defined in [live-data-ui-components.md](./live-
 
 Interaction, notification, escalation, and outbound communication behavior is defined in [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md). Use that document when designing button states, notification destinations, acknowledgement, and communication delivery states.
 
-The Figma repair structure is defined in [figma-repair-spec.md](./figma-repair-spec.md). Each workspace should be sketched as a desktop/tablet/mobile triptych.
+The Figma repair structure is defined in [figma-repair-spec.md](./figma-repair-spec.md). Each workspace should be sketched as tab-detail states with desktop, tablet, and mobile frames for every tab.
 
 Figma owns:
 
