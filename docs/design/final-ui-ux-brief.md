@@ -74,6 +74,8 @@ Keep the palette restrained. The product should look serious and premium, not ne
 
 The first visual mockups and screenshot gallery live in [ui-design-mockups.md](./ui-design-mockups.md). Use them as inspiration for the Figma frames, not as final locked UI.
 
+The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). It currently contains the token board, paint and text styles, and local component references. The full responsive frame pass is still pending because the selected Figma Starter team hit its MCP tool quota during generation.
+
 ## Page Count
 
 Best recommendation: seven real workspaces.
@@ -237,7 +239,8 @@ UI planning is **82 / 100** ready.
 
 It becomes 95 / 100 ready when:
 
-- the six Figma frames exist
+- the 26-frame responsive Figma baseline exists
+- the required desktop, tablet, mobile, and signal-intake screenshots are captured from Figma
 - the command-room wireframe is updated from those frames if needed
 - the final color tokens are applied
 - the mobile decision flow is reviewed
