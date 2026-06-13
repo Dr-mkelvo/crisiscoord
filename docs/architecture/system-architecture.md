@@ -89,6 +89,8 @@ Frontend data responsibilities:
 
 Figma should lead the visual system before code polish begins.
 
+Do not one-shot the UI. Page planning, priorities, Figma frames, and the first low-fidelity wireframe are documented in [../design/ui-page-plan.md](../design/ui-page-plan.md).
+
 Figma deliverables:
 
 - design tokens
@@ -295,15 +297,15 @@ Minimum safety controls:
 ## Build Order
 
 1. Figma command-room wireframe.
-2. React app shell and static synthetic scenario.
-3. Supabase schema and seed data.
-4. Hono API routes and Zod contracts.
-5. Band room creation and agent key validation.
-6. One agent end to end through Band.
-7. Remaining agents and dependency gates.
-8. Compliance trigger model.
-9. Audit timeline and decision queue.
-10. Playwright demo check and submission assets.
+2. Command-room static UI with synthetic data.
+3. Communications review static UI.
+4. Decision queue static UI.
+5. Supabase schema and seed data.
+6. Hono API routes and Zod contracts.
+7. Band room creation and agent key validation.
+8. One agent end to end through Band.
+9. Remaining agents and dependency gates.
+10. Audit timeline and Playwright demo check.
 
 ## Sources
 

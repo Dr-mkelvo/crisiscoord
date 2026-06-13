@@ -15,6 +15,7 @@ For product vision, system architecture, research planning, and trigger modeling
 - [docs/product/project-vision.md](./docs/product/project-vision.md)
 - [docs/product/build-plan.md](./docs/product/build-plan.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
+- [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)
 - [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
 - [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
 
