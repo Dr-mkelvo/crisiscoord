@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+.output/
+.vercel/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local tool output
+.local/
+.cache/
+coverage/
+playwright-report/
+test-results/
+
+# Band/Supabase secrets
+agent_config.yaml
+supabase/.branches/
+supabase/.temp/
