@@ -29,6 +29,7 @@ Covered enough for the first build:
 - Crisis signal taxonomy covering payment data, public-company cyber events, GDPR, HIPAA, critical infrastructure, CVE/KEV, zero-day, ransomware, supply-chain, and product-safety scenarios.
 - Decision guardrails covering the global operating plan, five-agent scope, partner proof, automation boundaries, data protection, human-only decisions, and demo escalation rules.
 - Skepticism audit covering remaining implementation blockers, drift risks, and recommended next work order.
+- Pre-development readiness review and final UI/UX build brief covering start-coding readiness, judge strategy, route scope, responsive behavior, and business placement.
 
 Still needs targeted validation during implementation:
 

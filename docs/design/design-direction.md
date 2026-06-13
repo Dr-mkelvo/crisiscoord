@@ -131,7 +131,7 @@ The 60-second demo should show:
 
 ## Command Room Details
 
-The concrete page anatomy lives in [command-room-page-plan.md](./command-room-page-plan.md). The main dashboard should be a command room, not a broad analytics dashboard. Tabs should organize Overview, Handoffs, Findings, Drafts, and Audit without hiding the dependency gate.
+The final UI recommendation lives in [final-ui-ux-brief.md](./final-ui-ux-brief.md), and the concrete page anatomy lives in [command-room-page-plan.md](./command-room-page-plan.md). The main dashboard should be a command room, not a broad analytics dashboard. Tabs should organize Overview, Handoffs, Findings, Drafts, and Audit without hiding the dependency gate.
 
 ## Accessibility Baseline
 

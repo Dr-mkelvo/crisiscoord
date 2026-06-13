@@ -20,6 +20,8 @@ Every major UI surface should move through this sequence:
 
 This keeps the project from becoming a wide, shallow dashboard. We want a few excellent screens that prove the crisis-response workflow.
 
+The final build recommendation and route ceiling live in [final-ui-ux-brief.md](./final-ui-ux-brief.md). Treat that brief as the source of truth before starting Figma frames or React implementation.
+
 ## Design System Direction
 
 Use Figma for the first design pass and shadcn/ui-style React components for implementation.
