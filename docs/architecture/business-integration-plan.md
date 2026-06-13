@@ -376,5 +376,6 @@ When explaining this to judges:
 - [NIST SP 800-61 Rev. 3](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf): incident response should integrate governance, detection, response, recovery, communications, and roles.
 - [NIST AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/): human-AI oversight, governance, mapping, measuring, and managing risk.
 - [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/): prompt injection, excessive agency, sensitive information disclosure, and unbounded consumption are key design risks.
-- [Kenya Data Protection Act](https://new.kenyalaw.org/akn/ke/act/2019/24/eng@2022-12-31/source): personal-data breach review and breach documentation should stay human-reviewed.
+- [OECD Privacy Principles](https://www.oecd.org/en/topics/privacy-principles.html): global privacy principles, cross-border data protection, and accountability.
+- [ISO/IEC 27035-1:2023](https://www.iso.org/standard/78973.html): globally applicable information security incident management principles and process.
 - [Band of Agents Hackathon](https://lablab.ai/ai-hackathons/band-of-agents-hackathon): Band should be the active coordination layer for multi-agent handoffs.

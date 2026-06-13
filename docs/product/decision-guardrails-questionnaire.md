@@ -16,9 +16,9 @@ Build one polished command room where a synthetic payment-data crisis signal lau
 
 Everything that does not strengthen that path waits until later.
 
-## Six Thinking Hats Plan
+## Operating Plan
 
-### White Hat: Facts And Analysis
+### Evidence And Context
 
 Known facts:
 
@@ -32,20 +32,20 @@ Known facts:
 - Communications must remain blocked until Legal and Technical findings exist.
 - Generated communications are drafts until humans approve them.
 
-Compliance facts to model as review clocks, not final legal conclusions:
+Global and regional compliance facts to model as review clocks, not final legal conclusions:
 
-- Kenya Data Protection Act section 43 includes a 72-hour notification clock to the Data Commissioner where an unauthorized access/acquisition creates real risk of harm to a data subject. A processor should notify the controller without delay and where reasonably practicable within 48 hours.
+- OECD privacy principles provide a global baseline for collection limitation, data quality, purpose specification, use limitation, security safeguards, openness, individual participation, and accountability.
 - GDPR Article 33 includes a 72-hour supervisory authority notification concept after awareness of a personal data breach, unless unlikely to create risk to rights and freedoms.
 - HIPAA breach notification can require notification without unreasonable delay and no later than 60 days for unsecured protected health information, with details depending on entity and breach scope.
 - SEC cybersecurity disclosure depends on a human materiality determination, after which public companies generally face a four-business-day Form 8-K timing requirement.
 - CISA CIRCIA requirements should be treated carefully because final effective reporting obligations must be confirmed before public claims.
-- A client-specific 22-hour alert period, if used in the demo, should be modeled as a contractual or service-level deadline, not as a universal legal rule.
+- Contractual customer or partner notice periods vary by agreement and should be tenant-configurable, not hard-coded.
 
-White-hat conclusion:
+Evidence conclusion:
 
 The best approach is a dependency-gated workflow with structured facts, source references, visible deadlines, and human approval. The product should not claim to decide the law; it should organize crisis facts so humans can decide faster.
 
-### Yellow Hat: Value And Strengths
+### Value And Strengths
 
 Best things about the project:
 
@@ -58,15 +58,15 @@ Best things about the project:
 - It has a strong UI story: command room, agent rail, decision desk, audit trail.
 - It creates a credible enterprise architecture through Supabase records, Band messages, provider metadata, and audit events.
 
-Yellow-hat recommendation:
+Value recommendation:
 
 Lead the pitch with coordination and trust. The best line is:
 
 > CrisisCoord helps companies respond to regulated crises by making specialized agents coordinate through a shared Band room while humans retain approval over high-risk decisions.
 
-### Black Hat: Risks, Limits, And Controls
+### Risks, Limits, And Controls
 
-This is the skeptical hat. It should shape the guardrails before implementation.
+This section should shape the guardrails before implementation.
 
 | Risk | Why it matters | Control |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ This is the skeptical hat. It should shape the guardrails before implementation.
 | Too many pages dilute build quality | Wide shallow app hurts demo. | Build command room first; keep seven routes as the ceiling. |
 | Mac-only scripts block teammates | Windows/Linux contributors struggle. | Use Git, Git Bash, package scripts, and Node helpers for portability. |
 
-Black-hat non-negotiables:
+Risk non-negotiables:
 
 - No real sensitive data in the public demo.
 - No auto-filing, auto-sending, auto-publishing, or production-impacting actions.
@@ -91,7 +91,7 @@ Black-hat non-negotiables:
 - No raw API keys, prompts, or provider errors in browser diagnostics.
 - No hidden sequential script pretending to be multi-agent collaboration.
 
-### Red Hat: Emotional And Human Experience
+### Human Experience
 
 Crisis response is emotional. The product should reduce panic instead of adding another noisy dashboard.
 
@@ -112,13 +112,13 @@ UI tone:
 - no "AI has decided" phrasing
 - use "candidate", "draft", "needs review", "confirmed", "unknown", and "requires approval"
 
-Red-hat recommendation:
+Human-experience recommendation:
 
 The decision desk should feel like a steady incident commander:
 
 > Here is what we know, here is what is still uncertain, here is the deadline, here is the human decision needed now.
 
-### Green Hat: Creative And Innovative Moves
+### Product Innovation
 
 The project can feel innovative without becoming complicated.
 
@@ -141,13 +141,13 @@ Post-MVP ideas:
 - Human stress-mode UI with fewer controls and larger decision cards.
 - Cross-jurisdiction comparison mode for Legal Reviewers.
 
-Green-hat recommendation:
+Innovation recommendation:
 
 The most distinctive creative feature is the handoff map plus decision desk. Build that before adding extra scenarios.
 
-### Blue Hat: Management And Execution
+### Delivery Management
 
-Blue hat controls the work and keeps the team aligned.
+This section controls the work and keeps the team aligned.
 
 Build order:
 
@@ -170,7 +170,7 @@ Ownership:
 - Compliance owner: source references, review clocks, legal disclaimers, data-protection rules.
 - Demo owner: seeded scenario, pitch script, Gamma deck, fallback rehearsal.
 
-Blue-hat rule:
+Delivery rule:
 
 Every feature must answer this before merge:
 
@@ -240,19 +240,22 @@ Use this pipeline before any model call once real integrations exist:
 
 For the hackathon, skip raw real intake entirely and seed sanitized synthetic packets directly.
 
-### Data Protection Act Alignment
+### Global Data Protection Alignment
 
-For Kenya-oriented data-protection reasoning, model these principles in the product:
+For global data-protection reasoning, model these principles in the product:
 
 - lawful, fair, and transparent processing
-- purpose limitation
-- data minimization
-- accuracy and source tracking
+- collection limitation and data minimization
+- purpose specification and use limitation
+- data quality, accuracy, and source tracking
 - integrity and confidentiality
 - storage limitation
+- security safeguards
+- accountability and governance
 - breach documentation
-- Data Commissioner notification review where personal data breach risk exists
-- data-subject communication review where harm risk exists
+- cross-border transfer review where applicable
+- regulator or supervisory-authority notification review where applicable
+- affected-person communication review where applicable
 
 Implementation translation:
 
@@ -385,12 +388,10 @@ The product should show clocks as reviewable decision aids.
 
 | Clock | Use in CrisisCoord |
 | --- | --- |
-| Kenya Data Protection Act 72-hour Data Commissioner review | Candidate clock when personal data breach facts suggest real risk of harm. |
-| Kenya processor-to-controller 48-hour review | Candidate clock when scenario says the organization is a processor. |
 | GDPR 72-hour supervisory authority review | Candidate clock when EU personal data risk exists. |
 | HIPAA 60-day notification review | Candidate clock when unsecured protected health information may be involved. |
 | SEC four-business-day review | Candidate clock only after human materiality determination for public-company scenario. |
-| Contractual 22-hour client alert SLA | Candidate contractual deadline, not a legal universal. |
+| Configurable contractual notice SLA | Candidate customer, vendor, insurer, payment-network, or partner deadline based on the specific agreement. |
 | CISA/CIRCIA review | Candidate critical-infrastructure review, with final effective status confirmed before demo claims. |
 
 Clock UI rules:
@@ -497,9 +498,8 @@ The strongest demo is not full autonomy. The strongest demo is controlled collab
 ## Source Anchors
 
 - [Band of Agents Hackathon](https://lablab.ai/ai-hackathons/band-of-agents-hackathon): Band collaboration, minimum agent requirement, and partner stack.
-- [Kenya Data Protection Act, section 43](https://new.kenyalaw.org/akn/ke/act/2019/24/eng@2022-12-31/source): personal data breach notification and breach documentation.
-- [Kenya Data Protection General Regulations](https://new.kenyalaw.org/akn/ke/act/ln/2021/263): breach notification content, purpose limitation, minimization, confidentiality, and safeguards.
-- [Office of the Data Protection Commissioner breach reporting](https://www.odpc.go.ke/report-a-data-breach/): official ODPC breach-reporting entry point.
+- [OECD Privacy Principles](https://www.oecd.org/en/topics/privacy-principles.html): global privacy principles, cross-border data protection, and accountability.
+- [ISO/IEC 27035-1:2023](https://www.iso.org/standard/78973.html): globally applicable information security incident management principles and process.
 - [NIST AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/): AI governance, human oversight, mapping, measuring, and managing AI risk.
 - [NIST SP 800-61 Rev. 3](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf): incident response roles, governance, detection, response, recovery, and communications.
 - [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/): prompt injection and excessive agency risks.
