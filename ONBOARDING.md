@@ -161,6 +161,12 @@ pnpm db:seed
 7. Build the synthetic 60-second demo scenario.
 8. Create the first UI wireframe for the crisis command room.
 
+## Product Direction
+
+Before implementation starts, read [docs/product/build-plan.md](./docs/product/build-plan.md).
+
+That document explains what we are building, what the MVP includes, what we are not building, and which research is already complete enough to start coding.
+
 ## Build Approach
 
 Before coding a feature, read [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).

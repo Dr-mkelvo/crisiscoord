@@ -1,32 +1,12 @@
-# Raphael UI Reference Scavenge Report
+# UI Reference Audit
 
 Last updated: June 13, 2026.
 
-External repo reviewed: [rapha-io-ui/kelvin-rapha](https://github.com/rapha-io-ui/kelvin-rapha)
+Purpose: turn UI workflow research into CrisisCoord-specific design rules without copying third-party code, files, wording, or layouts.
 
-Purpose: identify UI/UX ideas we can adapt for CrisisCoord without copying the repo directly into this project.
+This document is a standalone product note for CrisisCoord. It records the interface ideas worth using, the ideas to avoid, and the design decisions that should guide the first build.
 
-## Invite Status
-
-The GitHub repository invitation from `rapha-io-ui` was accepted for the `rapha-io-ui/kelvin-rapha` repo.
-
-An unrelated pending invite from another account was not accepted.
-
-## Repo Shape
-
-Raphael's repo is a Codex-style skill toolkit, not a working product UI.
-
-Relevant folders:
-
-- `frontend-builder`
-- `ui-ux-designer`
-- `hackathon-frontend-ui`
-
-Not relevant for CrisisCoord app UI:
-
-- `thumbnail-workflow`
-
-## What We Should Scavenge
+## What We Should Use
 
 ### 1. Build The Real First Screen
 
@@ -173,15 +153,15 @@ When app code starts:
 
 ## What We Should Not Copy
 
-- Do not copy Raphael's skill files into CrisisCoord as-is.
+- Do not copy third-party skill files, templates, or code into CrisisCoord.
 - Do not copy wording directly except short labels that are generic.
-- Do not copy the thumbnail workflow into product docs.
-- Do not replace CrisisCoord's existing stack or production standards with Raphael's generic hackathon workflow.
+- Do not copy unrelated workflow material into product docs.
+- Do not replace CrisisCoord's existing stack or production standards with a generic hackathon workflow.
 - Do not make a generic admin dashboard; keep every screen tied to the crisis-response story.
 
 ## Recommended Design Decision
 
-Use Raphael's repo as a process reference, not a code source.
+Use external UI material as process reference only, not as a code source.
 
 Best next UI task:
 
@@ -191,18 +171,12 @@ Best next implementation task:
 
 - Scaffold the app shell and synthetic demo state, then build the command room before secondary pages.
 
-## Sources Reviewed
+## Reference Themes Reviewed
 
-- `README.md`
-- `frontend-builder/SKILL.md`
-- `frontend-builder/references/demo-data-and-states.md`
-- `frontend-builder/references/react-next-patterns.md`
-- `frontend-builder/references/responsive-accessibility-checklist.md`
-- `hackathon-frontend-ui/SKILL.md`
-- `hackathon-frontend-ui/references/component-checklist.md`
-- `hackathon-frontend-ui/references/hackathon-ui-playbook.md`
-- `hackathon-frontend-ui/references/ui-research-from-links.md`
-- `ui-ux-designer/SKILL.md`
-- `ui-ux-designer/references/ui-critique-rubric.md`
-- `ui-ux-designer/references/ux-flow-patterns.md`
-- `ui-ux-designer/references/visual-system-guide.md`
+- product-first first screen
+- realistic demo data and states
+- responsive accessibility checks
+- component checklist discipline
+- hackathon UI build order
+- UI critique rubric
+- workflow and visual-system patterns
