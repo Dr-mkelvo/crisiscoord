@@ -179,7 +179,9 @@ CrisisCoord differentiation:
 
 Build:
 
-- one excellent command-room screen
+- one excellent command-room screen as the demo centerpiece
+- seven real workspaces, not an incident-creation helper page counted as product depth
+- Signal Intake as the place for incoming signals, sandbox scenarios, and future business-system entry points
 - visible Band timeline and @mention handoffs
 - dependency gate as the hero interaction
 - decision desk with human approval
@@ -207,5 +209,8 @@ Avoid:
 - [FireHydrant Command Center](https://docs.firehydrant.com/docs/the-command-center)
 - [FireHydrant Incident Timeline](https://docs.firehydrant.com/docs/incident-timeline)
 - [Rootly Incident Timeline](https://docs.rootly.com/incidents/incident-timeline/incident-timeline)
+- [Rootly incident overview](https://docs.rootly.com/incidents/incidents)
 - [Rootly Incident Workflows](https://docs.rootly.com/workflows/incident-workflows)
 - [incident.io evaluation framework](https://incident.io/blog/evaluate-incident-management-platforms-framework)
+- [shadcn/ui Sidebar](https://ui.shadcn.com/docs/components/base/sidebar)
+- [shadcn/ui Data Table](https://ui.shadcn.com/docs/components/base/data-table)

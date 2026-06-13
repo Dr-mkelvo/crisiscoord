@@ -74,19 +74,23 @@ Keep the palette restrained. The product should look serious and premium, not ne
 
 ## Page Count
 
-Seven routes remain the ceiling, not the first build target.
+Best recommendation: seven real workspaces.
 
-Build depth in this order:
+Do not count incident creation as a standalone page. Starting an incident is an action inside Signal Intake, because the product should feel like an enterprise crisis workspace, not a form collection.
 
-1. `/incidents/:incidentId` - crisis command room
-2. `/incidents/new` - scenario launcher
-3. `/settings` - provider and demo readiness
-4. `/incidents` - incident queue
-5. `/decisions` - mobile-friendly decision queue
-6. `/incidents/:incidentId/communications` - expanded draft review
-7. `/incidents/:incidentId/audit` - expanded audit review
+The seven-workspace model is:
 
-For the first demo, the command room can hold most functionality as tabs or panels.
+1. `/signals` - Signal Intake And Sandbox Launcher
+2. `/incidents` - Incident Registry
+3. `/incidents/:incidentId` - Crisis Command Room
+4. `/incidents/:incidentId/communications` - Communications Review
+5. `/decisions` - Decision Desk
+6. `/incidents/:incidentId/audit` - Evidence And Audit
+7. `/settings` - Integrations And Demo Readiness
+
+This is the best balance between depth and scope. It gives the team enough real pages to make the product feel complete, while still keeping the first build focused on one excellent command-room workflow.
+
+For the first demo, the command room remains the primary screen. Signal Intake, Communications, Decision Desk, Audit, and Settings can start as lighter pages that support the main story.
 
 ## Command Room Layout
 
@@ -136,12 +140,14 @@ Decision panel below or drawer
 
 Create these before frontend polish:
 
-1. Desktop command room: overview tab.
-2. Desktop command room: communications blocked state.
-3. Desktop command room: communications unlocked with draft review.
-4. Desktop command room: audit tab with provider metadata.
-5. Mobile command room: active decision state.
-6. Settings: partner/demo readiness diagnostics.
+1. Desktop signal intake: sandbox launcher and incoming signal sources.
+2. Desktop command room: overview tab.
+3. Desktop command room: communications blocked state.
+4. Desktop command room: communications unlocked with draft review.
+5. Desktop communications review: draft needs approval.
+6. Desktop audit tab: provider metadata and Band references.
+7. Mobile command room: active decision state.
+8. Settings: partner/demo readiness diagnostics.
 
 ## Required Components
 

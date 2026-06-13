@@ -83,13 +83,15 @@ Before creating or editing a page, read:
 
 The seven planned app routes are:
 
-- `/incidents/new`
+- `/signals`
 - `/incidents`
 - `/incidents/:incidentId`
 - `/incidents/:incidentId/communications`
-- `/incidents/:incidentId/audit`
 - `/decisions`
+- `/incidents/:incidentId/audit`
 - `/settings`
+
+Do not count incident creation as a standalone page. Starting an incident is an action inside Signal Intake.
 
 Keep handoff maps, compliance review, agent details, and evidence details as panels, tabs, or drawers before adding new routes.
 

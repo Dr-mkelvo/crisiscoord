@@ -201,7 +201,7 @@ This is where tables belong.
 
 Use tables only where comparison, filtering, or audit review matters. Do not place a big table as the main hero of the product.
 
-### Incident Queue Table
+### Incident Registry Table
 
 Route:
 
@@ -325,12 +325,12 @@ Avoid these in the first build:
 Keep the same seven-route plan, but build depth in this order:
 
 1. `/incidents/:incidentId` - command room
-2. `/incidents/new` - scenario launcher
-3. `/incidents` - incident queue
-4. `/decisions` - mobile-friendly decision queue
-5. `/incidents/:incidentId/communications` - expanded draft review
+2. `/signals` - signal intake and sandbox launcher
+3. `/incidents` - incident registry
+4. `/incidents/:incidentId/communications` - expanded draft review
+5. `/decisions` - decision desk
 6. `/incidents/:incidentId/audit` - expanded audit/evidence
-7. `/settings` - integration and demo readiness
+7. `/settings` - integrations and demo readiness
 
 ## Acceptance Criteria
 

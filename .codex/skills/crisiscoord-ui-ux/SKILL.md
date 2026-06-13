@@ -36,13 +36,15 @@ Do not one-shot the UI. Plan, sketch, build static synthetic UI, then connect da
 
 Keep the app to the seven-route plan unless the team explicitly changes the scope:
 
-- `/incidents/new`
+- `/signals`
 - `/incidents`
 - `/incidents/:incidentId`
 - `/incidents/:incidentId/communications`
-- `/incidents/:incidentId/audit`
 - `/decisions`
+- `/incidents/:incidentId/audit`
 - `/settings`
+
+Do not count incident creation as a standalone page. Starting an incident is an action inside Signal Intake.
 
 ## Required UX Story
 
