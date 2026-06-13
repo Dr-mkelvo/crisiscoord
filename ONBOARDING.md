@@ -160,3 +160,16 @@ pnpm db:seed
 6. Build the model-provider wrapper for AI/ML API and Featherless.
 7. Build the synthetic 60-second demo scenario.
 8. Create the first UI wireframe for the crisis command room.
+
+## Build Approach
+
+Before coding a feature, read [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
+
+Use the playbook to map each feature through:
+
+- user workflow
+- agent workflow
+- data model
+- permission model
+- audit model
+- demo value

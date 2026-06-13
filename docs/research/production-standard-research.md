@@ -85,3 +85,33 @@ The 18 production standards should:
 - require human legal/executive approval before external communications;
 - keep demo data synthetic;
 - make Band-mediated handoffs visible.
+
+## Web Application Guardrails
+
+OWASP API Security Top 10 is useful for the web build because CrisisCoord exposes incident records, agent outputs, and decision actions through APIs. The most relevant risks for the first build are object-level authorization, broken authentication, function-level authorization, unrestricted resource consumption, security misconfiguration, and unsafe API consumption.
+
+Sources:
+
+- https://owasp.org/API-Security/editions/2023/en/0x11-t10/
+- https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/
+
+## Supabase Security Model
+
+Supabase documentation supports using Row Level Security for exposed tables, limiting grants by role, and keeping service-role or secret keys out of browser code. This supports CrisisCoord's role-based incident access model.
+
+Sources:
+
+- https://supabase.com/docs/guides/database/postgres/row-level-security
+- https://supabase.com/docs/guides/getting-started/api-keys
+- https://supabase.com/docs/guides/api/securing-your-api
+
+## Vercel CDN, Security, And Rate Limiting
+
+Vercel documentation supports using CDN caching for safe shared responses and static assets, keeping personalized responses private, configuring security headers, and using WAF/rate limiting rules to protect APIs and control usage costs.
+
+Sources:
+
+- https://vercel.com/docs/cdn-security
+- https://vercel.com/docs/caching
+- https://vercel.com/docs/caching/cache-control-headers
+- https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting

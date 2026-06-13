@@ -8,6 +8,8 @@ For the detailed version, see [docs/architecture/production-stack.md](./docs/arc
 
 For API research and implementation notes, see [docs/api/README.md](./docs/api/README.md).
 
+For the build approach and merge checklist, see [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
+
 ## Core Rules
 
 - Use synthetic demo data only.
