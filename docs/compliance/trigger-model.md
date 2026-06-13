@@ -29,6 +29,34 @@ A trigger can come from:
 
 The trigger does not prove an obligation. It tells CrisisCoord that the incident needs structured assessment, specialist agents, evidence collection, deadline tracking, and human review.
 
+## How Breaches Commonly Occur
+
+The trigger model should identify the likely breach mechanism when possible, but it must also record uncertainty. Early crisis facts are often incomplete.
+
+Common breach mechanisms to support:
+
+- credential compromise: stolen passwords, session tokens, API keys, admin credentials, or service accounts
+- phishing or social engineering: malicious email, impersonation, business-email compromise, or fake login flows
+- web or API exploitation: injection, auth bypass, broken access control, exposed admin routes, or vulnerable web components
+- CVE/known exploited vulnerability: affected asset matches a CVE, appears in CISA KEV, or has public exploitation evidence
+- zero-day or unknown exploit: exploitation is observed before a complete patch, CVE, or public advisory exists
+- cloud or storage misconfiguration: public bucket, exposed database, overly broad sharing, or incorrect access policy
+- third-party or supply-chain compromise: SaaS vendor breach, managed service provider breach, malicious dependency, or compromised update channel
+- ransomware/extortion: encryption, data leak threat, ransom payment demand, or attacker claim of exfiltration
+- insider misuse or improper usage: authorized user violates policy or accesses data without business need
+- loss or theft: lost laptop, mobile device, removable media, or printed records
+- destructive or availability event: denial of service, destructive malware, corrupted systems, or critical service outage
+
+For each suspected mechanism, record:
+
+- evidence source
+- confidence
+- affected systems
+- affected data categories
+- known indicators
+- containment status
+- whether legal/compliance review is required
+
 ## Trigger Output Shape
 
 Every trigger should be normalized into this shape:

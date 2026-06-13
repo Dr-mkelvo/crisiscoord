@@ -10,6 +10,32 @@ The rule is:
 
 > Do broad research before architecture locks. Do targeted research during implementation when a live API, regulation, or integration detail blocks a decision.
 
+## Research Coverage Status
+
+We have enough foundational research to proceed into design and implementation.
+
+Covered enough for the first build:
+
+- Band hackathon requirements, judging criteria, Agent API, SDK, WebSocket flow, and adapter options.
+- Supabase database/auth/storage direction.
+- AI/ML API and Featherless model-provider direction, with direct OpenAI treated as optional.
+- UI/UX direction, Figma workflow, page map, and low-fidelity command-room wireframe.
+- HIPAA breach-notification basics for unsecured protected health information.
+- GDPR personal-data breach notification basics.
+- SEC public-company cybersecurity disclosure review basics.
+- CISA incident notification fields, attack-vector taxonomy, KEV catalog, BOD 26-04 risk factors, and CIRCIA status.
+- Trigger taxonomy covering payment data, public-company cyber events, GDPR, HIPAA, critical infrastructure, CVE/KEV, zero-day, ransomware, supply-chain, and product-safety scenarios.
+
+Still needs targeted validation during implementation:
+
+- live Band credentials, limits, SDK behavior, and exact deployment flow
+- provider latency, JSON reliability, retry limits, and rate limits
+- Supabase RLS policies and realtime limits
+- final demo wording for any regulatory claims
+- Vercel deployment, WAF/rate-limit behavior, and environment handling
+
+So the project is not blocked on broad research. The remaining research should be tied to implementation decisions.
+
 ## Research Questions To Exhaust
 
 ### 1. Hackathon Fit

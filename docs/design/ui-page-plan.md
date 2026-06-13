@@ -50,9 +50,107 @@ Recommended implementation base:
 - TanStack Table for evidence/audit tables
 - TanStack Query for server state
 
-## Page Map
+## Recommended Page Count
 
-### 1. Crisis Command Room
+Best sweet spot: seven total app routes.
+
+Seven routes gives us enough room to show the product clearly without turning the hackathon build into a broad enterprise portal. The MVP should feel deep in the command-room workflow, not wide across many shallow pages.
+
+Recommended route set:
+
+| # | Route | Page | MVP role |
+| --- | --- | --- | --- |
+| 1 | `/incidents/new` | Incident Intake And Scenario Launcher | Start synthetic scenarios. |
+| 2 | `/incidents` | Incident Queue | Show active/demo incidents and entry points. |
+| 3 | `/incidents/:incidentId` | Crisis Command Room | Main product surface. |
+| 4 | `/incidents/:incidentId/communications` | Communications Review | Review generated drafts. |
+| 5 | `/incidents/:incidentId/audit` | Evidence And Audit | Review source facts, evidence, and timeline. |
+| 6 | `/decisions` | Decision Queue | Fast executive/mobile approvals. |
+| 7 | `/settings` | Settings And Integration Status | Demo-safe status for Band, Supabase, and model providers. |
+
+Keep these inside existing pages instead of making separate routes at first:
+
+- Agent Handoff Map: panel/tab inside Crisis Command Room.
+- Compliance Rules Review: panel/tab inside Crisis Command Room or Evidence And Audit.
+- Agent details: drawer inside Crisis Command Room.
+- Evidence detail: drawer inside Evidence And Audit.
+
+This gives us a clean URL map while still allowing the UI to show detailed workflow states.
+
+## Page Details
+
+### 1. Incident Intake And Scenario Launcher
+
+Priority: MVP helper, keep simple.
+
+Route:
+
+```text
+/incidents/new
+```
+
+Primary user:
+
+- Demo operator or Incident Commander
+
+Purpose:
+
+- Start a synthetic crisis scenario without connecting real systems.
+
+Core layout:
+
+- scenario template selector
+- incident signal text area
+- data category chips
+- affected systems chips
+- launch command room button
+
+Suggested scenario templates:
+
+- payment data exposure
+- public-company zero-day
+- healthcare data exposure
+- critical infrastructure ransomware
+- supply-chain compromise
+
+Rule:
+
+- Do not make this a marketing page. It is a small operational intake form.
+
+### 2. Incident Queue
+
+Priority: MVP support page.
+
+Route:
+
+```text
+/incidents
+```
+
+Primary user:
+
+- Incident Commander
+
+Purpose:
+
+- List active and synthetic demo incidents so the app has a clear entry point after login.
+
+Core layout:
+
+- incident table or compact list
+- severity
+- incident type
+- current phase
+- decision status
+- deadline
+- assigned owner
+- open command room action
+
+Rule:
+
+- Keep this page lean. It is a navigation and triage surface, not the main dashboard.
+
+### 3. Crisis Command Room
 
 Priority: MVP, build first.
 
@@ -98,52 +196,14 @@ States:
 - Escalation needs decision
 - failed agent run
 
-### 2. Incident Intake And Scenario Launcher
+### Command Room Panel: Agent Handoff Map
 
-Priority: MVP helper, keep simple.
+Priority: MVP, but keep it inside the command room first.
 
-Route:
-
-```text
-/incidents/new
-```
-
-Primary user:
-
-- Demo operator or Incident Commander
-
-Purpose:
-
-- Start a synthetic crisis scenario without connecting real systems.
-
-Core layout:
-
-- scenario template selector
-- incident signal text area
-- data category chips
-- affected systems chips
-- launch command room button
-
-Suggested scenario templates:
-
-- payment data exposure
-- public-company zero-day
-- healthcare data exposure
-- critical infrastructure ransomware
-- supply-chain compromise
-
-Rule:
-
-- Do not make this a marketing page. It is a small operational intake form.
-
-### 3. Agent Handoff Map
-
-Priority: MVP, can be a tab or panel inside the command room first.
-
-Route:
+Location:
 
 ```text
-/incidents/:incidentId/handoffs
+/incidents/:incidentId
 ```
 
 Primary user:
@@ -261,14 +321,15 @@ Mobile behavior:
 - This is the most important mobile view.
 - No dense tables on mobile.
 
-### 7. Compliance Rules Review
+### Command Room Or Audit Panel: Compliance Rules Review
 
-Priority: post-MVP unless needed for demo explanation.
+Priority: post-MVP unless needed for demo explanation. Keep it as a panel/tab first.
 
-Route:
+Location:
 
 ```text
-/incidents/:incidentId/compliance
+/incidents/:incidentId
+/incidents/:incidentId/audit
 ```
 
 Primary user:
@@ -292,7 +353,7 @@ Rule:
 
 - The product surfaces possible obligations for review. It does not finalize legal conclusions.
 
-### 8. Settings And Integrations
+### 7. Settings And Integrations
 
 Priority: post-MVP.
 

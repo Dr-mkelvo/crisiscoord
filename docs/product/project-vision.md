@@ -8,6 +8,26 @@ CrisisCoord helps an enterprise coordinate high-stakes incidents where Legal, Te
 
 The goal is to turn a crisis signal into a structured, auditable response room where specialized agents work through Band, produce reviewable outputs, and route human decisions before anything external is sent.
 
+## Problem Statement
+
+When a regulated company faces a crisis, the response usually fragments immediately.
+
+Technical teams investigate scope in one place. Legal teams track disclosure risk in another. Communications teams draft customer, regulator, investor, or executive language with incomplete facts. Compliance teams try to reconstruct the timeline afterward. Executives are forced to make time-sensitive decisions without a single reliable view of confirmed facts, assumptions, deadlines, and unresolved questions.
+
+That creates predictable failure modes:
+
+- missed or misunderstood disclosure clocks
+- customer or regulator messages drafted from stale facts
+- technical findings that never reach Legal or Communications in time
+- duplicated work across teams
+- unclear ownership for high-risk decisions
+- audit trails rebuilt after the incident instead of captured during it
+- unsafe pressure to publish or escalate before facts are reviewed
+
+CrisisCoord solves this by making the crisis room itself the product. The system forces specialized agents to coordinate through Band, makes dependency gates visible, separates source facts from generated findings, and keeps human approval at the center of every external-facing decision.
+
+The core problem is not that companies lack another dashboard. The problem is that crisis response is cross-functional, time-sensitive, regulated, and usually coordinated through disconnected tools. CrisisCoord gives that workflow one shared, reviewable operating surface.
+
 ## Product Vision
 
 CrisisCoord should become the command layer for regulated crisis response.
