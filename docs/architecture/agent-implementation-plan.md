@@ -10,6 +10,8 @@ Band is the collaboration layer. The agents should not be hidden behind a single
 
 The actual agents are not implemented yet. This document is the implementation rulebook for adding them without each contributor inventing a different pattern.
 
+The five-agent architecture is the recommended default. See [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the automation ladder, human-only decisions, and escalation rules that agent implementations must follow.
+
 ## Architecture Decision
 
 Use one shared agent execution pattern:
@@ -215,6 +217,15 @@ If the gate fails:
 - store an `agent_runs` blocked record
 - post a Band event
 - show the blocked state in the UI
+
+Escalate to a human instead of automating when an action:
+
+- creates legal or regulatory exposure
+- sends, files, publishes, or externally communicates anything
+- changes or disrupts production systems
+- affects evidence integrity
+- depends on unclear facts
+- involves ransom, attribution, materiality, or final breach determination
 
 ## Model Provider Rules
 

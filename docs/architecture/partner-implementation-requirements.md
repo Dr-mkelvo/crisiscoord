@@ -6,6 +6,8 @@ Last updated: June 13, 2026.
 
 This is the implementation checklist for required hackathon partner usage. It is intentionally stricter than "provider options" because the submitted demo must visibly use the partner stack.
 
+For the human approval, AI automation, and escalation boundaries that govern these partner integrations, see [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md).
+
 ## Required Partners
 
 | Partner/resource | Required proof |

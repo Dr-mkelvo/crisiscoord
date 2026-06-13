@@ -82,6 +82,8 @@ CrisisCoord should let the user say:
 
 - Band is the collaboration layer, not a wrapper.
 - Human approval is required for external-facing decisions.
+- Five agents are the default demo architecture, not the minimum three-agent fallback.
+- AI may classify, summarize, draft, route, validate, and log, but it must not make final legal, external, destructive, or unclear high-risk decisions.
 - Legal and compliance outputs are draft guidance, not legal advice.
 - Every output must separate confirmed facts from assumptions.
 - Every important action must be traceable.
@@ -143,3 +145,5 @@ For the hackathon, success means:
 - the regulatory clock and human decision are easy to understand
 - the app feels like an enterprise command center, not a chatbot
 - the architecture is credible enough for a regulated workflow
+
+See [decision-guardrails-questionnaire.md](./decision-guardrails-questionnaire.md) for the detailed automation boundary and human-escalation recommendation matrix.
