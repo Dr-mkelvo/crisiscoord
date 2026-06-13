@@ -69,6 +69,8 @@ Must include:
 - current demo mode: `live`, `assisted`, or `seeded`
 - last refreshed time
 - safe synthetic-data label
+- compact provider/feed health badges
+- optional global command/search access
 
 Do not include fake KPI tiles. This is not a metrics dashboard.
 
@@ -127,6 +129,7 @@ Purpose:
 Includes:
 
 - agent dependency graph
+- handoff topology map
 - @mention handoff list
 - required inputs per agent
 - blocked/running/complete state per handoff
@@ -196,6 +199,26 @@ Includes:
 - human decisions
 
 This is where tables belong.
+
+### Source Feed Rail
+
+Purpose:
+
+- Show real source snapshots without making the Command Room look like a generic threat dashboard.
+
+Includes:
+
+- CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, or seeded source snapshots when relevant
+- source name
+- matched entity
+- retrieved timestamp
+- confidence
+- live/cached/seeded label
+- link to the Evidence And Audit source snapshot
+
+Rule:
+
+- External source data enriches the incident. It does not replace Band handoffs, Legal findings, Technical findings, or human decisions.
 
 ## Tables To Use
 

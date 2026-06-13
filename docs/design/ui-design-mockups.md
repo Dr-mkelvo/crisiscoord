@@ -6,6 +6,8 @@ These static mockups turn the CrisisCoord color system and seven-workspace UI pl
 
 They are not production app code. Use them to guide layout, color, density, and interaction states before building React screens.
 
+For the newer live-data patterns inspired by external cybersecurity references, use [live-data-ui-components.md](./live-data-ui-components.md). Those additions stay inside the existing seven workspaces.
+
 ## Source
 
 - [mockups/index.html](./mockups/index.html)
@@ -22,6 +24,7 @@ Current Figma status:
 - Contains the color/token board, paint and text styles, and local editable component references.
 - Uses three physical Figma pages because the selected Starter team is limited to three pages. The requested six logical sections are represented inside those pages.
 - The 21 baseline workspace frames and the four required screenshot captures are still queued because the Figma MCP tool quota was exhausted during generation.
+- The current canvas is not the final sketch set. Repair it using [figma-repair-spec.md](./figma-repair-spec.md), which requires seven workspace triptychs with desktop, tablet, and mobile frames.
 
 ## Screenshots
 

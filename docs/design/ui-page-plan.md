@@ -32,6 +32,10 @@ The detailed dashboard anatomy, tabs, table rules, and command-room happy path a
 
 Static visual references for the first seven workspaces are available in [ui-design-mockups.md](./ui-design-mockups.md).
 
+Live-data component placement is defined in [live-data-ui-components.md](./live-data-ui-components.md). These components support the same seven routes; they do not add a broad analytics dashboard or new top-level pages.
+
+The Figma repair structure is defined in [figma-repair-spec.md](./figma-repair-spec.md). Each workspace should be sketched as a desktop/tablet/mobile triptych.
+
 Figma owns:
 
 - layout
