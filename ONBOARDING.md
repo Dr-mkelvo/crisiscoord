@@ -11,7 +11,6 @@ This guide explains how contributors should set up and work on CrisisCoord.
 ## Development Rules
 
 - Do not commit secrets.
-- Do not use real 312 Strength, 312 App, 321 App, tenant, property, lease, rent, bank, insurance, or private documents.
 - Use synthetic demo incidents only.
 - Do not push directly to `main`.
 - Create a branch for every change and open a pull request.
