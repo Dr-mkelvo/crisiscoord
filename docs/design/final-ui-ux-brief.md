@@ -78,15 +78,15 @@ The first visual mockups and screenshot gallery live in [ui-design-mockups.md](.
 
 The UI interaction rules live in [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md). Treat that document as the source of truth for button behavior, notification destinations, human escalation, agent-node meaning, and demo sandbox count.
 
-Page tabs and click-result overlays live in [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md). Keep the seven top-level pages, but use tabs, drawers, sheets, and modals inside those pages to show real working states.
+Page tabs and action states live in [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md). Keep the seven top-level pages, but use real working tabs, drawers, sheets, and modals inside those pages to show the actual workflow states.
 
-The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). The page `01 Responsive Workspaces` contains the repaired responsive sketch board: seven workspace sections, each with desktop, tablet, and mobile versions.
+The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). The page `01 Responsive Workspaces` contains the responsive tab-state sketch board: seven workspace sections, four tabs per section, and desktop, tablet, and mobile versions for every tab.
 
-The repaired board was imported from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg) because the selected Figma Starter team is still blocking MCP write calls. Treat it as the clean visual baseline for UI planning. It now includes 28 layouts: 21 responsive baseline layouts and 7 click-result interaction layouts. When MCP write access is available again, rebuild the same layout as native Figma frames/components.
+The repaired board was imported from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg) because the selected Figma Starter team is still blocking MCP write calls. Treat it as the clean visual baseline for UI planning. It now includes 84 responsive frames: 7 routes x 4 working tabs x desktop/tablet/mobile. When MCP write access is available again, rebuild the same layout as native Figma frames/components.
 
 Live-data UI components inspired by external references are documented in [live-data-ui-components.md](./live-data-ui-components.md). They do not change the page count. They add real source feeds, search, status strips, event ledgers, provider health, mobile action navigation, and confidence labels to the existing seven workspaces.
 
-The Figma repair target is documented in [figma-repair-spec.md](./figma-repair-spec.md). The correct structure is seven workspace triptychs: desktop, tablet, and mobile for each existing page.
+The Figma repair target is documented in [figma-repair-spec.md](./figma-repair-spec.md). The correct structure is seven workspace sections with tab-state triptychs: desktop, tablet, and mobile for each tab inside each existing page.
 
 ## Page Count
 

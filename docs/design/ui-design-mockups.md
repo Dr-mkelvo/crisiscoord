@@ -26,13 +26,13 @@ Current Figma status:
 - Created in Dr_Mkelvo's team.
 - Contains the color/token board, paint and text styles, and local editable component references.
 - Uses the Starter-plan fallback structure because the selected Figma team is limited by MCP quota.
-- Live canvas update completed on June 13, 2026: the old board was replaced through the Figma browser UI with the generated global responsive board.
+- Live canvas update completed on June 13, 2026: the generated global responsive board was imported through the Figma browser UI.
 - The current source of truth for the responsive board is [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg).
-- That generated board has seven workspace sections, three responsive versions per section, and one click-result interaction state per section.
-- The board now has 28 layouts total: 21 baseline responsive layouts plus 7 interaction-state layouts.
-- The generated board now includes the action layer: Notification Center, acknowledgement ladder, Communications delivery package, Band handoff map, and simulated provider status.
+- That generated board has seven workspace sections, four working tabs per section, and three responsive frames per tab.
+- The board now has 84 responsive frames total: 7 routes x 4 tabs x desktop/tablet/mobile.
+- The generated board now includes real tab states for messaging, email, SMS, delivery status, decisions, evidence, agent reasoning, provider diagnostics, and demo readiness.
 - The June 13 repair pass removed the repeated map from non-command pages, centered contextual buttons, added visible post-click outcomes, and replaced generic panels with page-specific working panels.
-- The latest pass added page-level tabs on desktop, tablet, and mobile, plus click-result drawers/modals for launch, incident open, notifications, email/SMS, escalation, export, and provider setup.
+- The latest pass replaced the one-overlay-per-page model with a tab-detail matrix, so actions like Email, SMS, Message Owner, Send Test, Queue, Escalate, and Open Audit have visible in-page destinations.
 - Re-import the generated SVG into Figma whenever the source changes, so the team does not rebuild the structure by hand.
 - A later native Figma component pass should rebuild the same structure as true Figma frames/components once MCP write access is available again.
 

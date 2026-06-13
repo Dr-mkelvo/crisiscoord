@@ -206,7 +206,7 @@ pnpm db:seed
 7. Build public live-data adapters for CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, and openFDA.
 8. Prove the demo path uses AI/ML API and Featherless with provider metadata in the audit trail.
 9. Build the synthetic 60-second demo scenario.
-10. Repair the Figma file into seven desktop/tablet/mobile workspace triptychs.
+10. Keep the Figma file aligned with the responsive tab-state matrix: seven routes, four tabs per route, and desktop/tablet/mobile frames for every tab.
 11. Create the first UI wireframe for the crisis command room.
 
 ## Product Direction

@@ -57,19 +57,19 @@ The UI should not feel like a static dashboard. Each page should answer one work
 
 ## Tabs Inside The Seven Pages
 
-The app should keep seven top-level pages, but each page can use tabs for local work modes.
+The app keeps seven top-level routes, but each route uses tabs as real working modes. The Figma board now shows every tab as its own desktop, tablet, and mobile state. That means 28 tab states and 84 responsive frames, without increasing route count.
 
 | Workspace | Tabs |
 | --- | --- |
-| Signal Intake And Sandbox Launcher | Sources, Sandbox, Validation |
-| Incident Registry | Active, Deadlines, Owners |
-| Crisis Command Room | Overview, Handoffs, Notifications, Audit |
-| Communications Review | Drafts, Review, Send Log |
-| Decision Desk | Pending, Escalated, Resolved |
-| Evidence And Audit | Timeline, Evidence, Exports |
-| Integrations And Demo Readiness | Providers, Secrets, Demo |
+| Signal Intake And Sandbox Launcher | Signals, Scenarios, Redaction, Launch Review |
+| Incident Registry | Queue, Details, Owners, Deadlines |
+| Crisis Command Room | Overview, Agents, Messaging, Decisions |
+| Communications Review | Drafts, Email, SMS, Delivery Log |
+| Decision Desk | Pending, Evidence Needed, Escalations, Resolved |
+| Evidence And Audit | Timeline, Evidence, Agent Reasoning, Exports |
+| Integrations And Demo Readiness | Providers, Notification Channels, Secrets And Policies, Demo Readiness |
 
-Tabs are local UI states, not new routes unless implementation needs deep links later.
+Tabs are local UI states, not new routes unless implementation needs deep links later. For example, clicking `Open Email` in Communications Review should switch to the Email tab with the selected draft loaded, not send the user to a separate email tool. Clicking `Message Owner` from a decision should open the relevant Messaging state with the owner, evidence request, and acknowledgement timer already selected.
 
 ## What The Five Agent Nodes Mean
 
@@ -192,7 +192,7 @@ Examples:
 - `Customer notice requires approval from Incident Commander.`
 - `Primary reviewer has not acknowledged in 10 minutes. Escalating to backup.`
 
-Clicking a notification opens the Notification Center drawer inside CrisisCoord. The drawer should show:
+Clicking a notification should open the relevant notification or messaging state inside CrisisCoord. For Command Room work, this means the Messaging tab. For Communications work, this means Email, SMS, or Delivery Log. The selected state should show:
 
 - channel tabs: in-app, Band, email, SMS
 - assigned owner or role
@@ -245,7 +245,7 @@ Possible delivery channels:
 
 For the MVP, external sending should be simulated or held in `queued_for_human_send` unless the team explicitly enables a safe demo email provider with test recipients only.
 
-Clicking Email, SMS, Queue Package, or Send Test should open an in-app drawer. It should not jump to a random external platform.
+Clicking Email, SMS, Queue Package, or Send Test should switch to the relevant in-app tab state or open an in-page drawer. It should not jump to a random external platform.
 
 The Email tab should show:
 
@@ -266,7 +266,7 @@ The SMS tab should show:
 - unresolved placeholder warning
 - provider status
 
-The Status tab should show queued, simulated, sent, failed, acknowledged, timed out, or escalated attempts.
+The Delivery Log or Status area should show queued, simulated, sent, failed, acknowledged, timed out, or escalated attempts.
 
 Useful provider docs:
 
