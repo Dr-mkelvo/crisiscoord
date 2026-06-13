@@ -71,7 +71,7 @@ For product vision, system architecture, research planning, and trigger modeling
 - Models: AI/ML API required for main-path reasoning, Featherless AI required for visible open-model inference, both through an OpenAI-compatible wrapper
 - Hosting: Vercel
 - Tests: Vitest and Playwright
-- Platform support: cross-platform package scripts, PowerShell/POSIX setup paths, and responsive Playwright checks
+- Platform support: cross-platform package scripts, Git Bash-compatible setup, and responsive Playwright checks
 
 ## Database Decision
 
