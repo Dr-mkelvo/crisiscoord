@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CrisisCoord Static UI Mockups</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="mockup-board">
+      <section class="design-frame" id="color-system">
+        <div class="frame-title">
+          <div>
+            <h1>CrisisCoord Color System</h1>
+            <p>Light work surface, graphite shell, semantic status colors, and Band coordination accents.</p>
+          </div>
+          <span class="badge badge-brand"><span class="dot"></span>Figma token draft</span>
+        </div>
+        <div class="page-content">
+          <div class="page-heading">
+            <div>
+              <h2>Operational, readable, and calm under pressure</h2>
+              <p>
+                The product should feel like an enterprise crisis room: dark navigation for focus,
+                light panels for dense review, and color reserved for state. This is the visual
+                direction to use when creating the Figma frames.
+              </p>
+            </div>
+            <div class="metric-row">
+              <div class="metric-card">
+                <span>Primary accent</span>
+                <strong>#2563EB</strong>
+              </div>
+              <div class="metric-card">
+                <span>Band activity</span>
+                <strong>#0891B2</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div class="swatch-color" style="background:#0f172a"></div>
+              <strong>Shell / Graphite</strong>
+              <code>#0F172A</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#f7f8fa"></div>
+              <strong>Canvas</strong>
+              <code>#F7F8FA</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#ffffff"></div>
+              <strong>Surface</strong>
+              <code>#FFFFFF</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#2563eb"></div>
+              <strong>Brand / Running</strong>
+              <code>#2563EB</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#0891b2"></div>
+              <strong>Band / Info</strong>
+              <code>#0891B2</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#d97706"></div>
+              <strong>Warning</strong>
+              <code>#D97706</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#ea580c"></div>
+              <strong>Risk</strong>
+              <code>#EA580C</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#dc2626"></div>
+              <strong>Critical</strong>
+              <code>#DC2626</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#16a34a"></div>
+              <strong>Approved</strong>
+              <code>#16A34A</code>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#7c3aed"></div>
+              <strong>Human Review</strong>
+              <code>#7C3AED</code>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>State components</h3>
+                <p>Every colored state is paired with a label.</p>
+              </div>
+              <span class="kbd">Token variants</span>
+            </div>
+            <div class="component-strip">
+              <span class="status-badge status-waiting"><span class="dot"></span>Waiting</span>
+              <span class="status-badge status-running"><span class="dot"></span>Running</span>
+              <span class="status-badge status-blocked"><span class="dot"></span>Blocked</span>
+              <span class="status-badge status-complete"><span class="dot"></span>Complete</span>
+              <span class="status-badge status-failed"><span class="dot"></span>Failed</span>
+              <span class="status-badge status-review"><span class="dot"></span>Needs review</span>
+              <span class="status-badge status-risk"><span class="dot"></span>High risk</span>
+              <button class="button">Start room</button>
+              <button class="button secondary">Request revision</button>
+              <button class="button review">Escalate</button>
+              <button class="button danger">Mark critical</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="design-frame" id="signals">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Multi-agent crisis response</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item active"><span>Signals</span><span class="nav-count">5</span></div>
+              <div class="nav-item"><span>Incidents</span><span class="nav-count">3</span></div>
+              <div class="nav-item"><span>Command Room</span></div>
+              <div class="nav-item"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span><span class="nav-count">1</span></div>
+              <div class="nav-item"><span>Evidence And Audit</span></div>
+              <div class="nav-item"><span>Readiness</span></div>
+            </div>
+            <div class="sidebar-footer">
+              <strong>Demo mode: seeded</strong>
+              <span>No real customer or private data is used in this workspace.</span>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div class="breadcrumbs">CrisisCoord / Signal Intake</div>
+              <div class="top-actions">
+                <span class="badge badge-success"><span class="dot"></span>Band ready</span>
+                <span class="badge badge-brand"><span class="dot"></span>AI/ML API ready</span>
+                <button class="button">Launch command room</button>
+              </div>
+            </header>
+            <div class="page-content">
+              <div class="page-heading">
+                <div>
+                  <h2>Signal Intake And Sandbox Launcher</h2>
+                  <p>
+                    Start from an event signal, not a file upload. This page shows where alerts,
+                    vendor notices, support escalations, and manual tabletop scenarios enter the
+                    CrisisCoord workflow.
+                  </p>
+                </div>
+                <span class="badge badge-warning"><span class="dot"></span>Synthetic scenario</span>
+              </div>
+
+              <div class="cards-grid">
+                <div class="signal-card active">
+                  <span class="badge badge-danger"><span class="dot"></span>Security alert</span>
+                  <h4>Payment system access anomaly</h4>
+                  <p>Unauthorized access detected at 2:47 AM. Potential card-record exposure.</p>
+                </div>
+                <div class="signal-card">
+                  <span class="badge badge-warning"><span class="dot"></span>Vendor notice</span>
+                  <h4>Third-party processor incident</h4>
+                  <p>Vendor confirms investigation into exposed integration credentials.</p>
+                </div>
+                <div class="signal-card">
+                  <span class="badge badge-review"><span class="dot"></span>Legal report</span>
+                  <h4>Regulatory inquiry received</h4>
+                  <p>External regulator asks for facts, timing, and decision owner.</p>
+                </div>
+              </div>
+
+              <div class="two-column">
+                <div class="panel">
+                  <div class="panel-header">
+                    <div>
+                      <h3>Incident signal</h3>
+                      <p>Use synthetic facts only. Evidence can be attached after the room exists.</p>
+                    </div>
+                    <span class="route-pill">/signals</span>
+                  </div>
+                  <div class="panel-body">
+                    <div class="textarea-like">
+                      At 2:47 AM, unauthorized access was detected in the payment system.
+                      50,000 card records are potentially exposed. Initial monitoring suggests
+                      the affected service handles EU and US payment flows. Containment is not yet
+                      confirmed.
+                    </div>
+                    <div class="chip-row" style="margin-top:14px">
+                      <span class="badge badge-danger">Critical</span>
+                      <span class="badge badge-brand">Finance sandbox</span>
+                      <span class="badge badge-muted">Payment data</span>
+                      <span class="badge badge-warning">Scope unknown</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-header">
+                    <div>
+                      <h3>Expected agents</h3>
+                      <p>Signal preview before room creation.</p>
+                    </div>
+                  </div>
+                  <div class="panel-body mini-list">
+                    <div class="mini-row"><div><strong>Assessment</strong><span>Classify severity and context</span></div><span class="status-badge status-running">First</span></div>
+                    <div class="mini-row"><div><strong>Legal</strong><span>Identify likely obligations</span></div><span class="status-badge status-waiting">After assessment</span></div>
+                    <div class="mini-row"><div><strong>Technical</strong><span>Confirm affected systems</span></div><span class="status-badge status-waiting">Parallel</span></div>
+                    <div class="mini-row"><div><strong>Communications</strong><span>Draft only after facts exist</span></div><span class="status-badge status-blocked">Gated</span></div>
+                    <div class="mini-row"><div><strong>Escalation</strong><span>Route human decision</span></div><span class="status-badge status-review">Human</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="design-frame" id="incidents">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Incident registry</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item"><span>Signals</span></div>
+              <div class="nav-item active"><span>Incidents</span><span class="nav-count">3</span></div>
+              <div class="nav-item"><span>Command Room</span></div>
+              <div class="nav-item"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span><span class="nav-count">1</span></div>
+              <div class="nav-item"><span>Evidence And Audit</span></div>
+              <div class="nav-item"><span>Readiness</span></div>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div class="breadcrumbs">CrisisCoord / Incident Registry</div>
+              <div class="top-actions">
+                <button class="button secondary">Filter</button>
+                <button class="button">Open active room</button>
+              </div>
+            </header>
+            <div class="page-content">
+              <div class="page-heading">
+                <div>
+                  <h2>Incident Registry</h2>
+                  <p>
+                    A lean registry for active, demo, resolved, and archived incidents. The table
+                    helps users reach the command room quickly without becoming the main dashboard.
+                  </p>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-card"><span>Active incidents</span><strong>3</strong></div>
+                  <div class="metric-card"><span>Pending decisions</span><strong>1</strong></div>
+                  <div class="metric-card"><span>Demo mode</span><strong>Seeded</strong></div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Active and demo incidents</h3>
+                    <p>Open the command room to see agent handoffs and decision state.</p>
+                  </div>
+                  <span class="route-pill">/incidents</span>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Severity</th>
+                      <th>Incident</th>
+                      <th>Type</th>
+                      <th>Phase</th>
+                      <th>Decision</th>
+                      <th>Deadline</th>
+                      <th>Owner</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge-danger">Critical</span></td>
+                      <td>Payment system unauthorized access</td>
+                      <td>Data breach</td>
+                      <td><span class="status-badge status-running">Technical running</span></td>
+                      <td><span class="status-badge status-review">Pending</span></td>
+                      <td>71h 12m</td>
+                      <td>Incident Commander</td>
+                      <td><button class="button secondary">Open</button></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-warning">High</span></td>
+                      <td>Vendor credential exposure</td>
+                      <td>Supply chain</td>
+                      <td><span class="status-badge status-blocked">Needs scope</span></td>
+                      <td><span class="status-badge status-waiting">None</span></td>
+                      <td>44h 08m</td>
+                      <td>Compliance Lead</td>
+                      <td><button class="button secondary">Open</button></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-brand">Medium</span></td>
+                      <td>Healthcare portal access report</td>
+                      <td>Health sandbox</td>
+                      <td><span class="status-badge status-complete">Contained</span></td>
+                      <td><span class="status-badge status-complete">Approved</span></td>
+                      <td>Resolved</td>
+                      <td>Privacy Lead</td>
+                      <td><button class="button secondary">Review</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="design-frame" id="command-room">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Active crisis room</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item"><span>Signals</span></div>
+              <div class="nav-item"><span>Incidents</span></div>
+              <div class="nav-item active"><span>Command Room</span></div>
+              <div class="nav-item"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span><span class="nav-count">1</span></div>
+              <div class="nav-item"><span>Evidence And Audit</span></div>
+              <div class="nav-item"><span>Readiness</span></div>
+            </div>
+            <div class="sidebar-footer">
+              <strong>Room ID</strong>
+              <span>band-room-demo-001</span>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div>
+                <div class="breadcrumbs">Incidents / Payment system unauthorized access</div>
+                <div class="chip-row" style="margin-top:8px">
+                  <span class="badge badge-danger">Critical</span>
+                  <span class="badge badge-warning">Disclosure clock 71h 12m</span>
+                  <span class="badge badge-brand">Band room active</span>
+                  <span class="badge badge-muted">Last refresh 16:38</span>
+                </div>
+              </div>
+              <div class="top-actions">
+                <button class="button secondary">Reset demo</button>
+                <button class="button review">Escalate</button>
+              </div>
+            </header>
+            <div class="page-content three-column">
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Agents</h3>
+                    <p>Five specialized participants.</p>
+                  </div>
+                </div>
+                <div class="panel-body agent-rail">
+                  <div class="agent-item active"><div class="agent-index">1</div><div><h4>Assessment</h4><p>Severity classified. Context posted.</p><span class="status-badge status-complete">Complete</span></div></div>
+                  <div class="agent-item active"><div class="agent-index">2</div><div><h4>Legal</h4><p>Disclosure obligations drafted.</p><span class="status-badge status-complete">Complete</span></div></div>
+                  <div class="agent-item active"><div class="agent-index">3</div><div><h4>Technical</h4><p>Scope confirmation in progress.</p><span class="status-badge status-running">Running</span></div></div>
+                  <div class="agent-item"><div class="agent-index">4</div><div><h4>Communications</h4><p>Waiting for Legal and Technical.</p><span class="status-badge status-blocked">Blocked</span></div></div>
+                  <div class="agent-item"><div class="agent-index">5</div><div><h4>Escalation</h4><p>Will read full room state.</p><span class="status-badge status-waiting">Waiting</span></div></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Band timeline and handoffs</h3>
+                    <p>The workflow is visible through room messages and events.</p>
+                  </div>
+                  <span class="route-pill">/incidents/:incidentId</span>
+                </div>
+                <div class="panel-body">
+                  <div class="dependency-gate" style="margin-bottom:14px">
+                    <h4>Communications blocked</h4>
+                    <p>Stakeholder drafts cannot run until Legal posts obligations and Technical posts confirmed scope.</p>
+                  </div>
+                  <div class="band-line" style="margin-bottom:14px">
+                    <div class="handoff-card"><h4>Assessment -> Legal</h4><p>@legal please evaluate GDPR, SEC, HIPAA, and unknowns.</p></div>
+                    <div class="handoff-card"><h4>Assessment -> Technical</h4><p>@technical confirm affected systems, records, and containment.</p></div>
+                    <div class="handoff-card"><h4>Legal + Technical -> Comms</h4><p>Comms unlocks only after both findings validate.</p></div>
+                  </div>
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-time">02:47</div>
+                      <div><h4>Signal received</h4><p>Unauthorized access detected in payment system. Synthetic demo data only.</p></div>
+                      <span class="badge badge-danger">Critical</span>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-time">02:48</div>
+                      <div><h4>Assessment posted context</h4><p>High confidence data-breach workflow. Legal and Technical recruited into Band room.</p></div>
+                      <span class="badge badge-success">Complete</span>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-time">02:51</div>
+                      <div><h4>Legal posted obligations</h4><p>Potential 72-hour notification clock. Exact obligations require human review.</p></div>
+                      <span class="badge badge-review">Review</span>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-time">02:54</div>
+                      <div><h4>Technical confirming scope</h4><p>12,400 EU records indicated by logs. Containment confidence is still pending.</p></div>
+                      <span class="badge badge-brand">Running</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Decision desk</h3>
+                    <p>Human-only approval center.</p>
+                  </div>
+                  <span class="badge badge-review">Needs review</span>
+                </div>
+                <div class="panel-body">
+                  <div class="decision-card">
+                    <span class="badge badge-review">Executive decision</span>
+                    <h4>Do we notify customers proactively?</h4>
+                    <p>Comms will draft after Technical confirms containment. Human review remains required before any external notice.</p>
+                    <div class="mini-list">
+                      <div class="mini-row"><div><strong>Risk of approving</strong><span>Facts may still change after scope review.</span></div></div>
+                      <div class="mini-row"><div><strong>Risk of waiting</strong><span>Delay may increase customer and regulator concern.</span></div></div>
+                    </div>
+                    <div class="chip-row">
+                      <button class="button">Approve path</button>
+                      <button class="button secondary">Request facts</button>
+                      <button class="button review">Escalate</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="design-frame" id="communications">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Draft review</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item"><span>Signals</span></div>
+              <div class="nav-item"><span>Incidents</span></div>
+              <div class="nav-item"><span>Command Room</span></div>
+              <div class="nav-item active"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span></div>
+              <div class="nav-item"><span>Evidence And Audit</span></div>
+              <div class="nav-item"><span>Readiness</span></div>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div class="breadcrumbs">Incidents / Payment access / Communications Review</div>
+              <div class="top-actions">
+                <span class="badge badge-review">Draft only</span>
+                <button class="button secondary">Compare facts</button>
+                <button class="button review">Request legal review</button>
+              </div>
+            </header>
+            <div class="page-content two-column">
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Regulator notification draft</h3>
+                    <p>Generated after Legal and Technical outputs validate.</p>
+                  </div>
+                  <span class="route-pill">/incidents/:incidentId/communications</span>
+                </div>
+                <div class="panel-body">
+                  <div class="draft-body">
+                    <h4>Draft notice for human review</h4>
+                    <p>We are notifying you of a cybersecurity incident involving unauthorized access to a payment processing environment.</p>
+                    <p>Current technical review indicates that approximately 12,400 EU card records may be in scope. Containment steps have been initiated and final scope remains under review.</p>
+                    <p>This notice is a draft. Legal, technical, and executive approval are required before external delivery.</p>
+                  </div>
+                  <div class="chip-row" style="margin-top:14px">
+                    <button class="button">Approve draft path</button>
+                    <button class="button secondary">Request revision</button>
+                    <button class="button review">Escalate to counsel</button>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Facts used</h3>
+                    <p>Keep assumptions separate from confirmed facts.</p>
+                  </div>
+                </div>
+                <div class="panel-body mini-list">
+                  <div class="mini-row"><div><strong>Legal finding</strong><span>72-hour clock candidate. Human review required.</span></div><span class="status-badge status-review">Review</span></div>
+                  <div class="mini-row"><div><strong>Technical finding</strong><span>12,400 EU records indicated by logs.</span></div><span class="status-badge status-complete">Confirmed</span></div>
+                  <div class="mini-row"><div><strong>Unknown</strong><span>Final containment confidence not yet approved.</span></div><span class="status-badge status-blocked">Missing</span></div>
+                  <div class="mini-row"><div><strong>Provider</strong><span>AI/ML API generated draft, Zod schema validated.</span></div><span class="status-badge status-running">Model</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="design-frame" id="decision-desk">
+        <div class="frame-title">
+          <div>
+            <h1>Decision Desk</h1>
+            <p>Mobile-first human review surface for approvals, revisions, and escalation.</p>
+          </div>
+          <span class="badge badge-review"><span class="dot"></span>/decisions</span>
+        </div>
+        <div class="mobile-shell">
+          <div class="mobile-topbar">
+            <strong>Decision Desk</strong>
+            <span class="badge badge-danger">Critical</span>
+          </div>
+          <div class="mobile-content">
+            <div class="panel">
+              <div class="panel-body">
+                <span class="badge badge-review">Needs human approval</span>
+                <h2 style="font-size:22px;margin:14px 0 8px">Notify customers proactively?</h2>
+                <p style="color:var(--text-muted);line-height:1.5;margin:0">
+                  Incident: payment system unauthorized access. Comms is ready to draft customer notice after final technical confirmation.
+                </p>
+              </div>
+            </div>
+            <div class="decision-card">
+              <h4>Recommendation</h4>
+              <p>Prepare proactive notification path, but do not send externally until Legal approves final language.</p>
+              <span class="status-badge status-review">Legal approval required</span>
+            </div>
+            <div class="decision-card">
+              <h4>Risk if approved</h4>
+              <p>Initial facts may still change. Draft must state uncertainty and remain human-approved.</p>
+            </div>
+            <div class="decision-card">
+              <h4>Risk if delayed</h4>
+              <p>Delay may reduce trust and compress regulator/customer response windows.</p>
+            </div>
+            <button class="button">Approve path</button>
+            <button class="button secondary">Request more facts</button>
+            <button class="button review">Escalate to executive</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="design-frame" id="audit">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Audit trail</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item"><span>Signals</span></div>
+              <div class="nav-item"><span>Incidents</span></div>
+              <div class="nav-item"><span>Command Room</span></div>
+              <div class="nav-item"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span></div>
+              <div class="nav-item active"><span>Evidence And Audit</span></div>
+              <div class="nav-item"><span>Readiness</span></div>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div class="breadcrumbs">Incidents / Payment access / Evidence And Audit</div>
+              <div class="top-actions">
+                <button class="button secondary">Filter timeline</button>
+                <button class="button">Export packet</button>
+              </div>
+            </header>
+            <div class="page-content">
+              <div class="page-heading">
+                <div>
+                  <h2>Evidence And Audit</h2>
+                  <p>Show source facts, Band references, provider/model metadata, human decisions, and review status in one defensible timeline.</p>
+                </div>
+              </div>
+              <div class="two-column">
+                <div class="panel">
+                  <div class="panel-header">
+                    <div>
+                      <h3>Audit events</h3>
+                      <p>Authoritative record for review and later reporting.</p>
+                    </div>
+                    <span class="route-pill">/incidents/:incidentId/audit</span>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr><th>Time</th><th>Actor</th><th>Event</th><th>Source</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>02:47</td><td>System</td><td>Signal received</td><td>Webhook demo</td><td><span class="badge badge-danger">Critical</span></td></tr>
+                      <tr><td>02:48</td><td>Assessment</td><td>Context posted</td><td>Band msg 1042</td><td><span class="badge badge-success">Complete</span></td></tr>
+                      <tr><td>02:51</td><td>Legal</td><td>Obligation candidates</td><td>AI/ML API</td><td><span class="badge badge-review">Review</span></td></tr>
+                      <tr><td>02:54</td><td>Technical</td><td>Scope confirmed</td><td>Featherless</td><td><span class="badge badge-success">Validated</span></td></tr>
+                      <tr><td>02:56</td><td>Comms</td><td>Draft created</td><td>AI/ML API</td><td><span class="badge badge-muted">Draft</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="panel">
+                  <div class="panel-header">
+                    <div>
+                      <h3>Metadata packet</h3>
+                      <p>Visible provider proof for judges and reviewers.</p>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="audit-code">incident_id: inc_demo_001
+band_room: band-room-demo-001
+assessment_provider: AI/ML API
+technical_provider: Featherless
+schema_status: validated
+demo_mode: seeded
+data_policy: synthetic_only
+human_required: true</div>
+                    <div class="chip-row" style="margin-top:14px">
+                      <span class="badge badge-brand">AI/ML API</span>
+                      <span class="badge badge-brand">Featherless</span>
+                      <span class="badge badge-success">Zod valid</span>
+                      <span class="badge badge-review">Human review</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="design-frame" id="settings">
+        <div class="app-shell">
+          <aside class="sidebar">
+            <div class="brand-block">
+              <div class="brand-name">CrisisCoord</div>
+              <div class="brand-caption">Demo readiness</div>
+            </div>
+            <div class="nav-group">
+              <div class="nav-label">Workspaces</div>
+              <div class="nav-item"><span>Signals</span></div>
+              <div class="nav-item"><span>Incidents</span></div>
+              <div class="nav-item"><span>Command Room</span></div>
+              <div class="nav-item"><span>Communications</span></div>
+              <div class="nav-item"><span>Decision Desk</span></div>
+              <div class="nav-item"><span>Evidence And Audit</span></div>
+              <div class="nav-item active"><span>Readiness</span></div>
+            </div>
+          </aside>
+          <section class="workspace">
+            <header class="topbar">
+              <div class="breadcrumbs">CrisisCoord / Integrations And Demo Readiness</div>
+              <div class="top-actions">
+                <span class="badge badge-success"><span class="dot"></span>Ready for seeded demo</span>
+                <button class="button secondary">Run check</button>
+              </div>
+            </header>
+            <div class="page-content">
+              <div class="page-heading">
+                <div>
+                  <h2>Integrations And Demo Readiness</h2>
+                  <p>Expose provider status safely without leaking secrets. Judges should see meaningful partner usage and fallback honesty.</p>
+                </div>
+              </div>
+              <div class="cards-grid">
+                <div class="metric-card"><span>Band</span><strong>Connected</strong><span class="badge badge-success">Room ready</span></div>
+                <div class="metric-card"><span>AI/ML API</span><strong>Configured</strong><span class="badge badge-brand">Main path</span></div>
+                <div class="metric-card"><span>Featherless</span><strong>Configured</strong><span class="badge badge-brand">Technical agent</span></div>
+              </div>
+              <div class="panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Provider diagnostics</h3>
+                    <p>No API keys or secrets shown in browser screenshots.</p>
+                  </div>
+                  <span class="route-pill">/settings</span>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr><th>Provider</th><th>Configured</th><th>Default model</th><th>Last success</th><th>Fallback</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Band</td><td>Yes</td><td>Room + messages</td><td>16:38</td><td>Seeded room</td><td><span class="badge badge-success">Ready</span></td></tr>
+                    <tr><td>AI/ML API</td><td>Yes</td><td>Structured output</td><td>16:36</td><td>Cached valid output</td><td><span class="badge badge-success">Ready</span></td></tr>
+                    <tr><td>Featherless</td><td>Yes</td><td>Open model</td><td>16:34</td><td>Alternate model</td><td><span class="badge badge-warning">Watch</span></td></tr>
+                    <tr><td>Supabase</td><td>Yes</td><td>Postgres audit</td><td>16:39</td><td>Local fixtures</td><td><span class="badge badge-success">Ready</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

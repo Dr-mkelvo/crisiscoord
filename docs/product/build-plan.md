@@ -22,6 +22,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
 - [Final UI/UX build brief](../design/final-ui-ux-brief.md): final command-room direction, route ceiling, Figma frame list, and business placement.
+- [UI design mockups](../design/ui-design-mockups.md): static screenshot gallery and editable HTML/CSS reference for the seven workspaces.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.

@@ -30,6 +30,8 @@ Color tokens, severity mapping, status mapping, and accessibility rules are defi
 
 The detailed dashboard anatomy, tabs, table rules, and command-room happy path are defined in [command-room-page-plan.md](./command-room-page-plan.md).
 
+Static visual references for the first seven workspaces are available in [ui-design-mockups.md](./ui-design-mockups.md).
+
 Figma owns:
 
 - layout

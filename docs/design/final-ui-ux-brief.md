@@ -72,6 +72,8 @@ Use the color direction the team liked from the darker competitor/reference work
 
 Keep the palette restrained. The product should look serious and premium, not neon or decorative.
 
+The first visual mockups and screenshot gallery live in [ui-design-mockups.md](./ui-design-mockups.md). Use them as inspiration for the Figma frames, not as final locked UI.
+
 ## Page Count
 
 Best recommendation: seven real workspaces.
