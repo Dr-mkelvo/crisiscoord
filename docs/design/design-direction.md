@@ -51,6 +51,8 @@ Default desktop layout:
 
 Use restrained neutrals with semantic accents.
 
+The concrete color/token plan lives in [ui-color-system.md](./ui-color-system.md). Treat that file as the source of truth for Figma color styles, Tailwind tokens, status mapping, severity mapping, and accessibility rules.
+
 Recommended roles:
 
 - `background`: off-white or deep graphite, depending on theme.
@@ -127,6 +129,10 @@ The 60-second demo should show:
 7. Communications unlocks and drafts messages.
 8. Escalation asks for a human decision.
 
+## Command Room Details
+
+The concrete page anatomy lives in [command-room-page-plan.md](./command-room-page-plan.md). The main dashboard should be a command room, not a broad analytics dashboard. Tabs should organize Overview, Handoffs, Findings, Drafts, and Audit without hiding the dependency gate.
+
 ## Accessibility Baseline
 
 - All interactive controls must be keyboard reachable.
@@ -153,3 +159,5 @@ Before implementing or merging UI work:
 - Can the UI handle loading, failed, empty, and blocked states?
 - Does it work on mobile for quick approvals?
 - Does the design avoid decorative hero/layout patterns?
+- Does it follow [ui-color-system.md](./ui-color-system.md)?
+- Does the command room match [command-room-page-plan.md](./command-room-page-plan.md)?

@@ -19,7 +19,7 @@ Tone:
 Calm, serious, enterprise, high-stakes, modern, credible. The deck should feel like an operating room for corporate crisis response.
 
 Visual style:
-Use a command-center interface aesthetic with clear lanes, message handoffs, dependency gates, audit trails, and decision cards. Use dark graphite or clean white backgrounds with restrained signal colors: alert red, amber, trust blue, and success green. Use sharp typography, generous whitespace, thin dividers, subtle gridlines, and interface-like components.
+Use a command-center interface aesthetic with clear lanes, message handoffs, dependency gates, audit trails, and decision cards. Prefer a light-first operational interface with clean white panels, graphite text, crisp borders, and restrained semantic colors: trust blue for active coordination, amber/orange for attention and risk, red for critical danger, green for complete/approved, and purple for human review. Use sharp typography, generous whitespace, thin dividers, subtle gridlines, and interface-like components.
 
 Avoid:
 Giant fake KPI numbers.

@@ -57,6 +57,8 @@ Use a "regulated command center" direction:
 - Data-rich panels, timelines, tables, agent status, and decision queues.
 - Visual emphasis on the workflow dependency: Communications waits for Legal and Technical outputs.
 
+The current color recommendation is documented in [ui-color-system.md](./ui-color-system.md). The current dashboard/page recommendation is documented in [command-room-page-plan.md](./command-room-page-plan.md).
+
 ## CrisisCoord Screens To Design First
 
 1. Crisis Command Room

@@ -20,7 +20,7 @@ Covered enough for the first build:
 - Supabase database/auth/storage direction.
 - AI/ML API and Featherless model-provider direction, with both required in the demo and direct OpenAI treated as optional.
 - Technology partner plan for Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps.
-- UI/UX direction, Figma workflow, page map, and low-fidelity command-room wireframe.
+- UI/UX direction, Figma workflow, page map, color system, dashboard anatomy, adjacent submission notes, and low-fidelity command-room wireframe.
 - HIPAA breach-notification basics for unsecured protected health information.
 - GDPR personal-data breach notification basics.
 - SEC public-company cybersecurity disclosure review basics.
@@ -34,6 +34,7 @@ Still needs targeted validation during implementation:
 - Supabase RLS policies and realtime limits
 - final demo wording for any regulatory claims
 - Vercel deployment, WAF/rate-limit behavior, and environment handling
+- live, assisted, and seeded demo-mode behavior
 
 So the project is not blocked on broad research. The remaining research should be tied to implementation decisions.
 
@@ -73,6 +74,7 @@ Current findings:
 - There are adjacent "war room" and incident response ideas.
 - There are SOC automation, financial decision, risk-review, and generic command-center projects.
 - CrisisCoord should differentiate as regulated crisis governance, with dependency-gated legal, technical, communications, and human decision workflows.
+- Current adjacent submission notes are documented in [competitive-ui-notes.md](./competitive-ui-notes.md).
 
 Research action:
 
@@ -140,6 +142,8 @@ Current answer:
 - First screen is the crisis command room.
 - The UI should be operational SaaS: dense, calm, scan-friendly, and auditable.
 - Figma should define tokens, components, command-room frames, mobile reviewer frames, and demo prototype states.
+- The recommended color system is light-first neutral with semantic status accents; see [../design/ui-color-system.md](../design/ui-color-system.md).
+- The dashboard should use Overview, Handoffs, Findings, Drafts, and Audit tabs; see [../design/command-room-page-plan.md](../design/command-room-page-plan.md).
 
 Research action:
 
@@ -239,6 +243,7 @@ Research action:
 - Re-check adjacent submissions.
 - Verify all regulatory wording in demo copy.
 - Run demo end to end.
+- Run live, assisted, and seeded demo modes.
 - Confirm no real data or secrets.
 - Confirm README and onboarding are enough for judges and collaborators.
 

@@ -24,6 +24,10 @@ This keeps the project from becoming a wide, shallow dashboard. We want a few ex
 
 Use Figma for the first design pass and shadcn/ui-style React components for implementation.
 
+Color tokens, severity mapping, status mapping, and accessibility rules are defined in [ui-color-system.md](./ui-color-system.md).
+
+The detailed dashboard anatomy, tabs, table rules, and command-room happy path are defined in [command-room-page-plan.md](./command-room-page-plan.md).
+
 Figma owns:
 
 - layout
@@ -67,6 +71,16 @@ Recommended route set:
 | 5 | `/incidents/:incidentId/audit` | Evidence And Audit | Review source facts, evidence, and timeline. |
 | 6 | `/decisions` | Decision Queue | Fast executive/mobile approvals. |
 | 7 | `/settings` | Settings And Integration Status | Demo-safe status for Band, Supabase, and model providers. |
+
+Build priority should be:
+
+1. Crisis Command Room
+2. Scenario Launcher
+3. Incident Queue
+4. Decision Queue
+5. Communications Review
+6. Evidence And Audit
+7. Settings And Integration Status
 
 Keep these inside existing pages instead of making separate routes at first:
 
@@ -174,6 +188,7 @@ Core layout:
 - left agent rail
 - center Band timeline and handoff map
 - right decision desk with draft review and evidence summary
+- tabs for Overview, Handoffs, Findings, Drafts, and Audit
 
 Must show:
 
@@ -185,6 +200,8 @@ Must show:
 - Communications dependency gate
 - Band messages/events
 - human decision request
+
+The first viewport should not be a table. Tables belong in the incident queue, evidence/audit view, and diagnostics/settings surfaces.
 
 States:
 

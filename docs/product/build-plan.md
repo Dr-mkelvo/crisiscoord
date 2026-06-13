@@ -16,7 +16,11 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
+- [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
+- [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
+- [Demo day failure plan](../demo/demo-day-failure-plan.md): live, assisted, and seeded demo modes plus failure matrix and readiness checklist.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
+- [Competitive UI notes](../research/competitive-ui-notes.md): public incident-management and adjacent hackathon submission research.
 - [Technology partner plan](../research/technology-partners.md): required Band, AI/ML API, and Featherless usage plus Codeband/lablab.ai/AgentOps boundaries.
 - [Presentation packet](../presentation/README.md): Gamma deck brief, visual storyboard, and architecture caveat for the pitch.
 - [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
@@ -48,7 +52,8 @@ The build should happen in layers:
 8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct.
 9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
 10. Verification: unit tests for contracts and Playwright checks for the demo path.
-11. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
+11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
+12. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
 ## MVP Scope
 
@@ -94,8 +99,10 @@ Research still needed during implementation:
 - confirm live Band credentials and exact SDK/API calls in our environment
 - confirm final Supabase project setup and local migration flow
 - confirm which model provider is fastest and stable enough for the demo
+- confirm the command-room color tokens in Figma before final UI polish
 - verify any regulatory wording used in public demo copy before submission
 - test Vercel deployment behavior, environment variables, and rate limits
+- test live, assisted, and seeded demo modes before submission
 
 That means we should not pause for broad research. We should start building, and only do targeted research when an implementation choice depends on a live API detail.
 
