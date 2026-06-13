@@ -227,6 +227,28 @@ Useful provider docs:
 
 ## Button Behavior
 
+Every visible action must show or imply its post-click consequence in the UI. A user should never have to guess whether a click sends a real message, queues a simulated package, opens a room, starts an agent run, or pages a human.
+
+| Button | Immediate result | Visible confirmation |
+| --- | --- | --- |
+| Launch Room | Creates the incident, Band room, Assessment agent run, and audit event. | User lands in Command Room with demo/sandbox mode visible. |
+| Preview Agents | Shows the five-agent roster and dependency order before launch. | Assessment, Legal, Technical, Communications, and Escalation readiness states appear. |
+| Open Room | Opens an existing incident with its owner, deadline, agent state, and audit context. | Command Room route loads with the selected incident summary. |
+| Filter Urgent | Narrows the registry to deadline, severity, and unacknowledged-owner risk. | Filter chip and reduced registry list appear. |
+| Run Next Agent | Starts the next eligible agent or marks it blocked if dependencies are missing. | Band timeline receives a run, blocked, complete, or failed event. |
+| Notify Owner | Creates an internal notification task for the current owner. | Notification Center shows channel, owner, and acknowledgement timer. |
+| Acknowledge | Records that the assigned human has seen the decision or notification. | Escalation timer stops or moves to the next state; audit event is written. |
+| Escalate | Pages the configured backup owner or incident commander. | Escalation ladder advances and the Notification Center logs the attempt. |
+| Approve Draft | Locks the draft version with approver, facts used, and timestamp. | Queue Package becomes allowed only for approved/test-safe delivery. |
+| Request Revision | Creates a revision task for Communications with the missing facts or warning. | Draft status changes to `needs_review` or `blocked_missing_facts`. |
+| Queue Package | Creates a simulated delivery package unless safe test recipients are configured. | Delivery status shows `simulated` or `queued`, with audit and provider reference. |
+| Approve | Records a human decision and unlocks dependent workflow steps. | Decision card moves from pending to approved and Band receives the decision event. |
+| Need Facts | Sends the decision back to the relevant agent or human owner for more evidence. | Decision status changes to waiting for facts, with owner and due time shown. |
+| Export Package | Builds an audit export from facts, decisions, notifications, provider metadata, and Band references. | Export appears as a review artifact, not as a raw sensitive-data dump. |
+| Verify Chain | Checks that facts, agent outputs, human decisions, and notifications are linked. | Audit integrity remains OK or shows the missing link. |
+| Run Diagnostics | Checks Band, Supabase, AI/ML API, Featherless, and notification provider readiness. | Provider readiness matrix shows last success, fallback mode, missing secrets, and safe-send status. |
+| Seed Demo | Loads the synthetic scenario and fallback data. | Demo mode badge changes to seeded or simulated. |
+
 ### Launch Command Room
 
 Creates:
@@ -370,7 +392,7 @@ Add:
 - human escalation ladder on decision cards
 - outbound communication composer in Communications Review
 - notification delivery log in Evidence And Audit
-- agent reasoning drawer on each agent card
+- agent detail drawer on each agent card
 - `why escalated` explanation on every human decision
 - `facts used` and `facts missing` on every communication draft
 - provider delivery status in Integrations And Demo Readiness

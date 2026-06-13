@@ -100,7 +100,7 @@ Keep these inside existing pages instead of making separate routes at first:
 
 - Agent Handoff Map: panel/tab inside Crisis Command Room.
 - Notification Center: drawer and tab inside Crisis Command Room, plus compact state inside Decision Desk.
-- Agent reasoning detail: drawer inside Crisis Command Room.
+- Agent detail: drawer inside Crisis Command Room.
 - Outbound communication composer: panel inside Communications Review.
 - Notification delivery log: panel inside Evidence And Audit.
 - Compliance Rules Review: panel/tab inside Crisis Command Room or Evidence And Audit.

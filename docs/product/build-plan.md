@@ -78,7 +78,7 @@ Inside Phase 1, the implementation order should remain:
 6. API routes: Hono endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. Live-data adapters: CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional keyed threat-intel sources behind feature flags.
 8. Notification model: in-app notifications, decision ownership, acknowledgement, escalation ladder, simulated outbound queue, and notification audit events.
-9. UI components: incident bar, global command bar, notification bell, Notification Center drawer, operational status strip, source feed, agent rail, agent reasoning drawer, handoff/dependency map, Band timeline, dependency gate, draft review panel, outbound composer, decision queue, audit log, provider health cards, mobile bottom action bar, and confidence labels.
+9. UI components: incident bar, global command bar, notification bell, Notification Center drawer, operational status strip, source feed, agent rail, agent detail drawer, handoff/dependency map, Band timeline, dependency gate, draft review panel, outbound composer, decision queue, audit log, provider health cards, mobile bottom action bar, and confidence labels.
 10. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
 11. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
 12. Demo resilience: live, assisted, seeded, and simulated-send modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
