@@ -14,9 +14,10 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
+- [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
-- [Technology partner plan](../research/technology-partners.md): how Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps fit the project.
+- [Technology partner plan](../research/technology-partners.md): required Band, AI/ML API, and Featherless usage plus Codeband/lablab.ai/AgentOps boundaries.
 - [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
 
 ## What The App Must Do
@@ -44,8 +45,9 @@ The build should happen in layers:
 6. API routes: Hono or Fastify endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
 8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct.
-9. Verification: unit tests for contracts and Playwright checks for the demo path.
-10. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
+9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
+10. Verification: unit tests for contracts and Playwright checks for the demo path.
+11. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
 ## MVP Scope
 
@@ -55,11 +57,12 @@ The MVP should prove one scenario end to end:
 
 Required visible output:
 
-- Assessment classifies severity and crisis type.
-- Legal identifies disclosure windows and unknowns.
-- Technical confirms affected systems, record scope, containment, and confidence.
+- Assessment classifies severity and crisis type through AI/ML API.
+- Legal identifies disclosure windows and unknowns through AI/ML API.
+- Technical confirms affected systems, record scope, containment, and confidence through Featherless.
 - Communications drafts only after Legal and Technical are available.
-- Escalation asks for a human decision about proactive customer notification.
+- Escalation asks for a human decision about proactive customer notification through AI/ML API.
+- The audit trail shows provider/model metadata for each model-backed agent.
 
 ## What We Are Not Building
 
@@ -79,8 +82,8 @@ Already covered:
 - hackathon requirements and judging criteria
 - Band collaboration concepts and API direction
 - Supabase fit for database, auth, storage, realtime, and RLS
-- model provider options, including AI/ML API as primary and Featherless as fallback/open-model path
-- technology partner usage boundaries
+- required technology partner usage, including Band, AI/ML API, and Featherless
+- model provider options, including AI/ML API as main-path provider and Featherless as visible open-model provider
 - regulated incident disclosure concepts for demo grounding
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product

@@ -102,6 +102,7 @@ Key guides:
 - [Supabase API notes](./docs/api/supabase-api.md)
 - [Model provider API notes](./docs/api/model-provider-apis.md)
 - [Technology partner plan](./docs/research/technology-partners.md)
+- [Partner implementation requirements](./docs/architecture/partner-implementation-requirements.md)
 - [Runtime and rate-limit notes](./docs/api/runtime-and-rate-limits.md)
 
 ## Environment Variables
@@ -171,8 +172,9 @@ pnpm db:seed
 4. Define the crisis-room schema.
 5. Define structured output contracts for each agent.
 6. Build the model-provider wrapper for AI/ML API and Featherless.
-7. Build the synthetic 60-second demo scenario.
-8. Create the first UI wireframe for the crisis command room.
+7. Prove the demo path uses AI/ML API and Featherless with provider metadata in the audit trail.
+8. Build the synthetic 60-second demo scenario.
+9. Create the first UI wireframe for the crisis command room.
 
 ## Product Direction
 
@@ -185,6 +187,7 @@ Before implementation starts, read:
 - [docs/collaboration/project-playbooks.md](./docs/collaboration/project-playbooks.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
 - [docs/architecture/agent-implementation-plan.md](./docs/architecture/agent-implementation-plan.md)
+- [docs/architecture/partner-implementation-requirements.md](./docs/architecture/partner-implementation-requirements.md)
 - [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)
 - [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
 - [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)

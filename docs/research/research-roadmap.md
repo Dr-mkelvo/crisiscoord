@@ -18,7 +18,7 @@ Covered enough for the first build:
 
 - Band hackathon requirements, judging criteria, Agent API, SDK, WebSocket flow, and adapter options.
 - Supabase database/auth/storage direction.
-- AI/ML API and Featherless model-provider direction, with direct OpenAI treated as optional.
+- AI/ML API and Featherless model-provider direction, with both required in the demo and direct OpenAI treated as optional.
 - Technology partner plan for Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps.
 - UI/UX direction, Figma workflow, page map, and low-fidelity command-room wireframe.
 - HIPAA breach-notification basics for unsecured protected health information.
@@ -54,7 +54,7 @@ Current answer:
 - At least three agents must collaborate through Band.
 - Strong submissions should show handoffs, shared context, role specialization, task state, review, decision-making, and Band as the active coordination layer.
 - CrisisCoord fits Track 3: Regulated & High-Stakes Workflows.
-- Partner tools worth using: Band, AI/ML API, and Featherless AI.
+- Partner tools required for the demo: Band, AI/ML API, and Featherless AI.
 - Codeband is useful as development-workflow reference, not product runtime.
 - AgentOps-style observability is optional and should wait until the core demo is stable.
 
@@ -116,14 +116,15 @@ Questions:
 Current answer:
 
 - We do not need direct OpenAI unless we choose it later.
-- We can use AI/ML API and Featherless through an OpenAI-compatible client shape.
+- We must use AI/ML API and Featherless through an OpenAI-compatible client shape.
 - The architecture should call this `model-provider`, not `openai`.
 
 Research action:
 
 - Run timing tests for Assessment, Legal, Technical, Communications, and Escalation prompts.
 - Confirm JSON output reliability.
-- Confirm fallback behavior.
+- Confirm AI/ML API main-path behavior.
+- Confirm Featherless visible-demo behavior and fallback behavior.
 - Track latency, failure rate, and cost.
 
 ### 5. UI/UX And Figma

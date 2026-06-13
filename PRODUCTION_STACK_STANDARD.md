@@ -63,7 +63,7 @@ For product vision, system architecture, research planning, and trigger modeling
 - Auth: Supabase Auth
 - Storage: Supabase Storage for synthetic evidence packets
 - Agents: Band SDK / Agent API
-- Models: AI/ML API primary, Featherless AI fallback through an OpenAI-compatible wrapper
+- Models: AI/ML API required for main-path reasoning, Featherless AI required for visible open-model inference, both through an OpenAI-compatible wrapper
 - Hosting: Vercel
 - Tests: Vitest and Playwright
 

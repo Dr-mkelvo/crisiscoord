@@ -71,7 +71,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md), [AGENTS.md](./AGENTS.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md), [docs/collaboration/project-playbooks.md](./docs/collaboration/project-playbooks.md), [docs/product/project-vision.md](./docs/product/project-vision.md), [docs/product/build-plan.md](./docs/product/build-plan.md), [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md), [docs/architecture/agent-implementation-plan.md](./docs/architecture/agent-implementation-plan.md), [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md), [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md), [docs/research/research-roadmap.md](./docs/research/research-roadmap.md), [docs/research/technology-partners.md](./docs/research/technology-partners.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, collaboration rules, portable playbooks, product scope, architecture, UI page planning, agent implementation, compliance triggers, technology partners, API details, and the project build approach.
+See [ONBOARDING.md](./ONBOARDING.md), [AGENTS.md](./AGENTS.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md), [docs/collaboration/project-playbooks.md](./docs/collaboration/project-playbooks.md), [docs/product/project-vision.md](./docs/product/project-vision.md), [docs/product/build-plan.md](./docs/product/build-plan.md), [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md), [docs/architecture/agent-implementation-plan.md](./docs/architecture/agent-implementation-plan.md), [docs/architecture/partner-implementation-requirements.md](./docs/architecture/partner-implementation-requirements.md), [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md), [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md), [docs/research/research-roadmap.md](./docs/research/research-roadmap.md), [docs/research/technology-partners.md](./docs/research/technology-partners.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, collaboration rules, portable playbooks, product scope, architecture, UI page planning, agent implementation, partner requirements, compliance triggers, technology partners, API details, and the project build approach.
 
 ## Collaboration Policy
 
@@ -105,3 +105,12 @@ See [docs/github/branching-and-collaboration.md](./docs/github/branching-and-col
 - Public Equifax 2017 breach records and congressional hearing material
 
 See [docs/research/hackathon-research.md](./docs/research/hackathon-research.md).
+
+## Partner Usage Requirement
+
+The submitted demo must use Band, AI/ML API, and Featherless AI in visible ways:
+
+- Band coordinates the specialized agents.
+- AI/ML API powers main-path agent reasoning.
+- Featherless powers at least one visible open-model agent run or review step.
+- The UI/audit trail should show provider and model metadata for model-backed agent runs.

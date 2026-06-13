@@ -61,6 +61,7 @@ Build one complete agent loop first, then repeat the pattern.
 1. Crisis Assessment Agent
    - receives crisis signal
    - classifies incident type and severity
+   - uses AI/ML API for model-backed classification in the demo path
    - creates or seeds Band room context
    - recruits or mentions required agents
    - writes assessment finding and audit event
@@ -68,12 +69,14 @@ Build one complete agent loop first, then repeat the pattern.
 2. Technical Forensics Agent
    - reads assessment context
    - confirms affected systems, data categories, containment, and confidence
+   - uses Featherless AI for open-model inference in the demo path
    - posts technical finding to Band
    - writes technical finding and audit event
 
 3. Legal & Regulatory Agent
    - reads assessment and technical context when available
    - identifies possible obligations, deadlines, source references, and unknowns
+   - uses AI/ML API for obligation extraction in the demo path
    - posts reviewable legal packet to Band
    - writes obligation candidates and audit event
 
@@ -86,6 +89,7 @@ Build one complete agent loop first, then repeat the pattern.
 5. Escalation & Decision Agent
    - reads room state, findings, drafts, and unknowns
    - detects conflicts or missing facts
+   - uses AI/ML API for conflict detection and decision routing in the demo path
    - creates human decision requests
    - writes decision request and audit event
 
@@ -215,8 +219,10 @@ If the gate fails:
 ## Model Provider Rules
 
 - Use the `model-provider` abstraction.
-- AI/ML API is primary unless testing changes the decision.
-- Featherless AI is fallback.
+- AI/ML API is required in the main demo path.
+- Featherless AI is required in the visible demo path.
+- Technical Forensics should use Featherless in the demo path unless live testing proves the selected model cannot meet latency or JSON reliability needs.
+- If the Technical Forensics provider assignment changes, another visible agent or review step must use Featherless before submission.
 - Direct OpenAI is optional and not required.
 - Use bounded retries and timeouts.
 - Record provider, model, latency, retry count, and failure type.
@@ -228,6 +234,21 @@ generateStructuredOutput(input) -> validated typed result
 ```
 
 It should not leak provider-specific response objects into agent code.
+
+## Partner Proof Requirements
+
+Each model-backed agent run must store:
+
+- provider
+- model
+- latency
+- retry count
+- fallback reason, if provider-switched
+- safe provider metadata for the UI
+
+The demo cannot be considered ready unless the audit trail shows both AI/ML API and Featherless runs.
+
+See [partner-implementation-requirements.md](./partner-implementation-requirements.md) for the full acceptance gate.
 
 ## Trigger Handling
 

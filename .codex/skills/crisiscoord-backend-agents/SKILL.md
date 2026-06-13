@@ -21,6 +21,7 @@ If the tool cannot load skills, paste or attach this file before implementing ba
 - `docs/api/supabase-api.md`
 - `docs/api/model-provider-apis.md`
 - `docs/research/technology-partners.md`
+- `docs/architecture/partner-implementation-requirements.md`
 - `docs/api/runtime-and-rate-limits.md`
 - `docs/compliance/trigger-model.md`
 
@@ -74,8 +75,9 @@ If dependencies are missing, return a blocked state and post a Band event instea
 ## Model Provider Strategy
 
 - Do not require direct OpenAI.
-- Use AI/ML API as primary unless implementation testing changes that decision.
-- Use Featherless AI as fallback.
+- Use AI/ML API in the main demo path.
+- Use Featherless AI in the visible demo path.
+- Technical Forensics should use Featherless unless live testing forces a documented provider swap.
 - Keep an OpenAI-compatible client shape only as a provider-switching convenience.
 - Track timeout, retry count, provider, model, latency, and failure reason.
 - Keep provider-specific code inside `model-provider`; agent code should not import vendor clients directly.

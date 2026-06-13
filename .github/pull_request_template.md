@@ -55,3 +55,4 @@ Failure state:
 - [ ] I used synthetic data only.
 - [ ] I did not commit secrets.
 - [ ] I did not push directly to `main`.
+- [ ] If this touches agents/model providers, it preserves required Band, AI/ML API, and Featherless usage.

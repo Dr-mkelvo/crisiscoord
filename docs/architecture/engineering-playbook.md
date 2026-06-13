@@ -223,6 +223,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Can a teammate clone, install, seed, and run it?
 - Can demo data be recreated?
 - Is there a fallback if live Band/model calls fail during the demo?
+- Does the happy-path demo still prove required Band, AI/ML API, and Featherless usage before any fallback path is used?
 - Can we run a scripted or mocked demo path if needed?
 
 ### 16 - Privacy, Compliance, And Cost
