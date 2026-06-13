@@ -30,7 +30,7 @@ Cartoon legal scales.
 Cyber hoodie imagery.
 Overly dramatic stock photos.
 Claims that imply the app gives final legal advice.
-Architecture details that are not decided yet.
+Unverified implementation details that are not in the master guide.
 
 Project:
 CrisisCoord is a Band-powered multi-agent enterprise crisis response system for regulated incidents. When a company faces a breach, cyberattack, product recall, compliance event, or public-risk incident, Legal, Technical, Communications, Compliance, and Executive teams need to act together. Today that response is scattered across chat, tickets, docs, spreadsheets, meetings, and inboxes. CrisisCoord turns the crisis into one shared, auditable room where specialized agents coordinate, dependency gates are visible, and humans approve high-risk decisions.
@@ -72,7 +72,7 @@ Risky decisions require human approval.
 The product supports review, escalation, and auditability; it does not replace counsel, security leadership, or compliance officers.
 
 Architecture note:
-Show only provisional architecture until the team finalizes implementation. Use this concept:
+Use the master implementation guide as the source of truth. Show the architecture at concept level unless the app has already implemented the detail:
 Command-room UI -> backend rule layer -> Supabase audit state -> Band collaboration room -> specialized agents -> AI/ML API and Featherless model providers.
 
 Create the deck with these cards:
@@ -117,9 +117,9 @@ Card: Audit Trail
 Headline: Every claim has a source, timestamp, owner, and status.
 Visual: Evidence ledger showing who said what, when, and what it unlocked.
 
-Card: Provisional Architecture
+Card: Operating Architecture
 Headline: Simple architecture, built around coordinated state.
-Visual: UI, backend rule layer, Supabase, Band room, agents, model providers. Mark as pending team finalization.
+Visual: UI, backend rule layer, Supabase, Band room, agents, model providers. Mark unbuilt details as planned, not live.
 
 Card: Judging Takeaway
 Headline: CrisisCoord makes high-stakes response faster without removing accountability.
@@ -135,5 +135,5 @@ After Gamma generates the first deck:
 - Keep the demo scenario numbers only where they help the story: `2:47 AM` and potential card-record exposure.
 - Make the dependency-gate slide the visual centerpiece.
 - Keep partner usage visible, but do not let partner logos dominate the story.
-- Mark the architecture slide as provisional.
+- Mark unbuilt implementation details as planned, not live.
 - Make every generated compliance sentence read like support for human review, not final legal advice.

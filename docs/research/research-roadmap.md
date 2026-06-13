@@ -28,6 +28,7 @@ Covered enough for the first build:
 - CISA incident notification fields, attack-vector taxonomy, KEV catalog, BOD 26-04 risk factors, and CIRCIA status.
 - Crisis signal taxonomy covering payment data, public-company cyber events, GDPR, HIPAA, critical infrastructure, CVE/KEV, zero-day, ransomware, supply-chain, and product-safety scenarios.
 - Decision guardrails covering the global operating plan, five-agent scope, partner proof, automation boundaries, data protection, human-only decisions, and demo escalation rules.
+- Skepticism audit covering remaining implementation blockers, drift risks, and recommended next work order.
 
 Still needs targeted validation during implementation:
 
