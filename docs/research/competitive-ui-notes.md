@@ -82,7 +82,7 @@ Public positioning:
 - Production service breaks.
 - Specialized agents triage, diagnose, and fix the incident.
 - Six participants share one Band room.
-- Detector, Commander, Diagnostician, Remediator, Comms, Bridge.
+- Detector, Commander, Diagnostician, Remediator, Communications, Bridge.
 - Human approval gates destructive remediation.
 - Dashboard shows service health red-to-green, Band conversation, approval button, and MTTR.
 

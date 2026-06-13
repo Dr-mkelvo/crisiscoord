@@ -182,11 +182,11 @@ How CrisisCoord differs:
 
 | Product category | Typical start point | Main surface | Core proof | Gap CrisisCoord can own |
 | --- | --- | --- | --- | --- |
-| Incident ops | Alert or incident declaration | Incident command center | roles, runbooks, timeline, status updates | regulated legal/comms decisioning |
+| Incident ops | Alert or incident declaration | Incident command center | roles, runbooks, timeline, status updates | regulated legal/communications decisioning |
 | Privacy breach response | privacy/security incident intake | assessment workflow | jurisdiction mapping and notification decision | multi-agent crisis coordination through Band |
 | Cyber incident response management | cyber event or breach declaration | enterprise command dashboard | cross-functional workflow and evidence capture | visible agent handoffs and dependency gates |
 | AI investigation demo | uploaded file or dataset | analysis workspace | generated findings from data | signal-first crisis response, not file upload |
-| Band hackathon war room | service health alert | live ops dashboard | detect -> diagnose -> approve -> remediate | legal + technical -> comms gate |
+| Band hackathon war room | service health alert | live ops dashboard | detect -> diagnose -> approve -> remediate | legal + technical -> communications gate |
 
 ## What We Should Build
 

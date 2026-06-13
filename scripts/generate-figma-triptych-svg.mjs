@@ -37,6 +37,7 @@ const workspaces = [
     cards: ["CISA KEV: payment gateway CVE match", "SIEM alert: unusual card-token query volume", "GitHub advisory: dependency risk found"],
     timeline: ["Signal normalized", "Sandbox selected", "Agent roster previewed"],
     decision: "Launch command room",
+    notification: "Demo operator assigned after launch",
   },
   {
     n: "02",
@@ -48,6 +49,7 @@ const workspaces = [
     cards: ["Payment system access review", "Healthcare portal data anomaly", "Supplier recall coordination"],
     timeline: ["Assessment running", "Legal clock active", "Owner assigned"],
     decision: "Open incident",
+    notification: "2 owners awaiting acknowledgement",
   },
   {
     n: "03",
@@ -59,17 +61,19 @@ const workspaces = [
     cards: ["Assessment: breach signal classified", "Legal: GDPR Art. 33 clock active", "Technical: containment evidence pending"],
     timeline: ["02:47 signal received", "02:49 assessment posted", "02:54 legal obligation posted", "03:02 technical scope posted"],
     decision: "Customer notification needs human decision",
+    notification: "Legal reviewer notified - awaiting acknowledgement",
   },
   {
     n: "04",
     title: "Communications Review",
     short: "Communications",
-    subtitle: "Draft regulator, customer, and executive comms from verified facts only.",
+    subtitle: "Draft regulator, customer, and executive communications from verified facts only.",
     accent: C.amber,
     metrics: [["Drafts", "3"], ["Facts used", "9"], ["Missing", "2"], ["Review", "Legal"]],
     cards: ["Regulator notice: uses confirmed EU scope", "Customer notice: pending proactive decision", "Executive brief: ready for review"],
     timeline: ["Legal facts linked", "Technical facts linked", "Warnings attached"],
     decision: "Approve, revise, or escalate",
+    notification: "Approved draft queues simulated send package",
   },
   {
     n: "05",
@@ -81,6 +85,7 @@ const workspaces = [
     cards: ["Notify customers proactively?", "Pause payment processing?", "Disclose to secondary regulator?"],
     timeline: ["Risk of approving: over-notification", "Risk of waiting: missed duty", "Recommended: legal review"],
     decision: "Approve decision",
+    notification: "Primary owner unacknowledged - backup is next",
   },
   {
     n: "06",
@@ -92,6 +97,7 @@ const workspaces = [
     cards: ["CISA KEV source snapshot", "Band message reference", "AI provider metadata redacted"],
     timeline: ["Fact captured", "Agent output linked", "Human approval recorded", "Export package prepared"],
     decision: "Export audit package",
+    notification: "Delivery attempt and acknowledgement logged",
   },
   {
     n: "07",
@@ -103,6 +109,7 @@ const workspaces = [
     cards: ["Band room active", "Supabase RLS check passed", "Featherless fallback model ready"],
     timeline: ["Last live run succeeded", "Seeded mode verified", "Diagnostics safe to show"],
     decision: "Run demo scenario",
+    notification: "Email/SMS providers in safe simulated mode",
   },
 ];
 
@@ -158,25 +165,32 @@ function chrome(x, y, w, h, ws, mode) {
     out.push(rect(x, y, side, h, "#070B12", "none", 22));
     out.push(text(x + 24, y + 44, "CrisisCoord", 21, C.text, 800));
     out.push(text(x + 24, y + 68, "Enterprise response", 11, C.muted, 600));
-    const nav = ["Signal", "Registry", "Command", "Comms", "Decision", "Audit", "Demo"];
+    const nav = ["Signal", "Registry", "Command", "Communications", "Decision", "Audit", "Demo"];
     nav.forEach((n, i) => {
       const yy = y + 126 + i * 46;
-      const active = ws.title.includes(n) || (n === "Command" && ws.n === "03") || (n === "Comms" && ws.n === "04") || (n === "Demo" && ws.n === "07");
+      const active = ws.title.includes(n) || (n === "Command" && ws.n === "03") || (n === "Communications" && ws.n === "04") || (n === "Demo" && ws.n === "07");
       out.push(rect(x + 18, yy - 24, side - 36, 34, active ? "#172554" : "transparent", active ? "#1D4ED8" : "none", 8));
       out.push(circle(x + 34, yy - 7, 5, active ? ws.accent : C.border));
       if (!tablet) out.push(text(x + 48, yy - 2, n, 13, active ? C.text : C.muted, 700));
     });
     out.push(rect(x + 18, y + h - 106, side - 36, 70, "#0B1220", C.border, 12));
-    out.push(text(x + 34, y + h - 74, "Source status", 12, C.faint, 700));
-    out.push(text(x + 34, y + h - 48, "Live + seeded fallback", 11, C.green, 700));
+    if (tablet) {
+      out.push(circle(x + side / 2, y + h - 70, 7, C.green));
+      out.push(text(x + side / 2, y + h - 44, "OK", 10, C.green, 800, "middle"));
+    } else {
+      out.push(text(x + 34, y + h - 74, "Source status", 12, C.faint, 700));
+      out.push(text(x + 34, y + h - 48, "Live + seeded fallback", 11, C.green, 700));
+    }
   }
   out.push(rect(x + side, y, w - side, top, C.surface, "none", mobile ? 22 : 0));
   out.push(text(x + side + 28, y + 34, `${ws.n} ${ws.title}`, mobile ? 17 : 23, "#0F172A", 800));
   out.push(text(x + side + 28, y + 58, ws.subtitle, mobile ? 10 : 12, "#64748B", 600));
-  if (!mobile) {
+  if (!mobile && !tablet) {
     out.push(rect(x + w - 612, y + 22, 330, 38, "#F8FAFC", "#CBD5E1", 10));
     out.push(text(x + w - 590, y + 47, "Search incidents, CVEs, sources, owners", 13, "#64748B", 600));
-    out.push(pill(x + w - 264, y + 27, "All systems operational", "#ECFDF5", C.green, 210));
+    out.push(pill(x + w - 264, y + 27, "3 pending actions", "#EDE9FE", C.violet, 210));
+  } else if (tablet) {
+    out.push(pill(x + w - 230, y + 27, "3 pending actions", "#EDE9FE", C.violet, 190));
   } else {
     out.push(rect(x + 22, y + h - 70, w - 44, 54, "#050A12", C.border, 22));
     ["Home", "List", "+", "Audit", "Me"].forEach((n, i) => {
@@ -208,15 +222,15 @@ function metricCards(x, y, w, ws, mode) {
 function topology(x, y, w, h, ws, compact = false) {
   const out = [];
   out.push(rect(x, y, w, h, "#08111F", "#233044", 16));
-  out.push(text(x + 20, y + 32, "Band handoff topology", compact ? 14 : 18, C.text, 800));
-  out.push(text(x + 20, y + 54, "Agents post facts before downstream actions unlock", compact ? 10 : 12, C.muted, 600));
+  out.push(text(x + 20, y + 32, "Agent reasoning and Band handoff map", compact ? 14 : 18, C.text, 800));
+  out.push(text(x + 20, y + 54, "Click a node to see inputs, outputs, confidence, unknowns, and next dependency", compact ? 10 : 12, C.muted, 600));
   const cx = x + w * 0.48;
   const cy = y + h * 0.56;
   const nodes = [
     ["Assessment", x + w * 0.2, y + h * 0.45, C.cyan],
     ["Legal", x + w * 0.36, y + h * 0.28, C.amber],
     ["Technical", x + w * 0.68, y + h * 0.32, C.blue],
-    ["Comms", x + w * 0.72, y + h * 0.64, C.violet],
+    ["Communications", x + w * 0.72, y + h * 0.64, C.violet],
     ["Escalation", x + w * 0.28, y + h * 0.72, C.red],
   ];
   nodes.forEach(([, nx, ny, color]) => out.push(line(cx, cy, nx, ny, color, 2, 'opacity="0.55"')));
@@ -256,12 +270,89 @@ function ledger(x, y, w, h, ws, mode) {
 function decisionCard(x, y, w, h, ws, mode) {
   const out = [rect(x, y, w, h, "#FAF5FF", "#C4B5FD", 14), pill(x + 16, y + 16, "Human review", "#EDE9FE", C.violet, 132)];
   out.push(text(x + 18, y + 66, ws.decision, mode === "mobile" ? 15 : 19, "#3B0764", 800));
-  out.push(text(x + 18, y + 94, "Approval risk, delay risk, and required owner are visible.", mode === "mobile" ? 9 : 11, "#6B21A8", 600));
+  out.push(text(x + 18, y + 94, "Owner, acknowledgement, delay risk, and escalation are visible.", mode === "mobile" ? 9 : 11, "#6B21A8", 600));
+  if (h > 170) {
+    out.push(rect(x + 18, y + 112, w - 36, 34, "#FFFFFF", "#DDD6FE", 9));
+    out.push(text(x + 30, y + 134, "Owner: Legal Reviewer - ack due in 8m", 11, "#4C1D95", 800));
+  }
   out.push(rect(x + 18, y + h - 48, (w - 48) / 2, 32, C.violet, "none", 9));
-  out.push(text(x + 32, y + h - 27, "Approve", 11, C.text, 800));
+  out.push(text(x + 32, y + h - 27, "Acknowledge", 11, C.text, 800));
   out.push(rect(x + 28 + (w - 48) / 2, y + h - 48, (w - 48) / 2, 32, "#FFFFFF", "#C4B5FD", 9));
   out.push(text(x + 42 + (w - 48) / 2, y + h - 27, "Escalate", 11, C.violet, 800));
   return out.join("");
+}
+
+function notificationPanel(x, y, w, h, ws, mode) {
+  const compact = mode === "mobile" || h < 180;
+  const out = [rect(x, y, w, h, "#FFFFFF", "#D7DEE8", 14)];
+  out.push(text(x + 18, y + 30, "Notification Center", compact ? 13 : 17, "#0F172A", 800));
+  out.push(pill(x + w - (compact ? 124 : 158), y + 12, "2 unacked", "#FEF3C7", C.amber, compact ? 108 : 140));
+  const rows = [
+    ["In-app + Band", ws.notification, C.violet],
+    ["Email/SMS", "safe simulated mode", C.cyan],
+    ["Escalation", "backup owner ready", C.orange],
+  ];
+  rows.slice(0, compact ? 2 : 3).forEach(([label, detail, color], i) => {
+    const yy = y + 58 + i * (compact ? 44 : 52);
+    out.push(rect(x + 14, yy, w - 28, compact ? 34 : 42, "#F8FAFC", "#E2E8F0", 9));
+    out.push(circle(x + 30, yy + (compact ? 17 : 21), 6, color));
+    out.push(text(x + 46, yy + (compact ? 15 : 18), label, compact ? 9 : 11, "#0F172A", 800));
+    out.push(text(x + 46, yy + (compact ? 30 : 35), detail, compact ? 8 : 9, "#64748B", 650));
+  });
+  return out.join("");
+}
+
+function escalationLadder(x, y, w, h, mode) {
+  const compact = mode === "mobile";
+  const out = [rect(x, y, w, h, "#FFFFFF", "#D7DEE8", 14), text(x + 18, y + 30, "Acknowledgement ladder", compact ? 13 : 17, "#0F172A", 800)];
+  [["Primary owner", "notified - waiting"], ["Backup owner", "next if no ack"], ["Incident commander", "final escalation"]].forEach((row, i) => {
+    const yy = y + 62 + i * (compact ? 42 : 48);
+    out.push(circle(x + 28, yy, 9, [C.amber, C.blue, C.red][i]));
+    if (i < 2) out.push(line(x + 28, yy + 9, x + 28, yy + (compact ? 35 : 41), "#CBD5E1", 2));
+    out.push(text(x + 48, yy - 2, row[0], compact ? 10 : 12, "#0F172A", 800));
+    out.push(text(x + 48, yy + 16, row[1], compact ? 8 : 10, "#64748B", 600));
+  });
+  return out.join("");
+}
+
+function communicationComposer(x, y, w, h, ws, mode) {
+  const out = [rect(x, y, w, h, "#FFFFFF", "#D7DEE8", 14), text(x + 18, y + 30, "Outbound communication package", mode === "mobile" ? 13 : 17, "#0F172A", 800)];
+  out.push(pill(x + 18, y + 46, "Draft only", "#FEF3C7", C.amber, 112));
+  out.push(pill(x + 140, y + 46, "Human approval required", "#EDE9FE", C.violet, 190));
+  out.push(rect(x + 18, y + 88, w - 36, Math.max(72, h - 156), "#F8FAFC", "#E2E8F0", 10));
+  out.push(text(x + 34, y + 114, "Audience: regulator / customer / executive", 12, "#0F172A", 800));
+  out.push(text(x + 34, y + 140, "Facts used: Legal obligations + Technical scope", 11, "#475569", 650));
+  out.push(text(x + 34, y + 162, "Missing: final customer-notification decision", 11, C.orange, 700));
+  out.push(rect(x + 18, y + h - 48, w - 36, 32, ws.accent, "none", 9));
+  out.push(text(x + 34, y + h - 27, "Queue simulated send package", 11, "#FFFFFF", 800));
+  return out.join("");
+}
+
+function workspaceDetail(x, y, w, h, ws, mode) {
+  if (ws.n === "04") return communicationComposer(x, y, w, h, ws, mode);
+  if (ws.n === "05") return escalationLadder(x, y, w, h, mode);
+  if (ws.n === "06") return notificationPanel(x, y, w, h, ws, mode);
+  if (ws.n === "07") {
+    const out = [rect(x, y, w, h, "#FFFFFF", "#D7DEE8", 14), text(x + 18, y + 30, "Provider readiness and safe mode", mode === "mobile" ? 13 : 17, "#0F172A", 800)];
+    ["Band room active", "Supabase audit ready", "AI/ML API configured", "Featherless fallback ready", "Email/SMS simulated"].forEach((item, i) => {
+      const yy = y + 60 + i * 36;
+      out.push(circle(x + 28, yy, 7, i === 4 ? C.amber : C.green));
+      out.push(text(x + 46, yy + 4, item, 11, "#0F172A", 800));
+    });
+    return out.join("");
+  }
+  if (ws.n === "01") {
+    const out = [rect(x, y, w, h, "#FFFFFF", "#D7DEE8", 14), text(x + 18, y + 30, "Signal source and data safety", mode === "mobile" ? 13 : 17, "#0F172A", 800)];
+    ["Security alert", "Vendor notice", "Support escalation", "Legal/compliance report"].forEach((item, i) => {
+      const yy = y + 62 + i * 42;
+      out.push(rect(x + 18, yy - 20, w - 36, 34, "#F8FAFC", "#E2E8F0", 9));
+      out.push(circle(x + 34, yy - 3, 6, [C.cyan, C.blue, C.amber, C.violet][i]));
+      out.push(text(x + 50, yy + 1, item, 11, "#0F172A", 800));
+    });
+    out.push(text(x + 18, y + h - 34, "Sanitized facts launch the room; blocked data never enters prompts.", 11, "#64748B", 700));
+    return out.join("");
+  }
+  return notificationPanel(x, y, w, h, ws, mode);
 }
 
 function desktopFrame(x, y, ws) {
@@ -274,26 +365,23 @@ function desktopFrame(x, y, ws) {
   const cw = w - side - 56;
   out.push(metricCards(cx, cy, cw, ws, "desktop"));
   if (ws.n === "03") {
-    out.push(topology(cx, cy + 120, 590, 390, ws));
-    out.push(timeline(cx + 614, cy + 120, 360, 390, ws));
+    out.push(topology(cx, cy + 120, 590, 350, ws));
+    out.push(timeline(cx + 614, cy + 120, 360, 350, ws));
     out.push(decisionCard(cx + 998, cy + 120, cw - 998, 210, ws, "desktop"));
-    out.push(ledger(cx + 998, cy + 350, cw - 998, 270, ws, "desktop"));
-    out.push(rect(cx, cy + 540, 974, 280, C.surface, "#D7DEE8", 14));
-    out.push(text(cx + 20, cy + 574, "Communications dependency gate", 18, "#0F172A", 800));
-    out.push(pill(cx + 22, cy + 596, "Blocked until Legal + Technical complete", "#FEF3C7", C.amber, 300));
-    out.push(pill(cx + 342, cy + 596, "Band references required", "#E0F2FE", C.cyan, 218));
-    out.push(pill(cx + 582, cy + 596, "No private data leaves workspace", "#ECFDF5", C.green, 270));
+    out.push(notificationPanel(cx + 998, cy + 350, cw - 998, 250, ws, "desktop"));
+    out.push(rect(cx, cy + 500, 974, 320, C.surface, "#D7DEE8", 14));
+    out.push(text(cx + 20, cy + 534, "Communications dependency gate", 18, "#0F172A", 800));
+    out.push(pill(cx + 22, cy + 556, "Blocked until Legal + Technical complete", "#FEF3C7", C.amber, 300));
+    out.push(pill(cx + 342, cy + 556, "Band references required", "#E0F2FE", C.cyan, 218));
+    out.push(pill(cx + 582, cy + 556, "No private data leaves workspace", "#ECFDF5", C.green, 270));
+    out.push(escalationLadder(cx + 20, cy + 606, 320, 180, "desktop"));
+    out.push(communicationComposer(cx + 360, cy + 606, 590, 180, ws, "desktop"));
   } else {
     out.push(ledger(cx, cy + 118, 432, 430, ws, "desktop"));
     out.push(topology(cx + 456, cy + 118, 440, 430, ws));
     out.push(decisionCard(cx + 920, cy + 118, cw - 920, 220, ws, "desktop"));
     out.push(timeline(cx + 920, cy + 358, cw - 920, 260, ws));
-    out.push(rect(cx, cy + 580, cw, 240, C.surface, "#D7DEE8", 14));
-    out.push(text(cx + 18, cy + 614, "Implementation notes for this workspace", 18, "#0F172A", 800));
-    ["Status is text plus color", "Every fact has source and confidence", "Mobile avoids dense tables above fold", "Band handoff remains visible"].forEach((n, i) => {
-      out.push(circle(cx + 28 + i * 300, cy + 668, 8, [ws.accent, C.green, C.amber, C.violet][i]));
-      out.push(text(cx + 44 + i * 300, cy + 672, n, 12, "#334155", 700));
-    });
+    out.push(workspaceDetail(cx, cy + 580, cw, 240, ws, "desktop"));
   }
   return out.join("");
 }
@@ -308,9 +396,10 @@ function tabletFrame(x, y, ws) {
   const cw = w - side - 48;
   out.push(metricCards(cx, cy, cw, ws, "tablet"));
   out.push(topology(cx, cy + 118, cw, 300, ws, true));
-  out.push(timeline(cx, cy + 438, cw * 0.48, 332, ws, true));
-  out.push(ledger(cx + cw * 0.52, cy + 438, cw * 0.48, 332, ws, "tablet"));
-  out.push(decisionCard(cx, cy + 792, cw, 196, ws, "tablet"));
+  out.push(timeline(cx, cy + 438, cw * 0.48, 272, ws, true));
+  out.push(notificationPanel(cx + cw * 0.52, cy + 438, cw * 0.48, 272, ws, "tablet"));
+  out.push(decisionCard(cx, cy + 732, cw, 170, ws, "tablet"));
+  out.push(workspaceDetail(cx, cy + 924, cw, 150, ws, "tablet"));
   return out.join("");
 }
 
@@ -324,8 +413,9 @@ function mobileFrame(x, y, ws) {
   const cw = w - 36;
   out.push(metricCards(cx, cy, cw, ws, "mobile"));
   out.push(decisionCard(cx, cy + 172, cw, 158, ws, "mobile"));
-  out.push(ledger(cx, cy + 348, cw, 236, ws, "mobile"));
-  out.push(timeline(cx, cy + 602, cw, 120, ws, true));
+  out.push(notificationPanel(cx, cy + 348, cw, 126, ws, "mobile"));
+  out.push(ledger(cx, cy + 492, cw, 146, ws, "mobile"));
+  out.push(timeline(cx, cy + 656, cw, 74, ws, true));
   return out.join("");
 }
 

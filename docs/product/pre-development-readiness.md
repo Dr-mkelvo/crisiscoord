@@ -4,9 +4,9 @@ Last updated: June 13, 2026.
 
 ## Short Answer
 
-CrisisCoord is ready to start coding at **84 / 100**.
+CrisisCoord is ready to start coding at **86 / 100**.
 
-That score means the product direction, architecture, UI direction, partner strategy, collaboration workflow, and demo story are strong enough to begin implementation. It is not 100 because live integration proof, contracts, schema, fixtures, and Figma frames still need to be created during the first coding sprint.
+That score means the product direction, architecture, UI direction, partner strategy, collaboration workflow, notification behavior, and demo story are strong enough to begin implementation. It is not 100 because live integration proof, contracts, schema, fixtures, and Figma frames still need to be created during the first coding sprint.
 
 ## Readiness Score
 
@@ -15,13 +15,13 @@ That score means the product direction, architecture, UI direction, partner stra
 | Product clarity | 93 | The crisis command room, five-agent workflow, and dependency gate are clear. |
 | Business value | 90 | The problem is painful, global, cross-functional, and enterprise-relevant. |
 | Judge fit | 88 | The plan maps to presentation quality, business value, technology application, and originality. |
-| UI/UX readiness | 82 | The command-room structure is strong, but final Figma frames still need to be produced. |
-| Backend readiness | 78 | Hono, Supabase, contracts, audit, and provider abstractions are planned, but not implemented. |
+| UI/UX readiness | 85 | The command-room structure, seven routes, notification center, escalation ladder, and responsive Figma source are now defined, but final editable Figma cleanup still needs implementation. |
+| Backend readiness | 80 | Hono, Supabase, contracts, audit, notification, and provider abstractions are planned, but not implemented. |
 | Band readiness | 70 | Band is conceptually central, but one live agent loop still needs to be spiked. |
 | Demo resilience | 86 | Live, assisted, and seeded modes are planned clearly. |
 | Team collaboration | 92 | Branch rules, skills, PR template, and local push guard are in place. |
 
-Overall coding readiness: **84 / 100**.
+Overall coding readiness: **86 / 100**.
 
 ## Why Not 100
 
@@ -33,6 +33,7 @@ The remaining gaps are implementation blockers, not planning blockers:
 - Sandbox fixtures do not exist yet.
 - Figma frames need to be created from the final UI/UX brief.
 - Figma repair is needed so the file becomes seven workspace triptychs instead of a component-foundation canvas.
+- Notification Center, acknowledgement, escalation ladder, and simulated send packages are documented but not implemented.
 - Live-data adapters are planned, but not implemented.
 - Provider diagnostics need to confirm live AI/ML API and Featherless model availability.
 - `demo:check` does not exist yet.
@@ -47,6 +48,7 @@ The following areas are documented enough to start:
 - crisis signal model
 - five-agent operating model
 - Band communication model
+- interaction and notification model
 - Supabase/audit ownership
 - partner usage requirements
 - global sector sandboxes
@@ -70,10 +72,11 @@ Build in this order:
 6. Band room creation and one live Assessment Agent loop.
 7. Technical and Legal agents.
 8. Communications dependency gate.
-9. Escalation decision request.
-10. Provider diagnostics and demo readiness checks.
-11. Responsive Playwright checks.
-12. Gamma deck update from real screenshots or clearly labeled mockups.
+9. Notification Center, acknowledgement, escalation ladder, and simulated outbound communication.
+10. Escalation decision request.
+11. Provider diagnostics and demo readiness checks.
+12. Responsive Playwright checks.
+13. Gamma deck update from real screenshots or clearly labeled mockups.
 
 ## Judge-Impress Strategy
 
@@ -85,7 +88,8 @@ They should feel:
 2. The agents cannot be replaced by one prompt because each agent changes what the next agent can safely do.
 3. Band is visibly necessary because handoffs, room state, and dependency gates are the product.
 4. The system knows where AI stops and humans decide.
-5. The audit trail survives the crisis.
+5. Human notification and acknowledgement are visible.
+6. The audit trail survives the crisis.
 
 The winning moment should be:
 
@@ -95,6 +99,7 @@ Legal posts obligations.
 Technical posts scope.
 Communications unlocks.
 Escalation asks for a human decision.
+Notification Center shows who was paged, who acknowledged, and what is still blocked.
 ```
 
 That interaction is more impressive than adding more pages.
@@ -106,6 +111,7 @@ Start coding.
 Do targeted research only when implementation depends on a live detail:
 
 - exact Band SDK/API behavior
+- exact notification provider setup for safe test-recipient-only email/SMS
 - available Featherless model list
 - fastest AI/ML API model for structured output
 - Supabase local migration setup
@@ -120,6 +126,7 @@ Do not pause for broad competitor research unless the demo story changes. The cu
 - Simulating Band too deeply and failing to show real Band collaboration.
 - Writing agent prompts before contracts and schemas exist.
 - Letting model output become app state without validation.
+- Making notification behavior invisible or pretending external messages were sent automatically.
 - Hiding provider proof in logs instead of showing it in the UI/audit trail.
 - Making the UI look like a generic SOC dashboard.
 - Overclaiming legal/regulatory certainty.
@@ -136,6 +143,7 @@ The team can begin coding when:
 - one person owns the Band spike
 - one person owns contracts/schema
 - one person owns command-room UI
+- one person owns Notification Center and simulated outbound communication
 - one person owns sandbox fixtures and seeded demo data
 
 ## Source Notes

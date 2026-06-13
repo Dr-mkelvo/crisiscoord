@@ -113,7 +113,7 @@ Suggested branches:
 - `feature/agent-assessment`
 - `feature/legal-regulatory-agent`
 - `feature/technical-forensics-agent`
-- `feature/comms-agent`
+- `feature/communications-agent`
 - `feature/escalation-agent`
 - `feature/demo-ui`
 - `feature/supabase-schema`

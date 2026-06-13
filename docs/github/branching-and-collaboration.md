@@ -33,7 +33,7 @@ Use short, descriptive branch names:
 feature/agent-assessment
 feature/legal-regulatory-agent
 feature/technical-forensics-agent
-feature/comms-agent
+feature/communications-agent
 feature/escalation-agent
 feature/band-room-orchestration
 feature/demo-ui

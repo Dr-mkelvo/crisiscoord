@@ -42,7 +42,7 @@ Default desktop layout:
 | Assessment   | Assessment context                   | Draft review |
 | Legal        | Legal obligations                    | Audit facts  |
 | Technical    | Technical findings                   |              |
-| Comms        | Communications dependency gate       |              |
+| Communications | Communications dependency gate    |              |
 | Escalation   | Escalation notes                     |              |
 +--------------+--------------------------------------+--------------+
 ```

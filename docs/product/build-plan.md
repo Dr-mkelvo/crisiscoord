@@ -16,6 +16,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Pre-development readiness](./pre-development-readiness.md): current readiness score, remaining gaps, judge strategy, and final start-coding recommendation.
 - [Master implementation guide](./master-implementation-guide.md): final operating model for five agents, Band communication, sandboxes, contributor roles, and implementation steps.
 - [Phased delivery plan](./phased-delivery-plan.md): three-phase plan from demo sandbox to integration sandbox to controlled enterprise pilot.
+- [Interaction and notification model](./interaction-and-notification-model.md): what the UI means, button behavior, notification destinations, agent-node meaning, human escalation, and demo sandbox count.
 - [Decision guardrails plan](./decision-guardrails-questionnaire.md): global operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Business integration plan](../architecture/business-integration-plan.md): staged path for integrating CrisisCoord with existing business systems safely.
@@ -29,6 +30,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
 - [Live data APIs](../api/live-data-apis.md): CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, optional OTX/AbuseIPDB/URLhaus, and adapter rules.
+- [Notification APIs](../api/notification-apis.md): in-app notifications, human escalation, email/SMS/internal connector options, provider safety, and simulated outbound communication.
 - [Demo day failure plan](../demo/demo-day-failure-plan.md): live, assisted, and seeded demo modes plus failure matrix and readiness checklist.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
 - [Skepticism audit](../research/skepticism-audit.md): current gap review, build blockers, drift risks, and recommended next work order.
@@ -47,10 +49,12 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 4. Run Legal and Technical agents from the shared assessment context.
 5. Block Communications until Legal and Technical have posted their findings.
 6. Generate regulator, customer, and executive draft communications in review-only state.
-7. Run Escalation after enough room state exists.
-8. Show human decision points, conflicts, missing evidence, deadlines, and approvals.
-9. Persist the incident, agent outputs, decisions, and audit events in Supabase.
-10. Present a clean demo flow that judges can understand in 60-90 seconds.
+7. Notify internal owners when human action is required.
+8. Queue or simulate outbound communications only after human approval.
+9. Run Escalation after enough room state exists.
+10. Show human decision points, conflicts, missing evidence, deadlines, acknowledgements, and approvals.
+11. Persist the incident, agent outputs, notification attempts, decisions, and audit events in Supabase.
+12. Present a clean demo flow that judges can understand in 60-90 seconds.
 
 The app must not start from a CSV/PDF upload. Evidence upload can be added later as supporting material after an incident exists.
 
@@ -60,7 +64,7 @@ Build in phases, not one giant pass. The full phase breakdown is in [phased-deli
 
 Use [master-implementation-guide.md](./master-implementation-guide.md) as the implementation map for agent communication, sandbox design, contributor roles, and the remaining build checklist.
 
-1. Phase 1, Demo Sandbox Foundation: app shell, synthetic crisis scenario, five-agent command room, Band handoffs, Supabase audit trail, partner-provider metadata, Communications dependency gate, and seeded demo fallback.
+1. Phase 1, Demo Sandbox Foundation: app shell, synthetic crisis scenario, five-agent command room, Band handoffs, notification center, human escalation ladder, Supabase audit trail, partner-provider metadata, Communications dependency gate, simulated outbound communication, and seeded demo fallback.
 2. Phase 2, Integration Sandbox: read-only signal gateway, fake-company tenant setup, redaction, webhook safety, RLS checks, rate limits, and tabletop exercises with no real sensitive data.
 3. Phase 3, Controlled Enterprise Pilot: one approved read-only enterprise source, SSO/role mapping, internal notifications, human-approved ticket/task updates, audit export, and integration health monitoring.
 
@@ -68,16 +72,17 @@ Inside Phase 1, the implementation order should remain:
 
 1. App shell: React, TypeScript, Vite, Tailwind, TanStack Router, and the command-room layout.
 2. Synthetic demo state: one polished crisis scenario with all agent outputs represented.
-3. Data model: Supabase tables for incidents, rooms, agent runs, outputs, decisions, and audit events.
+3. Data model: Supabase tables for incidents, rooms, agent runs, outputs, decisions, notifications, notification attempts, communication drafts, and audit events.
 4. Band adapter: a thin service layer for Band agent identity, room state, messages, and events.
 5. Agent contracts: Zod schemas for each agent input and output.
 6. API routes: Hono endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. Live-data adapters: CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional keyed threat-intel sources behind feature flags.
-8. UI components: incident bar, global command bar, operational status strip, source feed, agent rail, handoff topology map, Band timeline, dependency gate, draft review panel, decision queue, audit log, provider health cards, mobile bottom action bar, and confidence labels.
-9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
-10. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
-11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
-12. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
+8. Notification model: in-app notifications, decision ownership, acknowledgement, escalation ladder, simulated outbound queue, and notification audit events.
+9. UI components: incident bar, global command bar, notification bell, Notification Center drawer, operational status strip, source feed, agent rail, agent reasoning drawer, handoff/dependency map, Band timeline, dependency gate, draft review panel, outbound composer, decision queue, audit log, provider health cards, mobile bottom action bar, and confidence labels.
+10. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
+11. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
+12. Demo resilience: live, assisted, seeded, and simulated-send modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
+13. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
 ## MVP Scope
 
@@ -92,6 +97,7 @@ Required visible output:
 - Technical confirms affected systems, record scope, containment, and confidence through Featherless.
 - Communications drafts only after Legal and Technical are available.
 - Escalation asks for a human decision about proactive customer notification through AI/ML API.
+- The notification center shows assigned owner, acknowledgement state, escalation ladder, and simulated outbound-send status.
 - The audit trail shows provider/model metadata for each model-backed agent.
 
 ## What We Are Not Building
@@ -103,6 +109,7 @@ Required visible output:
 - No generic admin dashboard detached from the crisis workflow.
 - No upload-first investigation flow.
 - No direct publishing of generated communications without human approval.
+- No real external notifications during demo unless the recipient is a configured safe test address or test phone number.
 
 ## Research Status
 

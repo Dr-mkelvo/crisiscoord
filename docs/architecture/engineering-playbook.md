@@ -15,6 +15,7 @@ The product is not a chatbot. It is a dependency-aware workflow:
 - Technical defines scope, affected systems, containment, and evidence confidence.
 - Communications drafts only after Legal and Technical findings exist.
 - Escalation identifies conflicts and routes human decisions.
+- Notifications show who was asked to act, whether they acknowledged, and what escalation happens next.
 
 If Band is removed and the workflow still works the same way, we built the wrong thing.
 
@@ -49,6 +50,7 @@ First screen:
 - technical findings table
 - communications drafts panel
 - escalation decision queue
+- notification center and acknowledgement ladder
 - audit trail
 
 ## Core Architecture
@@ -70,6 +72,7 @@ Rules:
 - Supabase stores durable incident state and audit events.
 - Band stores and displays collaboration handoffs.
 - Agents produce structured outputs and room messages.
+- Notification adapters create in-app, Band, internal-channel, or simulated outbound communication records after backend policy checks.
 - External model/API calls are bounded, logged, and retry-limited.
 
 ## Data Modeling Approach
@@ -82,6 +85,8 @@ Separate these concepts:
 - technical finding: affected systems, records, containment, confidence
 - communication draft: audience, message, dependencies, approval state
 - decision request: question, options, risk, owner, deadline
+- notification request: owner or audience, channel, acknowledgement deadline, escalation level
+- notification attempt: provider, status, provider reference, simulated/live label
 - audit event: timestamped proof of action
 
 Do not collapse all of these into one JSON blob. The demo needs visible state, and the architecture needs traceability.
@@ -107,6 +112,7 @@ Special rules:
 - Technical outputs must separate confirmed facts from estimates.
 - Communications outputs must list dependencies used.
 - Escalation outputs must state what human decision is required.
+- Escalation outputs must state who should be notified, why, and what happens if they do not acknowledge.
 
 ## 18-Point Web Build Checklist
 
@@ -117,6 +123,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Is this feature necessary for the crisis command room or the hackathon demo?
 - Does it use synthetic data only?
 - Does it keep generated communications in draft/review state?
+- Does it show notification, acknowledgement, or escalation state when a human must act?
 
 ### 01 - Frontend Experience
 
@@ -147,6 +154,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Does Supabase RLS apply to exposed tables?
 - Are object-level checks present for incident-specific data?
 - Are approve/send/export permissions separated from view/edit?
+- Are notification/send permissions separated from acknowledgement and review permissions?
 
 ### 05 - Security Baseline
 
@@ -210,6 +218,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 
 - Does the system log or store useful audit events?
 - Can we see where an agent failed?
+- Can we see whether a human notification was acknowledged, escalated, simulated, sent, or failed?
 - Are logs free of secrets and private data?
 - Can the demo show what happened in chronological order?
 
@@ -219,6 +228,8 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Does a deadline have a responsible role?
 - Is escalation visible when agents disagree or data is missing?
 - Are human decisions routed clearly?
+- Is there a backup owner if the primary owner does not acknowledge?
+- Is the notification channel visible instead of hidden in logs?
 
 ### 15 - Availability And Recovery
 
@@ -234,6 +245,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Is all data synthetic?
 - Is the minimum necessary data shown?
 - Are generated outputs clearly labeled as draft guidance?
+- Are outbound communications simulated or test-recipient-only during the demo?
 - Are paid services, quotas, and credits understood?
 
 ### 17 - Publication And Data Exposure
@@ -260,11 +272,12 @@ Use this checklist before merging any feature that touches the app, API, databas
 6. Simulated agent outputs for the demo path.
 7. Band room integration.
 8. Communications dependency gate.
-9. Escalation decision queue.
-10. Audit timeline.
-11. Real agent workers.
-12. Vercel deployment.
-13. Demo video and slides.
+9. Notification Center, acknowledgement, and escalation ladder.
+10. Escalation decision queue.
+11. Audit timeline and notification delivery log.
+12. Real agent workers.
+13. Vercel deployment.
+14. Demo video and slides.
 
 ## Build Vs Fake
 
@@ -274,6 +287,7 @@ Build:
 - structured incident state
 - agent dependency gates
 - audit timeline
+- notification center and simulated outbound communication queue
 - Band-mediated handoffs
 
 Acceptable to simulate early:
@@ -281,6 +295,7 @@ Acceptable to simulate early:
 - exact forensics tooling
 - real regulatory filing submission
 - real customer notification delivery
+- real paging/ticketing connector delivery
 - real enterprise integrations
 
 Never fake:
@@ -288,6 +303,7 @@ Never fake:
 - whether Band is used for collaboration
 - whether Communications depends on Legal and Technical
 - whether a human approval is required before external communications
+- whether an outbound communication was simulated, queued, sent, or failed
 
 ## Research Sources To Keep In Mind
 

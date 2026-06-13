@@ -29,13 +29,14 @@ The user starts from a crisis signal, not a file upload. The app creates a crisi
 
 What we build:
 
-- command-room UI with incident summary, agent rail, Band timeline, dependency gate, draft review, decision desk, and audit view
+- command-room UI with incident summary, agent rail, Band timeline, dependency gate, notification center, escalation ladder, draft review, decision desk, and audit view
 - synthetic `2:47 AM` payment-system crisis signal
-- Supabase schema for incidents, rooms, agent runs, findings, drafts, decisions, and audit events
+- Supabase schema for incidents, rooms, agent runs, findings, drafts, decisions, notifications, notification attempts, and audit events
 - Band adapter for room creation, agent presence, messages, and events
 - AI/ML API main-path reasoning for Assessment, Legal, Communications, and Escalation
 - Featherless-backed Technical Forensics run or visible review step
 - server-side Communications gate that blocks until Legal and Technical outputs exist
+- in-app owner notifications, acknowledgement state, and simulated outbound communication queue
 - provider/model metadata visible in audit records
 - live, assisted, and seeded demo modes
 
@@ -46,13 +47,14 @@ Agent behavior in this phase:
 - Technical Forensics Agent summarizes affected systems, candidate scope, containment state, and evidence confidence.
 - Stakeholder Communications Agent drafts review-only messages only after Legal and Technical outputs are validated.
 - Escalation & Decision Agent reads the full room state and creates human decision requests.
+- Escalation & Decision Agent also creates internal notification requests with owners, acknowledgement deadlines, and escalation levels.
 
 What stays out:
 
 - real customer, payment, patient, employee, legal, security, or confidential business data
 - live production integrations
 - external regulatory filing
-- external customer notification
+- real external customer/regulator notification outside safe test-recipient mode
 - automated containment actions
 - upload-first investigation flow
 
@@ -62,6 +64,7 @@ Exit criteria:
 - The demo shows at least three Band-visible agents collaborating, with all five represented in the final experience.
 - Communications visibly waits on Legal and Technical.
 - The audit trail shows model-provider metadata for AI/ML API and Featherless.
+- Notification Center shows who was notified, who acknowledged, and which communication package is simulated or queued.
 - The seeded demo still works if a live partner API is slow.
 
 Primary docs:
@@ -71,6 +74,8 @@ Primary docs:
 - [../design/command-room-page-plan.md](../design/command-room-page-plan.md)
 - [../demo/demo-day-failure-plan.md](../demo/demo-day-failure-plan.md)
 - [../architecture/agent-implementation-plan.md](../architecture/agent-implementation-plan.md)
+- [interaction-and-notification-model.md](./interaction-and-notification-model.md)
+- [../api/notification-apis.md](../api/notification-apis.md)
 
 ## Phase 2: Integration Sandbox
 
@@ -96,12 +101,13 @@ Agent behavior in this phase:
 - Agents must separate confirmed facts, assumptions, unknowns, confidence, and recommended next steps.
 - Agents cannot pull raw logs, raw records, screenshots, secrets, credentials, or unredacted messages.
 - Any unclear, high-impact, or externally visible action becomes a human decision request.
+- Internal notifications can be sent to demo-safe owners, but external stakeholder communications remain queued or simulated unless explicitly approved for a test recipient.
 
 What stays out:
 
 - write access to production systems
 - real sensitive records in model prompts
-- direct external notifications
+- direct real external notifications
 - automated account lockout, containment, deletion, or evidence mutation
 - broad connector sprawl
 
