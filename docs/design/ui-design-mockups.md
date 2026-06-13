@@ -13,6 +13,8 @@ For the newer live-data patterns inspired by external cybersecurity references, 
 - [mockups/index.html](./mockups/index.html)
 - [mockups/styles.css](./mockups/styles.css)
 - [mockups/README.md](./mockups/README.md)
+- [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg)
+- [../../scripts/generate-figma-triptych-svg.mjs](../../scripts/generate-figma-triptych-svg.mjs)
 
 ## Editable Figma File
 
@@ -22,9 +24,10 @@ Current Figma status:
 
 - Created in Dr_Mkelvo's team.
 - Contains the color/token board, paint and text styles, and local editable component references.
-- Uses three physical Figma pages because the selected Starter team is limited to three pages. The requested six logical sections are represented inside those pages.
-- The 21 baseline workspace frames and the four required screenshot captures are still queued because the Figma MCP tool quota was exhausted during generation.
-- The current canvas is not the final sketch set. Repair it using [figma-repair-spec.md](./figma-repair-spec.md), which requires seven workspace triptychs with desktop, tablet, and mobile frames.
+- Uses the Starter-plan fallback structure because the selected Figma team is limited by MCP quota.
+- The page `01 Responsive Workspaces` now contains a clean imported board with seven workspace sections and three responsive versions per section: desktop, tablet, and mobile.
+- The imported board was generated from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg), so the team can regenerate or re-import it without rebuilding by hand.
+- A later native Figma component pass should rebuild the same structure as true Figma frames/components once MCP write access is available again.
 
 ## Screenshots
 
@@ -90,15 +93,14 @@ Every state should pair color with text. Do not rely on color alone.
 
 ## Figma Starting Point
 
-Start by recreating these frames:
+Start from the `01 Responsive Workspaces` board in Figma or from the generated SVG import asset. It includes:
 
-1. Color system board.
-2. Signal Intake And Sandbox Launcher.
-3. Incident Registry.
-4. Crisis Command Room.
-5. Communications Review.
-6. Decision Desk mobile frame.
-7. Evidence And Audit.
-8. Integrations And Demo Readiness.
+1. Signal Intake And Sandbox Launcher: desktop, tablet, mobile.
+2. Incident Registry: desktop, tablet, mobile.
+3. Crisis Command Room: desktop, tablet, mobile.
+4. Communications Review: desktop, tablet, mobile.
+5. Decision Desk: desktop, tablet, mobile.
+6. Evidence And Audit: desktop, tablet, mobile.
+7. Integrations And Demo Readiness: desktop, tablet, mobile.
 
 The Crisis Command Room remains the hero frame. Other pages should support the demo story without becoming broad admin dashboards.

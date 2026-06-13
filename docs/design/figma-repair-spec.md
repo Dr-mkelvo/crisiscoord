@@ -8,21 +8,22 @@ The current Figma file exists:
 
 [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L)
 
-The file is not yet usable as the final UI sketch set.
+The file now has a clean fallback responsive board on the page `01 Responsive Workspaces`.
 
 What exists:
 
 - color/token board
 - local paint and text styles
 - editable component references
+- imported responsive board with seven workspace sections and desktop, tablet, and mobile versions
+- source-controlled SVG generator for the imported board
 
-What is wrong:
+What is still limited:
 
 - component examples were placed at page level and overlap the token board
-- the seven workspace triptychs were not generated
-- required screenshots were not captured
-- the Figma MCP call quota on the selected Starter team blocked cleanup and further generation
+- the Figma MCP call quota on the selected Starter team blocked native cleanup and component-frame generation
 - the selected Figma Starter team also limits the file to three physical pages
+- the current responsive board is an SVG import fallback, not the final native Figma component-library pass
 
 ## Required Repair
 
@@ -79,6 +80,21 @@ If the team remains on Figma Starter, use this fallback physical-page structure:
 ```
 
 The fallback still keeps the seven workspaces separate as clearly labeled sections.
+
+## Fallback Repair Asset
+
+The current fallback board source lives at:
+
+- [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg)
+- [../../scripts/generate-figma-triptych-svg.mjs](../../scripts/generate-figma-triptych-svg.mjs)
+
+Run this command to regenerate the import asset:
+
+```bash
+node scripts/generate-figma-triptych-svg.mjs
+```
+
+Then paste or import the SVG into the Figma page named `01 Responsive Workspaces`.
 
 ## Layout Rules
 
