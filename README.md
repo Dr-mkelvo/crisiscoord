@@ -57,7 +57,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack details, and the project build approach.
+See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, API details, and the project build approach.
 
 ## Collaboration Policy
 
@@ -79,6 +79,9 @@ See [docs/github/branching-and-collaboration.md](./docs/github/branching-and-col
 
 - lablab.ai Band of Agents Hackathon page
 - Band documentation and Agent API documentation
+- Supabase JavaScript, Auth, Storage, Realtime, and RLS documentation
+- AI/ML API and Featherless AI model-provider documentation
+- Vercel Functions, caching, and WAF rate-limiting documentation
 - GDPR Article 33 and EDPB breach notification guidance
 - SEC cybersecurity incident disclosure guidance
 - HHS HIPAA breach notification guidance

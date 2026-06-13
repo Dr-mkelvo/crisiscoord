@@ -6,6 +6,8 @@ It exists to help the team build a clean public hackathon project with enterpris
 
 This document is not legal advice. CrisisCoord should present regulatory outputs as draft guidance that requires human review.
 
+API-specific notes live in [docs/api/README.md](../api/README.md).
+
 ## Standards Map
 
 - 00 - Current Operating Principles
@@ -390,6 +392,7 @@ Example rule families for demo research:
 - Storage: Supabase Storage for synthetic evidence packets
 - Migrations: Supabase CLI or Drizzle Kit
 - Agent layer: Band SDK / Agent API
+- Model providers: AI/ML API primary, Featherless AI fallback through an OpenAI-compatible wrapper
 - Deployment: Vercel app + Supabase project + Band agents
 - Tests: Vitest + Playwright
 
@@ -406,6 +409,8 @@ The 18 standards are informed by official and broadly applicable crisis-response
 - HHS HIPAA breach notification guidance.
 
 See [docs/research/production-standard-research.md](../research/production-standard-research.md).
+
+See [docs/api/README.md](../api/README.md) for Band, Supabase, model-provider, and runtime API research.
 
 ## Implementation Approach
 
