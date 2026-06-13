@@ -15,6 +15,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
 - [Decision guardrails plan](./decision-guardrails-questionnaire.md): Six Thinking Hats operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
+- [Business integration plan](../architecture/business-integration-plan.md): staged path for integrating CrisisCoord with existing business systems safely.
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
@@ -55,7 +56,7 @@ The build should happen in layers:
 5. Agent contracts: Zod schemas for each agent input and output.
 6. API routes: Hono or Fastify endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
-8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct.
+8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct; enterprise-system integrations remain read-only and staged after the demo.
 9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
 10. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
 11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
@@ -104,6 +105,7 @@ Already covered:
 - UI/UX direction for an operational command-center product
 - cross-platform contributor setup and responsive viewport requirements
 - automation boundaries, five-agent default, human escalation rules, and Six Thinking Hats operating plan
+- staged business integration path from manual signals to read-only connectors and human-approved outbound updates
 
 Research still needed during implementation:
 
@@ -128,3 +130,4 @@ That means we should not pause for broad research. We should start building, and
 - Keep scripts and setup instructions portable across macOS, Linux, and Windows.
 - Verify major UI work at mobile, tablet, laptop, and desktop viewport sizes.
 - Do not automate external, legal, destructive, or unclear high-risk decisions.
+- Treat real business integrations as post-MVP unless they are read-only, sanitized, and clearly useful for the demo story.

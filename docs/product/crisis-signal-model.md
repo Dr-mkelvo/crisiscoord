@@ -67,6 +67,8 @@ Future production sources:
 - executive incident declaration
 - public media/reputation event
 
+See [../architecture/business-integration-plan.md](../architecture/business-integration-plan.md) for the staged plan to connect these sources safely through read-only webhooks, sensitivity filtering, and human-approved outbound updates.
+
 ## Signal Examples
 
 ### Payment Data Exposure
@@ -149,6 +151,8 @@ type CrisisSignal = {
 
 ```text
 Crisis signal
+  -> integration gateway validates source and signature when signal comes from a business system
+  -> sensitivity classifier/redactor removes unsafe data
   -> normalize into CrisisSignal
   -> create incident
   -> create/open Band room
