@@ -118,7 +118,6 @@ MODEL_PROVIDER=aimlapi
 MODEL_TIMEOUT_MS=45000
 MODEL_MAX_RETRIES=2
 
-OPENAI_API_KEY=
 AIML_API_BASE_URL=https://api.aimlapi.com/v1
 AI_ML_API_KEY=
 AIML_DEFAULT_MODEL=google/gemma-3-4b-it
@@ -163,9 +162,15 @@ pnpm db:seed
 
 ## Product Direction
 
-Before implementation starts, read [docs/product/build-plan.md](./docs/product/build-plan.md).
+Before implementation starts, read:
 
-That document explains what we are building, what the MVP includes, what we are not building, and which research is already complete enough to start coding.
+- [docs/product/project-vision.md](./docs/product/project-vision.md)
+- [docs/product/build-plan.md](./docs/product/build-plan.md)
+- [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
+- [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
+- [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
+
+These documents explain what we are building, how UI/UX and backend work together, what the MVP includes, what we are not building, which research is already complete, and which targeted questions still need validation.
 
 ## Build Approach
 
