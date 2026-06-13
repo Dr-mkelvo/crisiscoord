@@ -90,10 +90,15 @@ if (!mermaidMatch) {
 }
 
 requireContains("README.md", ["docs/product/master-implementation-guide.md"]);
+requireContains("README.md", ["docs/product/pre-development-readiness.md"]);
+requireContains("README.md", ["docs/design/final-ui-ux-brief.md"]);
 requireContains("docs/product/build-plan.md", ["master-implementation-guide.md"]);
+requireContains("docs/product/build-plan.md", ["pre-development-readiness.md"]);
+requireContains("docs/product/build-plan.md", ["final-ui-ux-brief.md"]);
 requireContains("docs/product/project-vision.md", ["master-implementation-guide.md"]);
 requireContains("docs/architecture/system-architecture.md", ["master-implementation-guide.md"]);
 requireContains("docs/architecture/agent-implementation-plan.md", ["master-implementation-guide.md"]);
+requireContains("docs/design/design-direction.md", ["final-ui-ux-brief.md"]);
 requireContains("docs/collaboration/skills-and-rules.md", ["crisiscoord-doc-consistency"]);
 requireContains("docs/collaboration/project-playbooks.md", ["check-master-doc-consistency.mjs"]);
 
@@ -126,6 +131,7 @@ const checkedDocs = [
   "ONBOARDING.md",
   "PRODUCTION_STACK_STANDARD.md",
   "docs/product/master-implementation-guide.md",
+  "docs/product/pre-development-readiness.md",
   "docs/product/build-plan.md",
   "docs/product/project-vision.md",
   "docs/product/phased-delivery-plan.md",
@@ -133,6 +139,7 @@ const checkedDocs = [
   "docs/architecture/system-architecture.md",
   "docs/architecture/agent-implementation-plan.md",
   "docs/architecture/business-integration-plan.md",
+  "docs/design/final-ui-ux-brief.md",
   "docs/collaboration/skills-and-rules.md",
   "docs/collaboration/project-playbooks.md",
 ];

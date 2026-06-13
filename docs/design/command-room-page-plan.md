@@ -6,6 +6,8 @@ Last updated: June 13, 2026.
 
 The best first product screen is not a generic dashboard. It is a crisis command room focused on one active incident.
 
+Use [final-ui-ux-brief.md](./final-ui-ux-brief.md) as the final design brief for how this page should feel, where it sits in the business workflow, and which routes should exist before the project expands.
+
 The normal user should understand three things immediately:
 
 1. What happened?

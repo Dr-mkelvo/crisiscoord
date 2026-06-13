@@ -13,6 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
+- [Pre-development readiness](./pre-development-readiness.md): current readiness score, remaining gaps, judge strategy, and final start-coding recommendation.
 - [Master implementation guide](./master-implementation-guide.md): final operating model for five agents, Band communication, sandboxes, contributor roles, and implementation steps.
 - [Phased delivery plan](./phased-delivery-plan.md): three-phase plan from demo sandbox to integration sandbox to controlled enterprise pilot.
 - [Decision guardrails plan](./decision-guardrails-questionnaire.md): global operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
@@ -20,6 +21,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Business integration plan](../architecture/business-integration-plan.md): staged path for integrating CrisisCoord with existing business systems safely.
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
+- [Final UI/UX build brief](../design/final-ui-ux-brief.md): final command-room direction, route ceiling, Figma frame list, and business placement.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Command room page plan](../design/command-room-page-plan.md): dashboard anatomy, tabs, table usage, decision desk, and happy path.
 - [UI color system](../design/ui-color-system.md): Figma/Tailwind-ready color tokens, severity mapping, state mapping, and accessibility rules.
@@ -117,6 +119,7 @@ Already covered:
 - automation boundaries, five-agent default, human escalation rules, and global guardrails plan
 - phased delivery path from demo sandbox to integration sandbox and controlled enterprise pilot
 - skepticism audit of remaining gaps and execution risks
+- pre-development readiness score, judge-impress strategy, final UI/UX direction, and start-coding recommendation
 
 Research still needed during implementation:
 
