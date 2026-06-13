@@ -25,7 +25,9 @@ Use the repo skills in `.codex/skills` to keep work consistent across contributo
 - `crisiscoord-ui-ux`: Figma, shadcn/ui-style components, route scope, page states, and visual consistency.
 - `crisiscoord-backend-agents`: backend APIs, Supabase, Band agents, model providers, trigger handling, audit events, and server-side gates.
 
-Read [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md) before opening a pull request. The GitHub pull request template asks which skill was used and captures the UI or backend contract for review.
+These are portable Markdown playbooks. Codex can auto-load them, but contributors using Cursor, Windsurf, Claude Code, ChatGPT, Band-connected coding agents, or manual GitHub review should still read or attach the relevant `SKILL.md`.
+
+Read [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md) and [docs/collaboration/project-playbooks.md](./docs/collaboration/project-playbooks.md) before opening a pull request. The GitHub pull request template asks which skill was used and captures the UI or backend contract for review.
 
 ## Recommended Stack
 
@@ -99,6 +101,7 @@ Key guides:
 - [Band API notes](./docs/api/band-api.md)
 - [Supabase API notes](./docs/api/supabase-api.md)
 - [Model provider API notes](./docs/api/model-provider-apis.md)
+- [Technology partner plan](./docs/research/technology-partners.md)
 - [Runtime and rate-limit notes](./docs/api/runtime-and-rate-limits.md)
 
 ## Environment Variables
@@ -179,6 +182,7 @@ Before implementation starts, read:
 - [docs/product/project-vision.md](./docs/product/project-vision.md)
 - [docs/product/build-plan.md](./docs/product/build-plan.md)
 - [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md)
+- [docs/collaboration/project-playbooks.md](./docs/collaboration/project-playbooks.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
 - [docs/architecture/agent-implementation-plan.md](./docs/architecture/agent-implementation-plan.md)
 - [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)

@@ -7,6 +7,12 @@ description: Use when implementing or reviewing CrisisCoord backend APIs, Supaba
 
 Use this skill for backend, data, Band, model-provider, and agent work.
 
+## Portable Use
+
+This is a project playbook, not a Codex-only instruction. Codex can load it automatically from `.codex/skills`, but any teammate can use it in Cursor, Windsurf, Claude Code, ChatGPT, a Band-connected coding agent, or a manual backend review.
+
+If the tool cannot load skills, paste or attach this file before implementing backend, agent, or provider code.
+
 ## Read First
 
 - `docs/architecture/system-architecture.md`
@@ -14,6 +20,7 @@ Use this skill for backend, data, Band, model-provider, and agent work.
 - `docs/api/band-api.md`
 - `docs/api/supabase-api.md`
 - `docs/api/model-provider-apis.md`
+- `docs/research/technology-partners.md`
 - `docs/api/runtime-and-rate-limits.md`
 - `docs/compliance/trigger-model.md`
 
@@ -71,6 +78,9 @@ If dependencies are missing, return a blocked state and post a Band event instea
 - Use Featherless AI as fallback.
 - Keep an OpenAI-compatible client shape only as a provider-switching convenience.
 - Track timeout, retry count, provider, model, latency, and failure reason.
+- Keep provider-specific code inside `model-provider`; agent code should not import vendor clients directly.
+- Check Featherless model availability before demo runs.
+- Treat partner credits and promo codes as account setup details, never as committed project config.
 
 ## Compliance Behavior
 

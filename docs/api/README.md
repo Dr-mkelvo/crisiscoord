@@ -12,6 +12,7 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 | App data | Supabase | Auth, Postgres records, audit timeline, synthetic evidence storage, optional realtime updates | [Supabase JS reference](https://supabase.com/docs/reference/javascript/introduction) |
 | Model calls | AI/ML API | OpenAI-compatible model calls for agent reasoning and structured outputs | [AI/ML API quickstart](https://docs.aimlapi.com/quickstart/simple-model) |
 | Model fallback | Featherless AI | OpenAI-compatible open-model inference and model discovery | [Featherless API overview](https://featherless.ai/docs/api-overview-and-common-options) |
+| Agent observability | AgentOps | Optional session replay, metrics, cost tracking, and debugging if core demo is stable | [AgentOps docs](https://docs.agentops.ai/v1/introduction) |
 | Runtime controls | Vercel | Hosting, functions, caching, CDN, and WAF rate limiting | [Vercel Functions](https://vercel.com/docs/functions) |
 
 ## Implementation Order
@@ -38,3 +39,4 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 - [supabase-api.md](./supabase-api.md): Supabase client methods, schema starting point, RLS, Storage, Realtime, and Edge Functions.
 - [model-provider-apis.md](./model-provider-apis.md): AI/ML API, Featherless AI, provider wrapper, fallback behavior, and structured-output rules.
 - [runtime-and-rate-limits.md](./runtime-and-rate-limits.md): Vercel Functions, caching, CDN, and WAF rate-limiting notes.
+- [../research/technology-partners.md](../research/technology-partners.md): Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps usage plan.

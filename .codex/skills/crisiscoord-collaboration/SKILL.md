@@ -7,6 +7,12 @@ description: Use when working in the CrisisCoord repo on branching, pull request
 
 Use this skill for repository workflow and contributor consistency.
 
+## Portable Use
+
+This is a project playbook, not a Codex-only instruction. Codex can load it automatically from `.codex/skills`, but any teammate can use it in Cursor, Windsurf, Claude Code, ChatGPT, a Band-connected coding agent, or a manual GitHub review.
+
+If the tool cannot load skills, paste or attach this file before starting the task.
+
 ## Required Workflow
 
 1. Start from a clean `main`.
@@ -64,7 +70,7 @@ Use the checks that fit the change. For docs-only work:
 
 ```bash
 git diff --check
-rg -n '<<<<<<<|=======|>>>>>>>' . --glob '!/.git/**'
+rg -n '<{7}|={7}|>{7}' . --glob '!/.git/**'
 LC_ALL=C rg -n '[^\x00-\x7F]' . --glob '!/.git/**'
 ```
 

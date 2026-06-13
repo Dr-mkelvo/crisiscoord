@@ -36,7 +36,7 @@ After cloning, run:
 
 This enables the repository pre-push hook that blocks direct pushes to `main`.
 
-Also read [docs/collaboration/skills-and-rules.md](docs/collaboration/skills-and-rules.md). Every pull request should use the template in `.github/PULL_REQUEST_TEMPLATE.md` and name the project skill used for the change.
+Also read [docs/collaboration/skills-and-rules.md](docs/collaboration/skills-and-rules.md) and [docs/collaboration/project-playbooks.md](docs/collaboration/project-playbooks.md). Every pull request should use the template in `.github/pull_request_template.md` and name the project skill used for the change.
 
 ## Skills To Use
 
@@ -45,6 +45,8 @@ Use the repo skills under `.codex/skills`:
 - `crisiscoord-collaboration`: branch, PR, review, and repo hygiene workflow.
 - `crisiscoord-ui-ux`: UI/Figma/page consistency workflow.
 - `crisiscoord-backend-agents`: backend, Supabase, Band, model-provider, and agent-contract workflow.
+
+These skills are portable project playbooks. Codex can load them automatically, but contributors using another AI coding tool or a manual workflow should still read the relevant `SKILL.md` and follow it.
 
 ## UI Rules
 
