@@ -74,7 +74,9 @@ Keep the palette restrained. The product should look serious and premium, not ne
 
 The first visual mockups and screenshot gallery live in [ui-design-mockups.md](./ui-design-mockups.md). Use them as inspiration for the Figma frames, not as final locked UI.
 
-The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). It currently contains the token board, paint and text styles, and local component references. The full responsive frame pass is still pending because the selected Figma Starter team hit its MCP tool quota during generation.
+The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). The page `01 Responsive Workspaces` contains the repaired responsive sketch board: seven workspace sections, each with desktop, tablet, and mobile versions.
+
+The repaired board was imported from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg) because the selected Figma Starter team is still blocking MCP write calls. Treat it as the clean visual baseline for UI planning. When MCP write access is available again, rebuild the same layout as native Figma frames/components.
 
 Live-data UI components inspired by external references are documented in [live-data-ui-components.md](./live-data-ui-components.md). They do not change the page count. They add real source feeds, search, status strips, event ledgers, provider health, mobile action navigation, and confidence labels to the existing seven workspaces.
 
