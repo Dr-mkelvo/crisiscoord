@@ -122,6 +122,8 @@ Use this checklist before merging any feature that touches the app, API, databas
 
 - Is the workflow visible and understandable in one screen?
 - Are loading, empty, blocked, failed, and success states designed?
+- Does the layout work on mobile, tablet, laptop, and desktop?
+- Is accidental page-level horizontal scrolling avoided?
 - Does the UI avoid layout shifts during live updates?
 - Are long tables filterable or scannable?
 
@@ -158,7 +160,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 - Is every required environment variable documented in `.env.example`?
 - Are service-role or secret keys backend-only?
 - Are deployment secrets stored in Vercel/Supabase/Band, not Git?
-- Is there a clear local setup path?
+- Is there a clear local setup path for macOS, Linux, and Windows?
 
 ### 07 - Hosting And Networking
 
@@ -221,6 +223,7 @@ Use this checklist before merging any feature that touches the app, API, databas
 ### 15 - Availability And Recovery
 
 - Can a teammate clone, install, seed, and run it?
+- Do setup and package scripts avoid OS-specific shell assumptions?
 - Can demo data be recreated?
 - Is there a fallback if live Band/model calls fail during the demo?
 - Does the happy-path demo still prove required Band, AI/ML API, and Featherless usage before any fallback path is used?

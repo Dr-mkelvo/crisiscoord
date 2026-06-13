@@ -70,12 +70,14 @@ UI rules:
 
 - Show the real workflow first, not a landing page.
 - Use dense, calm, enterprise UI.
+- Support mobile, tablet, laptop, desktop, and wide desktop layouts.
 - Use semantic state colors for severity, blocked, review, complete, and failed.
 - Pair color with text/icons.
 - Keep generated content in review state.
 - Show why an agent is blocked.
 - Show source facts, assumptions, missing facts, and confidence.
 - Keep tables and timelines stable during updates.
+- Follow [../platform-support.md](../platform-support.md) for viewport targets, cross-platform setup expectations, and responsive acceptance criteria.
 
 Frontend data responsibilities:
 
@@ -312,7 +314,7 @@ Minimum safety controls:
 7. Band room creation and agent key validation.
 8. One agent end to end through Band.
 9. Remaining agents and dependency gates.
-10. Audit timeline and Playwright demo check.
+10. Audit timeline and Playwright demo checks across mobile, tablet, laptop, and desktop.
 
 ## Sources
 

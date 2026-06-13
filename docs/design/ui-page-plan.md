@@ -45,6 +45,8 @@ Code owns:
 - Band/Supabase state
 - responsive behavior
 
+Responsive behavior must follow [../platform-support.md](../platform-support.md). Do not merge a major UI page unless mobile, tablet, laptop, and desktop behavior is known.
+
 Recommended implementation base:
 
 - Tailwind CSS tokens
@@ -419,6 +421,8 @@ Use:
 - tablet: `834 x 1112`
 - mobile: `390 x 844`
 
+Also sanity-check small mobile at `360 x 740` and wide desktop at `1536 x 960` or wider once implementation exists.
+
 ## Command Room Wireframe
 
 A low-fidelity SVG wireframe is available at:
@@ -444,6 +448,8 @@ Before a page is merged:
 
 - Static synthetic data renders correctly.
 - Text does not overflow.
+- The layout works on mobile, tablet, laptop, and desktop.
+- The page does not create accidental horizontal scrolling.
 - Interactive controls have visible focus.
 - Status color is paired with text or icon.
 - Critical rules are enforced server-side or documented for backend wiring.
