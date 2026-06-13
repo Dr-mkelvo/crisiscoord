@@ -16,7 +16,7 @@ This guide explains how contributors should set up and work on CrisisCoord.
 - Do not push directly to `main`.
 - Create a branch for every change and open a pull request.
 - Run `./scripts/setup-git-hooks.sh` after cloning so Git blocks direct pushes to `main`.
-- On Windows, run `.\scripts\setup-git-hooks.ps1` from PowerShell for the same local push protection.
+- On Windows, install Git for Windows and run `./scripts/setup-git-hooks.sh` from Git Bash. Do not use PowerShell as the required project setup path.
 
 ## Platform Support
 
@@ -41,6 +41,8 @@ pnpm build
 ```
 
 Do not add bash-only commands to normal project scripts unless there is a Windows-compatible wrapper.
+
+Windows-compatible means the command runs from Git Bash, or the logic is moved into a Node/TypeScript helper called from a package script.
 
 ## Shared Skills
 

@@ -20,7 +20,10 @@ The implementation should prefer cross-platform tooling:
 - pnpm through Corepack, so every contributor uses the same package manager path.
 - npm package scripts for common commands: `pnpm dev`, `pnpm test`, `pnpm lint`, `pnpm build`, `pnpm db:migrate`, and `pnpm db:seed`.
 - JavaScript or TypeScript helper scripts for tasks that need path handling or file operations.
-- POSIX shell scripts only when they have a PowerShell equivalent or are clearly optional.
+- Git for Windows with Git Bash for Windows contributors.
+- POSIX shell scripts only when they run in macOS Terminal, Linux shells, and Git Bash, or are clearly optional.
+
+Windows contributors should install Git for Windows and use Git Bash for repo commands. Do not make PowerShell the required setup path.
 
 ## Cross-Platform Coding Rules
 
@@ -47,19 +50,20 @@ Do not:
 
 Local hook setup must work for macOS/Linux and Windows contributors.
 
-macOS/Linux:
+macOS/Linux Terminal or Windows Git Bash:
 
 ```bash
 ./scripts/setup-git-hooks.sh
 ```
 
-Windows PowerShell:
+This script configures `.githooks/pre-push`, which blocks accidental direct pushes to `main` or `master`.
 
-```powershell
-.\scripts\setup-git-hooks.ps1
-```
+Recommended Windows setup:
 
-Both scripts configure `.githooks/pre-push`, which blocks accidental direct pushes to `main` or `master`.
+1. Install Git for Windows from [git-scm.com](https://git-scm.com/download/win).
+2. Open the repo in Git Bash.
+3. Run `./scripts/setup-git-hooks.sh`.
+4. Use the same branch and PR commands documented for macOS/Linux.
 
 ## Responsive Product Targets
 

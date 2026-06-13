@@ -81,7 +81,7 @@ Do not push directly to `main`. Each teammate should create a feature branch and
 
 After cloning, run `./scripts/setup-git-hooks.sh` so local Git blocks accidental direct pushes to `main`.
 
-Windows contributors can run `.\scripts\setup-git-hooks.ps1` from PowerShell for the same hook setup.
+Windows contributors should install Git for Windows, open Git Bash, and run the same `./scripts/setup-git-hooks.sh` command.
 
 Recommended branch names:
 
