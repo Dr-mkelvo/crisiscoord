@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+current_branch="$(git symbolic-ref --quiet --short HEAD || true)"
+
+if [[ "$current_branch" == "main" || "$current_branch" == "master" ]]; then
+  cat >&2 <<'MSG'
+
+Direct pushes from main are blocked for CrisisCoord.
+
+Create a branch and push that branch instead:
+
+  git switch -c feature/my-work
+  git push -u origin feature/my-work
+
+Then open a pull request into main.
+
+MSG
+  exit 1
+fi
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "$remote_ref" == "refs/heads/main" || "$remote_ref" == "refs/heads/master" ]]; then
+    cat >&2 <<'MSG'
+
+Direct pushes to main are blocked for CrisisCoord.
+
+Push a feature branch and open a pull request instead.
+
+MSG
+    exit 1
+  fi
+done
+
+exit 0

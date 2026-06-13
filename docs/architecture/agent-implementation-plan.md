@@ -1,0 +1,278 @@
+# Agent Implementation Plan
+
+Last updated: June 13, 2026.
+
+## Goal
+
+Add CrisisCoord agents in a way that is consistent, testable, and visibly Band-mediated.
+
+Band is the collaboration layer. The agents should not be hidden behind a single sequential script.
+
+The actual agents are not implemented yet. This document is the implementation rulebook for adding them without each contributor inventing a different pattern.
+
+## Architecture Decision
+
+Use one shared agent execution pattern:
+
+```text
+UI action or scheduled trigger
+  -> backend API validates request
+  -> backend creates agent_runs record
+  -> backend posts or reads Band room context
+  -> agent worker executes with a typed contract
+  -> model provider or deterministic rule returns draft output
+  -> backend validates output
+  -> backend writes Supabase records
+  -> backend posts Band message/event
+  -> UI renders status, evidence, drafts, decisions, and audit trail
+```
+
+This keeps the demo visibly collaborative while still giving us a reliable source of truth.
+
+## Recommended Code Shape
+
+Once the app is scaffolded, keep related logic grouped like this:
+
+```text
+src/
+  app/                  # React routes and UI shell
+  components/           # shared UI components
+  server/
+    api/                # Hono routes
+    band/               # Band adapter
+    agents/             # agent runners and prompts
+    model-provider/     # AI/ML API and Featherless wrapper
+    supabase/           # database client and repositories
+    audit/              # audit event helpers
+    rate-limit/         # request and agent run limits
+  contracts/
+    agents/             # Zod input/output schemas
+    api/                # route request/response schemas
+  fixtures/
+    incidents/          # synthetic demo incidents
+```
+
+The folder names can change during scaffolding, but the separation should remain: contracts, adapters, agent runners, repositories, and UI must not be tangled together.
+
+## Agent Build Order
+
+Build one complete agent loop first, then repeat the pattern.
+
+1. Crisis Assessment Agent
+   - receives crisis signal
+   - classifies incident type and severity
+   - creates or seeds Band room context
+   - recruits or mentions required agents
+   - writes assessment finding and audit event
+
+2. Technical Forensics Agent
+   - reads assessment context
+   - confirms affected systems, data categories, containment, and confidence
+   - posts technical finding to Band
+   - writes technical finding and audit event
+
+3. Legal & Regulatory Agent
+   - reads assessment and technical context when available
+   - identifies possible obligations, deadlines, source references, and unknowns
+   - posts reviewable legal packet to Band
+   - writes obligation candidates and audit event
+
+4. Stakeholder Communications Agent
+   - checks Legal and Technical dependency gate
+   - if blocked, posts blocked event and stops
+   - if unblocked, drafts regulator, customer, executive, and internal communications
+   - writes draft records in review-only state
+
+5. Escalation & Decision Agent
+   - reads room state, findings, drafts, and unknowns
+   - detects conflicts or missing facts
+   - creates human decision requests
+   - writes decision request and audit event
+
+## Standard Agent Contract
+
+Each agent needs:
+
+- `agent_name`
+- `incident_id`
+- `room_id`
+- `run_id`
+- `input_schema`
+- `output_schema`
+- `status`
+- `known_facts`
+- `assumptions`
+- `unknowns`
+- `confidence`
+- `source_references`
+- `band_message_ids`
+- `band_event_ids`
+- `audit_event_id`
+
+The output should always separate:
+
+- confirmed facts
+- assumptions
+- unknowns
+- recommendations
+- source references
+- confidence
+- next required human decision, if any
+
+Do not let agents return free-form text as the only output. Free-form text can exist inside a validated field, but the app needs structured fields for UI, audit, and dependency gates.
+
+## Standard Run Lifecycle
+
+```text
+1. Validate input.
+2. Mark run as running.
+3. Read required incident, Band, and Supabase state.
+4. Check dependency gates.
+5. Call model provider or deterministic logic.
+6. Validate output.
+7. Store finding/draft/decision records.
+8. Post Band message or event.
+9. Record audit event.
+10. Mark run as complete, blocked, or failed.
+```
+
+## Band Behavior
+
+Use Band messages for directed handoffs:
+
+- Assessment mentions Legal and Technical.
+- Legal and Technical mention Communications when their outputs are ready.
+- Communications mentions Escalation after drafts are created.
+- Escalation mentions the human reviewer or Incident Commander.
+
+Use Band events for:
+
+- run started
+- tool call
+- tool result
+- dependency blocked
+- validation failed
+- retry
+- run completed
+
+Every Band message we create should also store a matching ID or reference in Supabase when possible. If Band is temporarily unavailable, the backend should record a failed or pending Band sync state rather than losing the local audit trail.
+
+## Supabase Behavior
+
+Recommended tables:
+
+- `agent_runs`
+- `agent_findings`
+- `regulatory_obligations`
+- `technical_findings`
+- `communication_drafts`
+- `decision_requests`
+- `audit_events`
+
+Store Band IDs on Supabase records whenever possible.
+
+Recommended minimum columns:
+
+```text
+agent_runs:
+  id, incident_id, room_id, agent_name, status, idempotency_key,
+  started_at, completed_at, blocked_reason, failure_reason,
+  provider, model, latency_ms, retry_count
+
+agent_findings:
+  id, incident_id, room_id, agent_name, run_id, finding_type,
+  known_facts, assumptions, unknowns, confidence, source_references,
+  band_message_id, created_at
+
+communication_drafts:
+  id, incident_id, room_id, run_id, audience, status, subject,
+  body, required_approver_role, legal_finding_id, technical_finding_id,
+  band_message_id, created_at
+
+audit_events:
+  id, incident_id, actor_type, actor_id, action, target_type,
+  target_id, before_state, after_state, created_at
+```
+
+## Server-Side Gates
+
+Do not rely on the UI to enforce critical workflow rules.
+
+Communications can run only if:
+
+- Legal output exists.
+- Technical output exists.
+- Both outputs are validated.
+- Both outputs belong to the same `incident_id` and `room_id`.
+
+If the gate fails:
+
+- return status `blocked`
+- store an `agent_runs` blocked record
+- post a Band event
+- show the blocked state in the UI
+
+## Model Provider Rules
+
+- Use the `model-provider` abstraction.
+- AI/ML API is primary unless testing changes the decision.
+- Featherless AI is fallback.
+- Direct OpenAI is optional and not required.
+- Use bounded retries and timeouts.
+- Record provider, model, latency, retry count, and failure type.
+
+The abstraction should expose a small interface:
+
+```text
+generateStructuredOutput(input) -> validated typed result
+```
+
+It should not leak provider-specific response objects into agent code.
+
+## Trigger Handling
+
+Every trigger should become a normalized incident signal before agents run.
+
+Initial trigger categories:
+
+- payment or customer data exposure
+- ransomware or extortion notice
+- zero-day exploitation against a critical system
+- vendor or supply-chain compromise
+- product safety or recall risk
+- executive impersonation or account takeover
+- health-data exposure
+- public disclosure deadline or regulator inquiry
+- material cybersecurity incident for a public-company style demo
+
+The first scenario remains the payment-system unauthorized-access demo. Additional scenarios should reuse the same agent contracts, not create separate one-off flows.
+
+## Contributor Work Split
+
+Recommended branch ownership:
+
+- `feature/supabase-schema`: tables, migrations, seed data, RLS notes.
+- `feature/band-room-orchestration`: room creation, participant lookup, message/event adapter.
+- `feature/agent-assessment`: first complete agent run pattern.
+- `feature/technical-forensics-agent`: technical finding contract and runner.
+- `feature/legal-regulatory-agent`: obligation contract and runner.
+- `feature/comms-agent`: dependency gate and draft generation.
+- `feature/escalation-agent`: conflict detection and decision requests.
+- `feature/demo-ui`: command room rendering against synthetic and API state.
+
+Each branch should keep its contract files and test fixtures close to the implementation so reviewers can see the behavior.
+
+## Definition Of Done For An Agent
+
+An agent is done when:
+
+- input schema exists
+- output schema exists
+- synthetic fixture exists
+- success path works
+- blocked path works if applicable
+- failure path records useful state
+- Band message/event behavior is visible
+- Supabase records are written
+- audit event is written
+- UI can render the status

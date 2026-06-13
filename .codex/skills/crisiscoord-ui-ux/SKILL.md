@@ -7,6 +7,12 @@ description: Use when designing, reviewing, or implementing CrisisCoord frontend
 
 Use this skill for CrisisCoord product design and frontend UI work.
 
+Before designing or implementing any page, read:
+
+- `docs/design/ui-page-plan.md`
+- `docs/design/design-direction.md`
+- `docs/design/ui-ux-research.md`
+
 ## Core Direction
 
 Design CrisisCoord as a regulated crisis command center:
@@ -19,6 +25,18 @@ Design CrisisCoord as a regulated crisis command center:
 - visibly Band-mediated
 
 Do not create a landing page as the primary experience. The first screen should be the working crisis command room.
+
+Do not one-shot the UI. Plan, sketch, build static synthetic UI, then connect data and integrations.
+
+Keep the app to the seven-route plan unless the team explicitly changes the scope:
+
+- `/incidents/new`
+- `/incidents`
+- `/incidents/:incidentId`
+- `/incidents/:incidentId/communications`
+- `/incidents/:incidentId/audit`
+- `/decisions`
+- `/settings`
 
 ## Required UX Story
 
@@ -112,3 +130,4 @@ Project docs:
 
 - `docs/design/ui-ux-research.md`
 - `docs/design/design-direction.md`
+- `docs/design/ui-page-plan.md`
