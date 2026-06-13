@@ -218,6 +218,7 @@ Recommended use:
 - Use Band platform tools for messages, events, peer lookup, participant management, and chat room creation.
 - Use Codeband ideas only for our development process, not as product code.
 - Use AgentOps-style observability only if setup is fast and does not distract from the demo.
+- See [../research/technology-partners.md](../research/technology-partners.md) for the partner/provider plan.
 
 ## Model Provider Decision
 
@@ -230,12 +231,16 @@ Recommended model strategy:
 - Primary: AI/ML API
 - Fallback: Featherless AI
 - Optional direct OpenAI: only if we deliberately choose it later for reliability
+- Optional AgentOps: observability only, after the core demo works
 
 Implementation rule:
 
 - Call the abstraction `model-provider`, not `openai`.
 - Name environment variables after the provider.
 - If we use the `openai` npm package as a client, document it as a transport/client library, not the required provider.
+- Keep AI/ML API and Featherless provider-specific code inside the provider layer.
+- Store provider, model, latency, retry count, and failure reason on agent runs.
+- Surface provider fallback in the UI/audit log so the demo remains explainable.
 
 ## Data Architecture
 

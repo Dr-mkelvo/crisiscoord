@@ -19,6 +19,7 @@ Covered enough for the first build:
 - Band hackathon requirements, judging criteria, Agent API, SDK, WebSocket flow, and adapter options.
 - Supabase database/auth/storage direction.
 - AI/ML API and Featherless model-provider direction, with direct OpenAI treated as optional.
+- Technology partner plan for Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps.
 - UI/UX direction, Figma workflow, page map, and low-fidelity command-room wireframe.
 - HIPAA breach-notification basics for unsecured protected health information.
 - GDPR personal-data breach notification basics.
@@ -53,7 +54,11 @@ Current answer:
 - At least three agents must collaborate through Band.
 - Strong submissions should show handoffs, shared context, role specialization, task state, review, decision-making, and Band as the active coordination layer.
 - CrisisCoord fits Track 3: Regulated & High-Stakes Workflows.
-- Partner tools worth considering: AI/ML API, Featherless AI, and possibly AgentOps-style observability.
+- Partner tools worth using: Band, AI/ML API, and Featherless AI.
+- Codeband is useful as development-workflow reference, not product runtime.
+- AgentOps-style observability is optional and should wait until the core demo is stable.
+
+See [technology-partners.md](./technology-partners.md).
 
 ### 2. Existing / Adjacent Projects
 

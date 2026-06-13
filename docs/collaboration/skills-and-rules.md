@@ -6,9 +6,17 @@ Last updated: June 13, 2026.
 
 This document defines the shared skills and rules contributors should follow so UI pages, backend APIs, Band agents, and pull requests stay consistent across the team.
 
-## Required Skills
+## Tool-Agnostic Project Playbooks
 
-The repo includes these project skills under `.codex/skills`.
+The repo stores project skills under `.codex/skills` because that format is easy for Codex to load automatically. The rules themselves are not Codex-only.
+
+Treat each skill as a portable Markdown playbook. A teammate can use the same instructions in Codex, Cursor, Windsurf, Claude Code, ChatGPT, a Band-connected coding agent, a GitHub PR review, or a manual checklist.
+
+If a tool cannot auto-load `.codex/skills`, the contributor should open the `SKILL.md` file directly and follow it as written.
+
+For a non-hidden documentation version, use [project-playbooks.md](./project-playbooks.md).
+
+## Required Skills
 
 | Skill | Use when | Main rule |
 | --- | --- | --- |
@@ -16,7 +24,20 @@ The repo includes these project skills under `.codex/skills`.
 | `crisiscoord-ui-ux` | Figma, page design, frontend implementation, UI review, or shadcn/ui-style component work. | Do not one-shot UI; follow the seven-route page plan and shared states. |
 | `crisiscoord-backend-agents` | Backend APIs, Supabase, Band agents, model providers, trigger handling, audit events, or rate limits. | Enforce workflow gates server-side and validate every agent output. |
 
-These skills are committed into the repo so every collaborator gets the same guidance after cloning. They are not personal notes. Treat them as the shared operating rules for the project.
+These skills are committed into the repo so every collaborator gets the same guidance after cloning. They are not personal notes, private assistant prompts, or tool-specific preferences.
+
+## How Different Tools Should Use Them
+
+Use this mapping:
+
+| Tool or workflow | How to use the skills |
+| --- | --- |
+| Codex | Auto-load or read `.codex/skills/<skill>/SKILL.md` before editing. |
+| Cursor / Windsurf / other IDE agents | Paste or attach the relevant `SKILL.md` into the agent context before asking it to code. |
+| Claude Code / CLI agents | Point the agent at `AGENTS.md`, this document, and the relevant `SKILL.md`. |
+| Band-connected coding agents | Use the skill name as the role instruction and post the selected skill in the Band room before work starts. |
+| Human-only work | Use the same skill as a checklist before opening a PR. |
+| GitHub review | Check the PR template for the selected skill and verify the route or backend contract. |
 
 ## Contributor Setup
 
@@ -47,6 +68,8 @@ Every pull request should say which skill was used:
 - `crisiscoord-collaboration` for docs, setup, branches, repository rules, or workflow changes.
 - `crisiscoord-ui-ux` for Figma work, frontend routes, components, interaction states, or visual decisions.
 - `crisiscoord-backend-agents` for API routes, Supabase schema, Band integration, agent contracts, model providers, rate limits, and audit behavior.
+
+If a contributor used another app, they should still name the CrisisCoord skill followed. Example: "Used `crisiscoord-ui-ux` in Cursor" or "Used `crisiscoord-backend-agents` in Claude Code."
 
 ## UI Consistency Rules
 
@@ -148,6 +171,9 @@ Rules:
 - Model output is untrusted until Zod validation passes.
 - Supabase service-role keys never reach the browser.
 - Band records collaboration; Supabase records app state and audit queries.
+- AI/ML API is the primary model provider for agent reasoning unless implementation testing changes the decision.
+- Featherless is the fallback and open-source-model option.
+- Optional model or observability partners must go through the same `model-provider` or `agent-observability` abstraction instead of leaking vendor code across agents.
 
 ## Agent Consistency Rules
 

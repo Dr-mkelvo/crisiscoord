@@ -7,6 +7,12 @@ description: Use when designing, reviewing, or implementing CrisisCoord frontend
 
 Use this skill for CrisisCoord product design and frontend UI work.
 
+## Portable Use
+
+This is a project playbook, not a Codex-only instruction. Use it in Figma reviews, Cursor, Windsurf, Claude Code, ChatGPT, Band-connected coding agents, or manual frontend PR reviews.
+
+If the tool cannot load skills, paste or attach this file before designing or implementing a page.
+
 Before designing or implementing any page, read:
 
 - `docs/design/ui-page-plan.md`

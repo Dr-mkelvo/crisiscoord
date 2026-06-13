@@ -10,6 +10,12 @@ Select the project skill used for this change:
 - [ ] `crisiscoord-ui-ux`
 - [ ] `crisiscoord-backend-agents`
 
+Tool or app used:
+
+```text
+Codex / Cursor / Windsurf / Claude Code / ChatGPT / Band-connected agent / manual:
+```
+
 # Type Of Change
 
 - [ ] Documentation

@@ -16,6 +16,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
+- [Technology partner plan](../research/technology-partners.md): how Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps fit the project.
 - [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
 
 ## What The App Must Do
@@ -78,7 +79,8 @@ Already covered:
 - hackathon requirements and judging criteria
 - Band collaboration concepts and API direction
 - Supabase fit for database, auth, storage, realtime, and RLS
-- model provider options
+- model provider options, including AI/ML API as primary and Featherless as fallback/open-model path
+- technology partner usage boundaries
 - regulated incident disclosure concepts for demo grounding
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
