@@ -10,6 +10,13 @@ The first product experience is a crisis command room. A user enters or receives
 
 This is not a chatbot, a generic incident tracker, or a static dashboard. The product is the coordination layer between specialized agents, human reviewers, and an auditable crisis timeline.
 
+## Planning Docs
+
+- [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
+- [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
+- [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
+- [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
+
 ## What The App Must Do
 
 1. Capture a synthetic crisis signal.

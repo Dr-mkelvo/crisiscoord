@@ -4,6 +4,8 @@ Last updated: June 13, 2026.
 
 CrisisCoord should use one internal model-provider interface and support multiple OpenAI-compatible providers. This keeps agents stable if one provider is slow, rate-limited, or missing a model on demo day.
 
+We do not strictly need OpenAI as a hosted model provider. If we use the `openai` npm package, it should be treated as an OpenAI-compatible client library for AI/ML API or Featherless, not as a requirement to use OpenAI models or an `OPENAI_API_KEY`.
+
 ## Provider Strategy
 
 Primary path:
@@ -11,6 +13,7 @@ Primary path:
 - Use AI/ML API for general agent reasoning and structured outputs.
 - Use Featherless AI as fallback or for open-model experiments.
 - Keep OpenAI-compatible request shapes so provider switching is mostly `baseURL`, `apiKey`, and `model`.
+- Add direct OpenAI only if we later choose it deliberately for reliability.
 
 Recommended internal config:
 

@@ -10,6 +10,14 @@ For API research and implementation notes, see [docs/api/README.md](./docs/api/R
 
 For the build approach and merge checklist, see [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
 
+For product vision, system architecture, research planning, and trigger modeling, see:
+
+- [docs/product/project-vision.md](./docs/product/project-vision.md)
+- [docs/product/build-plan.md](./docs/product/build-plan.md)
+- [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
+- [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
+- [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
+
 ## Core Rules
 
 - Use synthetic demo data only.
