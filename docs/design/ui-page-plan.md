@@ -360,7 +360,7 @@ Purpose:
 Core layout:
 
 - obligation candidates
-- trigger facts
+- crisis signal facts
 - source references
 - deadline estimate
 - confidence and missing facts

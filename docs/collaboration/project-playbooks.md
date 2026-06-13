@@ -125,7 +125,7 @@ Preferred implementation stack:
 
 ## Backend And Agents Playbook
 
-Use for backend APIs, Supabase schema, Band integration, agent workers, model providers, rate limits, audit events, and compliance triggers.
+Use for backend APIs, Supabase schema, Band integration, agent workers, model providers, rate limits, audit events, and compliance crisis signals.
 
 Required docs:
 

@@ -1,18 +1,22 @@
-# Compliance And Crisis Trigger Model
+# Compliance And Crisis Signal Model
 
 Last updated: June 13, 2026.
 
 ## Purpose
 
-This document defines what CrisisCoord means by a trigger and how the system should classify regulated crisis scenarios.
+This document defines what CrisisCoord means by a crisis signal and how the system should classify regulated crisis scenarios.
 
 It is not legal advice. It is a product and architecture guide for creating reviewable compliance workflows.
 
-## What Is A Trigger?
+Product-facing language should use `crisis signal` or `incident signal`. Use `trigger` only as an internal rules-engine term when discussing compliance logic.
 
-A trigger is a fact pattern that should start or update a crisis workflow.
+See [../product/crisis-signal-model.md](../product/crisis-signal-model.md) for the product intake model.
 
-A trigger can come from:
+## What Is A Crisis Signal?
+
+A crisis signal is a fact pattern that should start or update a crisis workflow.
+
+A crisis signal can come from:
 
 - security detection
 - vulnerability intelligence
@@ -27,11 +31,21 @@ A trigger can come from:
 - executive decision threshold
 - media or public reputation event
 
-The trigger does not prove an obligation. It tells CrisisCoord that the incident needs structured assessment, specialist agents, evidence collection, deadline tracking, and human review.
+The crisis signal does not prove an obligation. It tells CrisisCoord that the incident needs structured assessment, specialist agents, evidence collection, deadline tracking, and human review.
+
+## Not A File Upload
+
+A file upload is not the crisis signal. Files, logs, reports, or notices can become evidence after an incident exists, but the product should start from the event itself:
+
+```text
+Signal received -> crisis room opened -> agents coordinate -> evidence supports findings
+```
+
+Do not design the primary experience around CSV, PDF, spreadsheet, or document upload. That makes CrisisCoord look like a file-analysis tool instead of a crisis command room.
 
 ## How Breaches Commonly Occur
 
-The trigger model should identify the likely breach mechanism when possible, but it must also record uncertainty. Early crisis facts are often incomplete.
+The crisis signal model should identify the likely breach mechanism when possible, but it must also record uncertainty. Early crisis facts are often incomplete.
 
 Common breach mechanisms to support:
 
@@ -57,13 +71,13 @@ For each suspected mechanism, record:
 - containment status
 - whether legal/compliance review is required
 
-## Trigger Output Shape
+## Crisis Signal Output Shape
 
-Every trigger should be normalized into this shape:
+Every crisis signal should be normalized into this shape:
 
 ```ts
-type CrisisTrigger = {
-  triggerType: string;
+type CrisisSignal = {
+  signalType: string;
   source: string;
   detectedAt: string;
   affectedSystems: string[];
@@ -82,7 +96,7 @@ type CrisisTrigger = {
 
 ## Agent Routing
 
-| Trigger condition | Required agents |
+| Signal condition | Required agents |
 | --- | --- |
 | Any high-stakes incident | Assessment, Escalation |
 | Personal data involved | Legal, Communications |
@@ -95,7 +109,7 @@ type CrisisTrigger = {
 | Critical service disruption | Technical, Communications, Escalation |
 | Vendor/supply-chain incident | Legal, Technical, Communications |
 
-## Trigger Families
+## Signal Families
 
 ### 1. Payment Data Exposure
 
@@ -378,7 +392,7 @@ Severity should combine:
 - regulatory deadline pressure
 - executive/materiality threshold
 
-## Example Trigger Scenarios
+## Example Crisis Signal Scenarios
 
 ### Finance Scenario
 

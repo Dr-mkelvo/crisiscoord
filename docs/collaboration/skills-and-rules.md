@@ -22,7 +22,7 @@ For a non-hidden documentation version, use [project-playbooks.md](./project-pla
 | --- | --- | --- |
 | `crisiscoord-collaboration` | Branching, PRs, commits, repo hygiene, setup changes, or contributor workflow. | Do not push directly to `main`; work through branches and PRs. |
 | `crisiscoord-ui-ux` | Figma, page design, frontend implementation, UI review, or shadcn/ui-style component work. | Do not one-shot UI; follow the seven-route page plan and shared states. |
-| `crisiscoord-backend-agents` | Backend APIs, Supabase, Band agents, model providers, trigger handling, audit events, or rate limits. | Enforce workflow gates server-side and validate every agent output. |
+| `crisiscoord-backend-agents` | Backend APIs, Supabase, Band agents, model providers, crisis signal handling, audit events, or rate limits. | Enforce workflow gates server-side and validate every agent output. |
 
 These skills are committed into the repo so every collaborator gets the same guidance after cloning. They are not personal notes, private assistant prompts, or tool-specific preferences.
 
