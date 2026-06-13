@@ -13,7 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
-- [Decision guardrails questionnaire](./decision-guardrails-questionnaire.md): 100+ scope, automation, partner-proof, and human-escalation questions with recommendations.
+- [Decision guardrails plan](./decision-guardrails-questionnaire.md): Six Thinking Hats operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
@@ -103,7 +103,7 @@ Already covered:
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
 - cross-platform contributor setup and responsive viewport requirements
-- automation boundaries, five-agent default, and human escalation rules
+- automation boundaries, five-agent default, human escalation rules, and Six Thinking Hats operating plan
 
 Research still needed during implementation:
 
