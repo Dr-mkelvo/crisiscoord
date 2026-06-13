@@ -6,6 +6,8 @@ It exists to help the team build a clean public hackathon project with enterpris
 
 For the detailed version, see [docs/architecture/production-stack.md](./docs/architecture/production-stack.md).
 
+For API research and implementation notes, see [docs/api/README.md](./docs/api/README.md).
+
 ## Core Rules
 
 - Use synthetic demo data only.
@@ -50,6 +52,7 @@ For the detailed version, see [docs/architecture/production-stack.md](./docs/arc
 - Auth: Supabase Auth
 - Storage: Supabase Storage for synthetic evidence packets
 - Agents: Band SDK / Agent API
+- Models: AI/ML API primary, Featherless AI fallback through an OpenAI-compatible wrapper
 - Hosting: Vercel
 - Tests: Vitest and Playwright
 
@@ -97,3 +100,4 @@ Suggested branches:
 - `feature/escalation-agent`
 - `feature/demo-ui`
 - `feature/supabase-schema`
+- `feature/model-provider-wrapper`

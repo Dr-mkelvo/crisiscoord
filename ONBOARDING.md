@@ -79,6 +79,17 @@ For judging, Supabase Auth plus RLS is easier to explain as a regulated-workflow
 - Agents: local/hosted workers connected to Band through the Band SDK or Agent API
 - Repository: public GitHub repo
 
+## API Documentation
+
+Start with [docs/api/README.md](./docs/api/README.md).
+
+Key guides:
+
+- [Band API notes](./docs/api/band-api.md)
+- [Supabase API notes](./docs/api/supabase-api.md)
+- [Model provider API notes](./docs/api/model-provider-apis.md)
+- [Runtime and rate-limit notes](./docs/api/runtime-and-rate-limits.md)
+
 ## Environment Variables
 
 Create `.env.local` for local app values.
@@ -86,7 +97,8 @@ Create `.env.local` for local app values.
 Expected variables once implementation starts:
 
 ```bash
-BAND_API_BASE_URL=
+BAND_API_BASE_URL=https://app.band.ai/api/v1/agent
+BAND_WS_URL=wss://app.band.ai/api/v1/socket/websocket
 BAND_AGENT_ASSESSMENT_ID=
 BAND_AGENT_ASSESSMENT_KEY=
 BAND_AGENT_LEGAL_ID=
@@ -102,9 +114,17 @@ SUPABASE_URL=
 SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 
+MODEL_PROVIDER=aimlapi
+MODEL_TIMEOUT_MS=45000
+MODEL_MAX_RETRIES=2
+
 OPENAI_API_KEY=
+AIML_API_BASE_URL=https://api.aimlapi.com/v1
 AI_ML_API_KEY=
+AIML_DEFAULT_MODEL=google/gemma-3-4b-it
+FEATHERLESS_API_BASE_URL=https://api.featherless.ai/v1
 FEATHERLESS_API_KEY=
+FEATHERLESS_DEFAULT_MODEL=Qwen/Qwen2.5-7B-Instruct
 ```
 
 Never commit `.env.local`, Band API keys, Supabase service-role keys, model API keys, or deployment tokens.
@@ -132,9 +152,11 @@ pnpm db:seed
 
 ## First Research Tasks
 
-1. Confirm Band SDK setup path and whether to use platform agents, remote agents, or a mix.
-2. Choose Supabase Auth vs Clerk.
-3. Define the crisis-room schema.
-4. Define structured output contracts for each agent.
-5. Build the synthetic 60-second demo scenario.
-6. Create the first UI wireframe for the crisis command room.
+1. Validate Band agent keys with `GET /me` relative to the Band agent base URL.
+2. Confirm Band SDK setup path and whether to use platform agents, remote agents, or a mix.
+3. Choose Supabase Auth vs Clerk.
+4. Define the crisis-room schema.
+5. Define structured output contracts for each agent.
+6. Build the model-provider wrapper for AI/ML API and Featherless.
+7. Build the synthetic 60-second demo scenario.
+8. Create the first UI wireframe for the crisis command room.
