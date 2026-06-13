@@ -8,6 +8,23 @@ Every contributor works in a branch and opens a pull request.
 
 No direct commits to `main` unless the team explicitly agrees during an emergency.
 
+## Required Local Push Guard
+
+After cloning the repo, run:
+
+```bash
+./scripts/setup-git-hooks.sh
+```
+
+This configures Git to use `.githooks/pre-push`.
+
+The hook blocks:
+
+- pushing while checked out on `main`
+- pushing directly to the remote `main` branch
+
+If the hook blocks you, create a feature branch and push that branch instead.
+
 ## Branch Naming
 
 Use short, descriptive branch names:
@@ -35,6 +52,8 @@ Each pull request should include:
 - How to test it.
 - Screenshots or video for UI changes.
 - Any open questions.
+
+Use the repository pull request template. It asks which project skill was used and captures the UI or backend contract reviewers need.
 
 Before requesting review:
 
@@ -80,6 +99,8 @@ git push -u origin feature/my-work
 
 Open a pull request into `main`.
 
+If you see a warning that direct pushes to `main` are blocked, the guard is working correctly.
+
 ## Main Branch Protection
 
 After GitHub repository creation, enable branch protection for `main`:
@@ -89,3 +110,5 @@ After GitHub repository creation, enable branch protection for `main`:
 - Require status checks once CI exists.
 - Block force pushes.
 - Block branch deletion.
+
+The local hook is a contributor warning and guard. GitHub branch protection remains the server-side enforcement.

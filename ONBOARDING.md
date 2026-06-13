@@ -15,6 +15,17 @@ This guide explains how contributors should set up and work on CrisisCoord.
 - Use synthetic demo incidents only.
 - Do not push directly to `main`.
 - Create a branch for every change and open a pull request.
+- Run `./scripts/setup-git-hooks.sh` after cloning so Git blocks direct pushes to `main`.
+
+## Shared Skills
+
+Use the repo skills in `.codex/skills` to keep work consistent across contributors:
+
+- `crisiscoord-collaboration`: branch, PR, validation, and repo hygiene workflow.
+- `crisiscoord-ui-ux`: Figma, shadcn/ui-style components, route scope, page states, and visual consistency.
+- `crisiscoord-backend-agents`: backend APIs, Supabase, Band agents, model providers, trigger handling, audit events, and server-side gates.
+
+Read [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md) before opening a pull request. The GitHub pull request template asks which skill was used and captures the UI or backend contract for review.
 
 ## Recommended Stack
 
@@ -164,9 +175,12 @@ pnpm db:seed
 
 Before implementation starts, read:
 
+- [AGENTS.md](./AGENTS.md)
 - [docs/product/project-vision.md](./docs/product/project-vision.md)
 - [docs/product/build-plan.md](./docs/product/build-plan.md)
+- [docs/collaboration/skills-and-rules.md](./docs/collaboration/skills-and-rules.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
+- [docs/architecture/agent-implementation-plan.md](./docs/architecture/agent-implementation-plan.md)
 - [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)
 - [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
 - [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
