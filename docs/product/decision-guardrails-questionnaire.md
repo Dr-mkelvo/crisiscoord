@@ -452,40 +452,26 @@ AI must not:
 
 ## Implementation Priorities
 
-### Phase 1: Product Skeleton
+Use the same three phases defined in [phased-delivery-plan.md](./phased-delivery-plan.md).
 
-- Static command room.
-- Five agent statuses.
-- Synthetic payment-data crisis.
-- Communications blocked state.
-- Decision desk.
+### Phase 1: Demo Sandbox Foundation
 
-### Phase 2: Data And Guardrails
+- Build the static command room, five agent statuses, synthetic payment-data crisis, Communications blocked state, and decision desk.
+- Add Supabase records for incidents, agent runs, findings, draft communications, human decisions, and audit events.
+- Prove Band room creation, agent participant display, Band messages/events, AI/ML API calls, Featherless calls, and provider metadata.
+- Add synthetic-data banners, legal disclaimer copy, seeded fallback mode, responsive checks, and Gamma presentation assets.
 
-- Supabase schema.
-- Agent run records.
-- Audit event records.
-- Human decision records.
-- Draft communication records.
-- Server-side dependency gate.
+### Phase 2: Integration Sandbox
 
-### Phase 3: Partner Proof
+- Add redaction status fields, safe inbound-signal validation, and server-side dependency gates.
+- Test fake-company roles, tenant isolation, audit logging, rate limits, and sanitized tabletop scenarios.
+- Ensure model prompts receive sanitized facts only, not raw customer, payment, health, employee, legal, security, or confidential business data.
 
-- Band room creation.
-- Agent participant display.
-- Band messages/events in timeline.
-- AI/ML API provider calls.
-- Featherless provider call.
-- Provider metadata in UI and audit.
+### Phase 3: Controlled Enterprise Pilot
 
-### Phase 4: Safety And Demo Readiness
-
-- Redaction status fields.
-- Synthetic-data banner.
-- Legal disclaimer.
-- Seeded fallback mode.
-- Responsive checks.
-- Gamma presentation assets.
+- Add one approved read-only enterprise source after sandbox validation.
+- Keep external communications, regulator filings, production changes, and destructive actions behind explicit human approval.
+- Export audit packets that show source facts, agent outputs, model providers, human reviewers, and final decisions.
 
 ## Final Operating Principle
 

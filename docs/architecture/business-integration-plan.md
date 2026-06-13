@@ -248,47 +248,28 @@ Not allowed without explicit human approval:
 
 ## Adoption Path For A Real Business
 
-### Phase 0: Hackathon Demo
+Use three phases so the plan is easy to explain. Keep this section short; the detailed phase plan lives in [../product/phased-delivery-plan.md](../product/phased-delivery-plan.md).
 
-- Synthetic scenario only.
-- Manual/demo signal launcher.
-- Seeded incident state.
-- Visible Band handoffs.
-- Provider metadata.
-- No real business data.
+### Phase 1: Demo Sandbox Foundation
 
-### Phase 1: Internal Sandbox
+- Build the hackathon experience with synthetic data only.
+- Show the five-agent Band workflow from crisis signal to human decision.
+- Prove the Supabase audit trail, partner-provider metadata, dependency gates, and seeded demo fallback.
+- Do not connect to real business systems or use real sensitive data.
 
-- Use fake company data.
-- Test real auth, roles, and deployment.
-- Validate Supabase schema and RLS.
-- Test Band room creation.
-- Test AI/ML API and Featherless latency.
-- Run tabletop exercises with security/legal/comms teammates.
+### Phase 2: Integration Sandbox
 
-### Phase 2: Read-Only Pilot
-
-- Accept inbound webhook signals from one safe source.
-- Store only alert metadata and sanitized summaries.
-- No outbound actions except internal review tasks.
-- No raw customer data in AI prompts.
-- Human reviewers approve every conclusion.
+- Add read-only inbound signal handling in a fake-company sandbox.
+- Validate webhook signatures, idempotency, redaction, tenant isolation, rate limits, and role access.
+- Run tabletop exercises with security, legal, communications, and executive-review roles.
+- Keep outbound actions disabled except internal review tasks in controlled test data.
 
 ### Phase 3: Controlled Enterprise Pilot
 
-- Add SSO and role mapping.
-- Add ticketing integration.
-- Add internal collaboration notifications.
-- Add redaction and privacy-review workflow.
-- Add audit export.
-- Add integration health dashboards.
-
-### Phase 4: Approved Outbound Workflows
-
-- Push approved decisions back to business systems.
-- Attach approved drafts to tickets.
-- Create tasks for owners.
-- Add policy-controlled external communication workflows only after legal/security review.
+- Connect one approved read-only enterprise source.
+- Add SSO/role mapping, internal collaboration notifications, ticket/task updates after human approval, and audit exports.
+- Keep customer notices, regulator filings, public statements, and production-system changes behind explicit human approval.
+- Treat approved external workflows as a later roadmap item after legal, privacy, and security review.
 
 ## How The 2:47 AM Scenario Works In A Business
 

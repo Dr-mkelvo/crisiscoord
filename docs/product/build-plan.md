@@ -13,6 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
+- [Phased delivery plan](./phased-delivery-plan.md): three-phase plan from demo sandbox to integration sandbox to controlled enterprise pilot.
 - [Decision guardrails plan](./decision-guardrails-questionnaire.md): global operating plan for AI boundaries, privacy, communications, crisis clocks, and human escalation.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Business integration plan](../architecture/business-integration-plan.md): staged path for integrating CrisisCoord with existing business systems safely.
@@ -47,7 +48,13 @@ The app must not start from a CSV/PDF upload. Evidence upload can be added later
 
 ## How We Are Building It
 
-The build should happen in layers:
+Build in phases, not one giant pass. The full phase breakdown is in [phased-delivery-plan.md](./phased-delivery-plan.md).
+
+1. Phase 1, Demo Sandbox Foundation: app shell, synthetic crisis scenario, five-agent command room, Band handoffs, Supabase audit trail, partner-provider metadata, Communications dependency gate, and seeded demo fallback.
+2. Phase 2, Integration Sandbox: read-only signal gateway, fake-company tenant setup, redaction, webhook safety, RLS checks, rate limits, and tabletop exercises with no real sensitive data.
+3. Phase 3, Controlled Enterprise Pilot: one approved read-only enterprise source, SSO/role mapping, internal notifications, human-approved ticket/task updates, audit export, and integration health monitoring.
+
+Inside Phase 1, the implementation order should remain:
 
 1. App shell: React, TypeScript, Vite, Tailwind, TanStack Router, and the command-room layout.
 2. Synthetic demo state: one polished crisis scenario with all agent outputs represented.
@@ -56,11 +63,10 @@ The build should happen in layers:
 5. Agent contracts: Zod schemas for each agent input and output.
 6. API routes: Hono or Fastify endpoints for incident intake, agent runs, decisions, and timeline reads.
 7. UI components: incident bar, agent rail, Band timeline, dependency gate, draft review panel, decision queue, and audit log.
-8. Real integrations: connect Band, model providers, and Supabase after the synthetic flow is visually correct; enterprise-system integrations remain read-only and staged after the demo.
-9. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
-10. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
-11. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
-12. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
+8. Partner proof: verify Band collaboration, AI/ML API-backed runs, Featherless-backed runs, and visible provider metadata.
+9. Verification: unit tests for contracts and Playwright checks for the demo path across mobile, tablet, and desktop.
+10. Demo resilience: live, assisted, and seeded modes from [demo-day-failure-plan.md](../demo/demo-day-failure-plan.md).
+11. Demo polish: short copy, stable states, no real data, and no unsupported legal claims.
 
 ## MVP Scope
 
@@ -105,7 +111,7 @@ Already covered:
 - UI/UX direction for an operational command-center product
 - cross-platform contributor setup and responsive viewport requirements
 - automation boundaries, five-agent default, human escalation rules, and global guardrails plan
-- staged business integration path from manual signals to read-only connectors and human-approved outbound updates
+- phased delivery path from demo sandbox to integration sandbox and controlled enterprise pilot
 
 Research still needed during implementation:
 
