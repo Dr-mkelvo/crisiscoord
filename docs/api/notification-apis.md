@@ -25,6 +25,7 @@ Recommended first build:
 - In-app notifications: Supabase records plus optional Realtime subscriptions.
 - Band: room messages and events for agent and human coordination.
 - Email: Resend for simple transactional email in a test-only demo mode.
+- SMTP: supported as an enterprise-friendly option when a team already has a relay and verified sender domain.
 - SMS/WhatsApp: Twilio Programmable Messaging only if the team has time and safe test recipients.
 - Slack/Teams: optional internal demo connector, not required for submission.
 - PagerDuty/Opsgenie: document-ready optional enterprise connectors, not needed for MVP.
@@ -204,6 +205,24 @@ Every write route must:
 | Send notification | `POST /api/communications/:draftId/send` | Yes | Disabled unless safe test provider is configured. |
 | Acknowledge | `POST /api/notifications/:id/acknowledge` | No | Mark owner as awake/active. |
 
+## UI Surfaces For Sends
+
+Clicking `Email/SMS`, `Queue notification`, `Send notification`, or provider status opens an in-app drawer instead of jumping to an external tool.
+
+The drawer should include:
+
+- Email, SMS, and Status tabs
+- safe recipient allowlist
+- editable subject/body for email
+- editable body and segment count for SMS
+- facts used and warnings
+- SMTP/API provider status
+- simulated/live mode label
+- delivery attempt history
+- buttons for save draft, send test, queue, or disabled send
+
+The backend still owns policy. The drawer is only the review and command surface.
+
 ## Delivery Safety
 
 External send is allowed only when:
@@ -230,6 +249,13 @@ EMAIL_PROVIDER=resend
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=
 RESEND_TEST_RECIPIENT=
+
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USERNAME=
+SMTP_PASSWORD=
+SMTP_FROM_EMAIL=
+SMTP_TEST_RECIPIENT=
 
 SENDGRID_API_KEY=
 SENDGRID_FROM_EMAIL=

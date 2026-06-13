@@ -27,7 +27,7 @@ What is still limited:
 
 ## Required Repair
 
-The product plan stays the same. We need seven app workspaces, and each workspace must have desktop, tablet, and mobile sketches.
+The product plan stays the same. We need seven app workspaces. Each workspace must have desktop, tablet, mobile, and one interaction-state sketch.
 
 Correct structure:
 
@@ -37,31 +37,37 @@ Correct structure:
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 02 Incident Registry
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 03 Crisis Command Room
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 04 Communications Review
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 05 Decision Desk
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 06 Evidence And Audit
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
+  Interaction State / click-result layout
 07 Integrations And Demo Readiness
   Desktop / 1440 x 960
   Tablet / 834 x 1112
   Mobile / 390 x 844
-08 Interaction States And References
+  Interaction State / click-result layout
 ```
 
 If the team remains on Figma Starter, use this fallback physical-page structure:
@@ -81,6 +87,8 @@ If the team remains on Figma Starter, use this fallback physical-page structure:
 
 The fallback still keeps the seven workspaces separate as clearly labeled sections.
 
+Each section should have page tabs inside the frame. Tabs do not increase the top-level page count. See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md).
+
 ## Fallback Repair Asset
 
 The current fallback board source lives at:
@@ -98,10 +106,11 @@ Then paste or import the SVG into the Figma page named `01 Responsive Workspaces
 
 ## Layout Rules
 
-Each workspace section should be a horizontal triptych:
+Each workspace section should have a horizontal responsive triptych plus one supporting interaction-state frame:
 
 ```text
 Desktop frame | Tablet frame | Mobile frame
+Interaction State frame below the triptych
 ```
 
 Use these frame sizes:
@@ -109,6 +118,7 @@ Use these frame sizes:
 - desktop: `1440 x 960`
 - tablet: `834 x 1112`
 - mobile: `390 x 844`
+- interaction state: flexible desktop-width frame, currently `1440 x 320`
 
 Place sections vertically with enough spacing that designers can zoom and review one workspace at a time.
 
@@ -143,10 +153,16 @@ The repaired Figma frames must include:
 - readiness/provider status card
 - mobile bottom action bar
 - last-updated/confidence label
+- page-level tabs
+- click-result drawer or modal
+- email/SMS composer drawer
+- provider setup drawer
 
 See [live-data-ui-components.md](./live-data-ui-components.md) for placement rules.
 
 See [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md) for button behavior, notification destinations, human escalation, and agent-node meaning.
+
+See [page-tabs-and-action-overlays.md](./page-tabs-and-action-overlays.md) for the tab map and action overlay rules.
 
 ## Workspace Frame Content
 
