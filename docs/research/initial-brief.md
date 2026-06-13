@@ -130,8 +130,8 @@ Sources:
 
 ## Recommended Build Shape
 
-- Frontend: use the existing repo patterns from the 312 app stack only as engineering inspiration: React, TypeScript, Tailwind, dense operational dashboard UI.
-- Do not reuse 312 Strength names, records, spreadsheets, property data, tenant data, or private documents.
+- Frontend: React, TypeScript, Tailwind, and dense operational dashboard UI.
+- Use synthetic demo incidents only.
 - Backend/demo orchestration: a small local or hosted service that sends incident signals and displays Band room state.
 - Agents: implement at least 3, preferably all 5. The minimum viable demo can ship with Assessment, Legal, Technical, Communications, and Escalation as separate Band-visible participants.
 - Data: use synthetic crisis scenarios only.

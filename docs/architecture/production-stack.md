@@ -1,58 +1,22 @@
-# Production Stack Extraction And CrisisCoord Adaptation
+# CrisisCoord Production Stack Standard
 
-This document extracts the production-stack standards from the 312 Strength standards folder and adapts them for CrisisCoord.
+This document defines the production stack standard for CrisisCoord.
 
-Source standards reviewed:
+CrisisCoord is a public hackathon project, so every design decision must support a clean collaborative repo, a fast demo build, and a credible enterprise architecture for regulated crisis response.
 
-- `00 - Current Operating Principles`
-- `01 - Frontend and Client Experience`
-- `02 - Backend APIs and Domain Logic`
-- `03 - Database Storage Migrations and Data Lifecycle`
-- `04 - AuthN AuthZ Permissions and Tenant Isolation`
-- `05 - Security Baseline and Secure Coding`
-- `06 - Secrets and Configuration Management`
-- `07 - Hosting Runtime Cloud and Networking`
-- `08 - CI CD Version Control and Supply Chain Safety`
-- `09 - Testing Release Gates and Rollback Strategy`
-- `10 - Rate Limiting Abuse Prevention and DoS Resilience`
-- `11 - Caching CDN and Performance`
-- `12 - Scaling Load Balancing and Capacity Planning`
-- `13 - Observability Logs Metrics Traces and Dashboards`
-- `14 - Alerting Incident Response and Operational Ownership`
-- `15 - Availability Backups Disaster Recovery and Restore Drills`
-- `16 - Privacy Compliance Auditability and Cost Controls`
-- `17 - Domain Rules Publication and Data Exposure Review`
-- `18 - Jurisdictional Rules and Florida Operating Checks`
+## Operating Principles
 
-## Important Boundary
+- Synthetic data only.
+- Public repo safe by default.
+- Human approval before any high-risk generated communication is marked approved.
+- No real customer, employee, patient, payment, legal, security, company-confidential, or private incident data.
+- Band is the collaboration layer, not a notification wrapper.
+- Every important action should be traceable through room messages, agent events, database records, or audit logs.
+- Build the actual crisis command room first, not a marketing landing page.
 
-The 312 Strength standards are for a private property-management repo. CrisisCoord is a public hackathon project. We will use the engineering discipline, privacy posture, review gates, and stack preferences, but we will not reuse real private data, names, records, documents, schemas, or workflows.
+## Frontend Standard
 
-All CrisisCoord demo data must be synthetic.
-
-## Extracted Stack
-
-### Operating Principles
-
-Original principle:
-
-- Local-first.
-- Private by default.
-- No public deployment, preview link, external data sync, payment action, or legal automation without approval.
-- Keep raw source records separate from generated summaries.
-- Require owner/legal review before high-risk communications or actions.
-
-CrisisCoord adaptation:
-
-- Public repo is allowed because it contains only synthetic data.
-- Demo hosting is allowed for hackathon judging.
-- No real customer, patient, payment, incident, employee, or company-sensitive data.
-- Human approval gates must be visible in the product.
-- Generated communications are drafts until a human approves them.
-
-### Frontend
-
-Extracted standard:
+Use:
 
 - React
 - Vite
@@ -65,54 +29,62 @@ Extracted standard:
 - Zod
 - lucide-react
 - Playwright for browser checks
-- Dense operational screens rather than marketing landing pages
-- Explicit missing-source, needs-review, approved, sent, and blocked states
 
-CrisisCoord adaptation:
+Design rules:
 
-- Build the first screen as a crisis command room.
-- Show crisis timeline, Band room messages, agent status, deadlines, evidence packets, draft communications, and human decision queue.
-- Avoid a marketing landing page as the primary experience.
-- Use stable table and panel dimensions so the demo does not shift during agent updates.
+- First screen should be the crisis command room.
+- Show crisis timeline, Band room state, agent status, deadlines, evidence packets, draft communications, and human decision queue.
+- Use dense operational screens built for scanning and repeated review.
+- Show explicit states: `waiting`, `running`, `blocked`, `needs review`, `approved`, `drafted`, `sent`, `failed`.
+- Avoid layout shifts during agent updates.
+- Do not store sensitive values in browser localStorage.
 
-### Backend APIs And Domain Logic
+## Backend/API Standard
 
-Extracted standard:
+Use:
 
-- Local TypeScript scripts first.
-- Use Hono, Fastify, or Express only when server behavior is needed.
-- Zod for request, response, import, and environment validation.
-- OpenAPI only if a partner-facing or multi-client API is approved.
-- Keep business rules server-side.
-- Use idempotency for imports, external checks, notification drafts, and retryable tasks.
-- Add request IDs or run IDs.
+- TypeScript
+- Hono as the preferred API framework
+- Fastify as the fallback if Hono becomes limiting
+- Zod for request, response, environment, and agent-output validation
+- OpenAPI later if we expose a formal partner-facing API
 
-CrisisCoord adaptation:
+Backend rules:
 
-- Use a small TypeScript API service for incident creation, demo orchestration, agent output recording, and decision approval.
-- Use Zod schemas for every crisis signal and agent output.
-- Add `incident_id`, `room_id`, `run_id`, and `agent_run_id` to every important record.
-- Communications generation must enforce dependency gates server-side, not only in UI.
+- Business rules must live server-side, not only in the UI.
+- Communications generation must enforce dependency gates server-side.
+- Use request IDs, incident IDs, room IDs, and agent run IDs.
+- Use idempotency keys for retryable agent runs and draft generation.
+- Do not expose raw stack traces or provider errors to end users.
 
-### Database, Storage, Migrations, Data Lifecycle
+## Database Standard
 
-Extracted standard:
+We are not using Convex for CrisisCoord.
 
-- Markdown and source folders can be source records.
-- Local files, SQLite, or local Postgres are acceptable for early app work.
-- Managed Postgres only after cloud storage is approved.
-- Use migrations through Drizzle Kit, Prisma Migrate, Supabase CLI, Flyway, or Liquibase when a database exists.
-- Preserve source records and extracted fields separately.
-- Track import date, source file, reviewer, confidence, and open questions.
+Recommended database: Supabase Postgres.
 
-CrisisCoord adaptation:
+Why Supabase:
 
-- Use Supabase Postgres instead of Convex.
-- Use Supabase CLI migrations or Drizzle migrations.
-- Tables should separate source crisis signals, agent findings, draft communications, decisions, and audit events.
-- Store synthetic evidence packets separately from interpreted conclusions.
+- Postgres is familiar and credible for enterprise workflows.
+- Row Level Security can model regulated access.
+- Realtime can support crisis-room updates.
+- Supabase Storage can hold synthetic evidence packets and generated reports.
+- Supabase CLI supports local development and migrations.
+- It is easy to explain in the hackathon pitch.
 
-Recommended initial tables:
+Alternatives:
+
+- Neon Postgres if we want hosted Postgres with a thinner app backend.
+- Railway Postgres if we need the fastest deployment path.
+- SQLite/libSQL for a local-only prototype, though it is weaker for the regulated-access story.
+
+Recommendation:
+
+- Use Supabase Postgres unless setup speed becomes a blocker.
+
+## Initial Data Model
+
+Suggested tables:
 
 - `incidents`
 - `crisis_rooms`
@@ -125,17 +97,23 @@ Recommended initial tables:
 - `decision_responses`
 - `audit_events`
 
-### AuthN, AuthZ, Permissions, Tenant Isolation
+Data rules:
 
-Extracted standard:
+- Store original crisis signals separately from interpreted findings.
+- Store agent findings separately from human decisions.
+- Keep generated communications as drafts until approved.
+- Track timestamps, agent identity, confidence, source assumptions, and reviewer state.
 
-- Define roles before app work.
-- Require MFA for admin/high-risk accounts.
-- Separate view, edit, export, approve, and send permissions.
-- Restrict sensitive data by role.
-- Audit admin actions, exports, source-record changes, approval decisions, and sent notices.
+## Auth And Permissions
 
-CrisisCoord adaptation:
+Preferred path:
+
+- Supabase Auth
+- Supabase Row Level Security
+
+Fallback:
+
+- Clerk if auth UX speed becomes more important than single-platform simplicity.
 
 Suggested roles:
 
@@ -148,213 +126,164 @@ Suggested roles:
 - Compliance Auditor
 - Read-only Observer
 
-Supabase RLS should enforce role-scoped reads and writes. Draft communications and decisions should require named approval.
+Permission rules:
 
-### Security Baseline
+- Separate view, edit, approve, export, and send permissions.
+- Audit approval decisions.
+- Do not rely on hidden navigation for security.
+- Service-role keys must never reach the browser.
 
-Extracted standard:
+## Agent Collaboration Standard
 
-- Keep private work local and private by default.
-- Sanitize sensitive data before AI or external tools.
-- Validate file imports and reject unexpected file types.
-- Use least-privilege credentials.
+Use:
+
+- Band SDK / Agent API
+- Band rooms for shared state and collaboration
+- Agent messages for directed handoffs
+- Agent events for progress, tool calls, errors, and audit trail
+
+Required visible collaboration:
+
+- Assessment Agent seeds incident context in Band.
+- Assessment Agent recruits specialist agents.
+- Legal Agent posts obligations and deadlines.
+- Technical Agent posts scope and containment.
+- Communications Agent blocks until Legal and Technical outputs are present.
+- Escalation Agent reads the full room state and asks for human decisions.
+
+## Security Standard
+
+- No secrets in Git.
+- No real private incident data in prompts, logs, screenshots, demo videos, or commits.
+- Use `.env.local` locally.
+- Use Vercel/Supabase environment stores for deployed secrets.
 - Review packages before installing.
-- Keep audit trails for generated reports, drafts, and compliance decisions.
-- Run dependency and secret checks before sharing code.
+- Run secret/dependency checks before final submission if time allows.
+- Keep agent output structured enough to redact later.
 
-CrisisCoord adaptation:
+## Secrets And Configuration
 
-- No real sensitive data in prompts, logs, commits, screenshots, or demo recordings.
-- Use synthetic incident payloads only.
-- Add a pre-push secret scan before production submission if time allows.
-- Log agent outputs with redaction-ready fields.
+Expected local files:
 
-### Secrets And Configuration
+- `.env.local`
+- Optional local-only agent config files
 
-Extracted standard:
+Never commit:
 
-- Store secrets only in `.env` files or approved secure local storage.
-- Keep `.env` ignored by Git.
-- Use separate local, test, and production credentials.
-- Document purpose, owner, and rotation for each credential.
+- Band agent keys
+- Supabase service-role keys
+- model provider keys
+- deployment tokens
+- personal access tokens
 
-CrisisCoord adaptation:
+Use `.env.example` to document variable names without values.
 
-- Use `.env.local` for local app secrets.
-- Use Vercel and Supabase environment stores for hosted demo secrets.
-- Never commit Band agent keys, Supabase service-role keys, model provider keys, or deployment tokens.
+## Hosting And Deployment
 
-### Hosting, Runtime, Cloud, Networking
+Use:
 
-Extracted standard:
+- Vercel for the demo app
+- Supabase for database/auth/storage
+- Band for collaboration rooms and agent coordination
+- GitHub for source control and collaboration
 
-- Local repo and local dev server by default.
-- Public hosting requires approval.
-- Use sanitized demo data for any screen share.
-- Use HTTPS, secure headers, and restricted access if hosting is approved.
+Deployment rules:
 
-CrisisCoord adaptation:
+- Hosted demo must use synthetic data only.
+- Use HTTPS.
+- Keep environment variables in platform secret stores.
+- Do not connect real enterprise systems during the hackathon demo.
 
-- Public hosting is approved for hackathon demo because all data is synthetic.
-- Vercel is the preferred web hosting target.
-- Supabase is the preferred managed database target.
-- Band hosts the collaboration room layer.
+## CI/CD And GitHub Workflow
 
-### CI/CD, Version Control, Supply Chain
+Repository rules:
 
-Extracted standard:
-
-- Use GitHub / GitHub Desktop.
-- Review diffs before committing.
-- Run local checks before sharing or merging.
-- Scan for secrets before pushing.
-- Pin or review new npm/Python packages.
-
-CrisisCoord adaptation:
-
-- Public GitHub repository.
-- Branch-based collaboration with pull requests.
+- Public GitHub repo.
+- Main branch is protected.
+- Contributors work on branches.
+- Pull requests merge into `main`.
 - No direct pushes to `main`.
-- Add GitHub Actions after app scaffolding: install, lint, test, build.
-- Add branch protection once the repo exists and collaborators are invited.
 
-### Testing, Release Gates, Rollback
+Future GitHub Actions:
 
-Extracted standard:
+- install
+- lint
+- test
+- build
 
-- Test locally before sharing.
-- Test import scripts on copies or fixtures.
-- Add regression checks for repeated workflows.
-- Keep rollback steps for schema changes, imports, generated reports, and releases.
+## Testing Standard
 
-CrisisCoord adaptation:
+Use:
 
-- Vitest for schema and agent-gating logic.
-- Playwright for the 60-second demo path.
-- Use seed scripts for synthetic scenarios.
-- Keep migration rollback or reset instructions.
+- Vitest for unit tests.
+- Playwright for browser/demo flow checks.
+- Zod schema tests for agent contracts.
 
-### Rate Limiting, Abuse Prevention, DoS
+Test priorities:
 
-Extracted standard:
+- Communications Agent dependency gate.
+- Escalation conflict detection.
+- Supabase RLS policies.
+- Demo scenario from signal to decision request.
 
-- Rate limit external API checks.
-- Use dry runs for email, SMS, notices, and task generation.
-- Add idempotency keys for imports and notification drafts.
-- Respect provider limits.
-- Bound retries.
+## Rate Limiting And Reliability
 
-CrisisCoord adaptation:
+- Bound retries for agent runs.
+- Track run IDs.
+- Cache stable synthetic reference snippets when helpful.
+- Do not retry draft generation indefinitely.
+- Keep the demo path deterministic enough for judging.
 
-- No real emails/SMS in the hackathon build.
-- Communications are draft-only.
-- Agent runs should have retry limits and run IDs.
-- Model provider calls should be bounded and cacheable for demo stability.
+## Caching And Performance
 
-### Caching, CDN, Performance
+- Cache read-heavy synthetic reference data.
+- Show `last_updated_at` for incident findings and drafts.
+- Never cache secrets in unsafe browser storage.
+- Mark stale agent output visibly.
+- Invalidate derived summaries after source updates or reviewer corrections.
 
-Extracted standard:
+## Observability And Audit
 
-- Cache read-heavy snapshots and report calculations.
-- Show when data was last refreshed.
-- Separate cached public records from reviewed compliance decisions.
-- Invalidate cache after source updates, imports, or reviewer corrections.
-- Do not cache sensitive data in unsafe browser storage.
-- Do not show stale regulated data without visible timestamps.
+Track:
 
-CrisisCoord adaptation:
+- incident creation
+- agent recruited
+- agent started
+- agent output posted
+- dependency blocked
+- draft generated
+- conflict detected
+- human decision requested
+- human decision recorded
 
-- Cache synthetic regulatory reference snippets and demo scenario data.
-- Always show `last_updated_at` for incident findings and drafts.
-- Do not store secrets or sensitive findings in localStorage.
-- Use server state or Supabase for durable room state.
+Preferred table:
 
-### Scaling, Capacity
+- `audit_events`
 
-Extracted standard:
+UI requirement:
 
-- Avoid heavy infrastructure before the workflow proves the need.
-- Use pagination and filters for large tables.
-- Separate interactive screens from long-running imports.
-- Measure script run time as data grows.
+- Show an audit timeline in the crisis command room.
 
-CrisisCoord adaptation:
+## Availability And Recovery
 
-- Keep the hackathon build lean.
-- Use queue-like agent run records rather than distributed infrastructure.
-- Design for multiple incidents and multiple rooms, but implement one polished demo path first.
+- Code and docs live in GitHub.
+- Schema changes live in migrations.
+- Demo scenarios should be reproducible from seed scripts.
+- Avoid one-off manual setup that cannot be recreated.
 
-### Observability
+## Cost Control
 
-Extracted standard:
+Use free tiers and hackathon credits where possible:
 
-- Track import runs, status changes, draft creation, approvals, report generation, and failures.
-- Redact sensitive data from logs.
-- Include source, run ID, timestamp, and reviewer status.
+- Band hackathon access
+- Supabase free tier
+- Vercel free tier
+- AI/ML API credits
+- Featherless AI credits
 
-CrisisCoord adaptation:
+Avoid unnecessary recurring paid services.
 
-- `audit_events` table should record agent starts, outputs, dependency blocks, draft generation, escalation flags, and human approvals.
-- UI should show the audit timeline.
-
-### Alerting And Ownership
-
-Extracted standard:
-
-- Alerts should have an owner, source, due date, and next action.
-- Tenant/legal actions stay in review until approved.
-
-CrisisCoord adaptation:
-
-- Deadline alerts must identify the owner and next step.
-- Customer/regulator communications remain draft-only until approved.
-- Escalation agent owns unresolved decisions.
-
-### Availability, Backups, Restore
-
-Extracted standard:
-
-- Back up source records and generated summaries together.
-- Test restores before relying on a database.
-- Do not rely on one laptop as the only copy.
-
-CrisisCoord adaptation:
-
-- Public GitHub stores code/docs.
-- Supabase migrations store schema.
-- Demo seed data should be reproducible from scripts.
-
-### Privacy, Compliance, Auditability, Cost
-
-Extracted standard:
-
-- Private by default.
-- Minimum necessary access.
-- Public records are not automatically safe to republish.
-- Record who approved notices, reports, exports, and sharing.
-- Avoid unnecessary recurring spend.
-
-CrisisCoord adaptation:
-
-- Synthetic-only public demo.
-- No unreviewed real-world claims or legal advice.
-- Keep generated outputs as reviewable recommendations.
-- Favor free-tier Band, Supabase, Vercel, and partner credits.
-
-### Domain And Jurisdiction Review
-
-Extracted standard:
-
-- Before building or automating workflows, identify affected domain, source records, sensitivity, rules, publication boundaries, and approval gates.
-
-CrisisCoord adaptation:
-
-- This becomes the Legal & Regulatory Agent's model.
-- Each incident should produce a rule checklist, jurisdiction assumptions, deadline table, unknowns, and approval gates.
-
-## Final Stack Recommendation
-
-For the hackathon:
+## Final Recommended Stack
 
 - App: React + Vite + TypeScript
 - Styling: Tailwind CSS
@@ -373,13 +302,13 @@ For the hackathon:
 
 ## Implementation Approach
 
-1. Document project, stack, and collaboration rules.
-2. Create public GitHub repository and invite collaborators.
-3. Scaffold the app.
-4. Add Supabase schema and seed synthetic incident data.
-5. Implement the crisis command room UI.
-6. Implement structured agent contracts.
-7. Connect Band agents and show real Band-mediated handoffs.
-8. Add dependency gate for Communications Agent.
-9. Add Escalation Agent decision queue.
+1. Keep repo docs clean and project-specific.
+2. Scaffold the app.
+3. Add Supabase schema and seed synthetic incident data.
+4. Implement the crisis command room UI.
+5. Implement structured agent contracts.
+6. Connect Band agents and show real Band-mediated handoffs.
+7. Add dependency gate for Communications Agent.
+8. Add Escalation Agent decision queue.
+9. Add audit timeline.
 10. Record demo video and prepare submission assets.

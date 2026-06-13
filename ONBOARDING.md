@@ -11,6 +11,7 @@ This guide explains how contributors should set up and work on CrisisCoord.
 ## Development Rules
 
 - Do not commit secrets.
+- Do not use real customer, employee, patient, payment, legal, security, company-confidential, or private incident data.
 - Use synthetic demo incidents only.
 - Do not push directly to `main`.
 - Create a branch for every change and open a pull request.

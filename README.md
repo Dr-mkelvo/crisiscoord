@@ -14,7 +14,7 @@ CrisisCoord turns the crisis response into a shared, auditable Band room where s
 - Submission deadline: June 19, 2026, 6:00 PM EAT / 3:00 PM UTC
 - Core requirement: at least 3 specialized agents collaborating through Band
 
-The project is intentionally synthetic. We are not using 312 Strength, 312 App, 321 App, tenant, property, lease, financial, or private company data. Existing stack standards from 312 Strength are used only as engineering and operating inspiration.
+The project is intentionally synthetic. Do not use real customer, employee, patient, payment, legal, security, company-confidential, or private incident data. Use only synthetic demo scenarios created for CrisisCoord.
 
 ## Demo Scenario
 
@@ -57,7 +57,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md) and [docs/architecture/production-stack.md](./docs/architecture/production-stack.md) for setup and stack details.
+See [ONBOARDING.md](./ONBOARDING.md) and [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md) for setup and stack details.
 
 ## Collaboration Policy
 
