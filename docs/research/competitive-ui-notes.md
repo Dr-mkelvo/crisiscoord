@@ -109,6 +109,7 @@ Public positioning:
 - Challenger and Verifier agents reduce unsupported claims.
 - Human compliance escalation for uncertain cases.
 - Public demo opens with upload, command center, and ask flow.
+- The current public UI starts with transaction-file upload and an optional account focus field.
 
 What to learn:
 
@@ -120,6 +121,7 @@ CrisisCoord differentiation:
 - Keep five agents.
 - Make the agent dependency simple enough to explain in one minute.
 - Focus on crisis coordination, not investigation mesh complexity.
+- Do not make file upload the first interaction. CrisisCoord should start with a crisis signal and then allow evidence to support findings.
 
 ### Band Decision Desk
 

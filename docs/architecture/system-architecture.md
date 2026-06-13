@@ -277,7 +277,7 @@ Each obligation candidate should include:
 
 - rule family
 - jurisdiction or sector
-- trigger facts
+- crisis signal facts
 - deadline estimate
 - confidence
 - missing facts

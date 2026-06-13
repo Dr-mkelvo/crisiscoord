@@ -8,7 +8,7 @@ This file covers the API-adjacent runtime controls we need for a reliable public
 
 Vercel Functions run server-side code without managing servers. For CrisisCoord, they are useful for:
 
-- crisis trigger endpoint
+- crisis signal endpoint
 - health checks
 - model-provider proxy calls
 - Band connection checks

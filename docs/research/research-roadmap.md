@@ -21,11 +21,12 @@ Covered enough for the first build:
 - AI/ML API and Featherless model-provider direction, with both required in the demo and direct OpenAI treated as optional.
 - Technology partner plan for Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps.
 - UI/UX direction, Figma workflow, page map, color system, dashboard anatomy, adjacent submission notes, and low-fidelity command-room wireframe.
+- Competitor landscape covering incident operations, breach response, privacy incident management, AI regulatory reporting, and adjacent hackathon submissions.
 - HIPAA breach-notification basics for unsecured protected health information.
 - GDPR personal-data breach notification basics.
 - SEC public-company cybersecurity disclosure review basics.
 - CISA incident notification fields, attack-vector taxonomy, KEV catalog, BOD 26-04 risk factors, and CIRCIA status.
-- Trigger taxonomy covering payment data, public-company cyber events, GDPR, HIPAA, critical infrastructure, CVE/KEV, zero-day, ransomware, supply-chain, and product-safety scenarios.
+- Crisis signal taxonomy covering payment data, public-company cyber events, GDPR, HIPAA, critical infrastructure, CVE/KEV, zero-day, ransomware, supply-chain, and product-safety scenarios.
 
 Still needs targeted validation during implementation:
 
@@ -75,6 +76,7 @@ Current findings:
 - There are SOC automation, financial decision, risk-review, and generic command-center projects.
 - CrisisCoord should differentiate as regulated crisis governance, with dependency-gated legal, technical, communications, and human decision workflows.
 - Current adjacent submission notes are documented in [competitive-ui-notes.md](./competitive-ui-notes.md).
+- The broader competitor landscape is documented in [competitor-landscape.md](./competitor-landscape.md).
 
 Research action:
 
@@ -173,24 +175,26 @@ Research action:
 - Design schema for incidents, rooms, agent runs, findings, drafts, decisions, and audit events.
 - Validate seed/reset flow for demo reproducibility.
 
-### 7. Compliance And Trigger Model
+### 7. Compliance And Crisis Signal Model
 
 Questions:
 
-- What is considered a trigger?
+- What is considered a crisis signal?
 - How do we identify SEC, GDPR, HIPAA, CVE, zero-day, ransomware, and supply-chain scenarios?
 - What should the agents flag vs what should humans decide?
+- Why should the product not start from file upload?
 
 Current answer:
 
-- A trigger is a fact pattern that may create a crisis workflow, regulatory review, operational response, disclosure clock, or human decision.
-- Agents should detect possible triggers and route them to review.
+- A crisis signal is a fact pattern that may create a crisis workflow, regulatory review, operational response, disclosure clock, or human decision.
+- Agents should detect possible regulated conditions and route them to review.
 - The product should never claim final legal determination.
+- CSV/PDF upload is not the crisis signal. Files can be supporting evidence after an incident exists.
 
 Research action:
 
-- Build a trigger taxonomy.
-- Map triggers to agent routing.
+- Build a crisis signal taxonomy.
+- Map signals to agent routing.
 - Add source references and confidence fields.
 - Test multiple demo scenarios beyond the payment breach.
 
@@ -227,7 +231,7 @@ Research action:
 - Confirm Band credentials and SDK path.
 - Confirm direct OpenAI is not required.
 - Finalize database schema draft.
-- Finalize trigger taxonomy v1.
+- Finalize crisis signal taxonomy v1.
 
 ### Phase 2: During Implementation
 

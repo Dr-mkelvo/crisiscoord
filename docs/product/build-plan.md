@@ -21,9 +21,11 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [Demo day failure plan](../demo/demo-day-failure-plan.md): live, assisted, and seeded demo modes plus failure matrix and readiness checklist.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
 - [Competitive UI notes](../research/competitive-ui-notes.md): public incident-management and adjacent hackathon submission research.
+- [Competitor landscape](../research/competitor-landscape.md): closest product categories, competitor patterns, and CrisisCoord differentiation.
 - [Technology partner plan](../research/technology-partners.md): required Band, AI/ML API, and Featherless usage plus Codeband/lablab.ai/AgentOps boundaries.
 - [Presentation packet](../presentation/README.md): Gamma deck brief, visual storyboard, and architecture caveat for the pitch.
-- [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
+- [Crisis signal model](./crisis-signal-model.md): why the product starts from an incident signal, not a file upload.
+- [Compliance signal model](../compliance/trigger-model.md): what counts as a regulated crisis signal and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
 
 ## What The App Must Do
 
@@ -37,6 +39,8 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 8. Show human decision points, conflicts, missing evidence, deadlines, and approvals.
 9. Persist the incident, agent outputs, decisions, and audit events in Supabase.
 10. Present a clean demo flow that judges can understand in 60-90 seconds.
+
+The app must not start from a CSV/PDF upload. Evidence upload can be added later as supporting material after an incident exists.
 
 ## How We Are Building It
 
@@ -77,6 +81,7 @@ Required visible output:
 - No real customer, employee, patient, payment, legal, security, or confidential company data.
 - No broad SOC platform.
 - No generic admin dashboard detached from the crisis workflow.
+- No upload-first investigation flow.
 - No direct publishing of generated communications without human approval.
 
 ## Research Status
@@ -91,6 +96,8 @@ Already covered:
 - required technology partner usage, including Band, AI/ML API, and Featherless
 - model provider options, including AI/ML API as main-path provider and Featherless as visible open-model provider
 - regulated incident disclosure concepts for demo grounding
+- closest product categories and competitor positioning
+- crisis signal model and upload-first anti-pattern
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
 

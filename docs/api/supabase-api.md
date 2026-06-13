@@ -77,7 +77,7 @@ Use this as the first schema pass. Adjust once the UI and Band integration are s
 | `profiles` | App users and display names. |
 | `roles` | Role labels such as `admin`, `legal`, `technical`, `communications`, `executive`, `viewer`. |
 | `profile_roles` | User-to-role mapping. |
-| `incidents` | Crisis trigger, type, severity, status, scenario data, created-by user. |
+| `incidents` | Crisis signal, type, severity, status, scenario data, created-by user. |
 | `band_rooms` | Band room ID, incident ID, room status, created agent, timestamps. |
 | `agent_runs` | One row per agent execution attempt. |
 | `agent_outputs` | Validated structured outputs from each agent. |

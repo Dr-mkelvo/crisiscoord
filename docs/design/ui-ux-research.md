@@ -155,7 +155,7 @@ Create one Figma file with:
    - demo start and end states
 
 4. Prototype:
-   - incident triggered
+   - incident signal received
    - Assessment posts context
    - Legal and Technical complete
    - Communications draft unlocks

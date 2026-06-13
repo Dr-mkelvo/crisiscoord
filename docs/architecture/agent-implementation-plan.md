@@ -15,7 +15,7 @@ The actual agents are not implemented yet. This document is the implementation r
 Use one shared agent execution pattern:
 
 ```text
-UI action or scheduled trigger
+UI action or scheduled crisis signal
   -> backend API validates request
   -> backend creates agent_runs record
   -> backend posts or reads Band room context
@@ -250,11 +250,11 @@ The demo cannot be considered ready unless the audit trail shows both AI/ML API 
 
 See [partner-implementation-requirements.md](./partner-implementation-requirements.md) for the full acceptance gate.
 
-## Trigger Handling
+## Crisis Signal Handling
 
-Every trigger should become a normalized incident signal before agents run.
+Every crisis signal should become a normalized incident signal before agents run. Product/UI language should say `crisis signal` or `incident signal`, not `trigger`.
 
-Initial trigger categories:
+Initial crisis signal categories:
 
 - payment or customer data exposure
 - ransomware or extortion notice

@@ -21,7 +21,7 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 2. Build a Band connection check: `GET /me` relative to the Band agent base URL for each remote agent key.
 3. Build one model-provider client that accepts `baseURL`, `apiKey`, and `model`.
 4. Create Supabase schema for incidents, rooms, agent outputs, evidence artifacts, human decisions, and audit events.
-5. Implement the crisis trigger API that creates or seeds a Band room and records the incident in Supabase.
+5. Implement the crisis signal API that creates or seeds a Band room and records the incident in Supabase.
 6. Add agent workers that process Band messages, write structured output, and post events back to Band.
 7. Prove AI/ML API and Featherless both appear in `agent_runs` and the UI/audit trail.
 8. Add Vercel rate limits, cache rules, and observability before the public demo link is shared.
