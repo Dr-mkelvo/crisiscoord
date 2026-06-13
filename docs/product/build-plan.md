@@ -13,6 +13,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 ## Planning Docs
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
+- [Decision guardrails questionnaire](./decision-guardrails-questionnaire.md): 100+ scope, automation, partner-proof, and human-escalation questions with recommendations.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
 - [Platform support](../platform-support.md): macOS/Linux/Windows setup rules plus mobile/tablet/desktop responsive standards.
 - [Partner implementation requirements](../architecture/partner-implementation-requirements.md): acceptance gates for Band, AI/ML API, Featherless, Codeband, and provider proof.
@@ -102,6 +103,7 @@ Already covered:
 - production standards across frontend, backend, data, auth, security, deployment, testing, observability, rate limiting, caching, backup, and compliance
 - UI/UX direction for an operational command-center product
 - cross-platform contributor setup and responsive viewport requirements
+- automation boundaries, five-agent default, and human escalation rules
 
 Research still needed during implementation:
 
@@ -125,3 +127,4 @@ That means we should not pause for broad research. We should start building, and
 - Keep every doc written as CrisisCoord-owned project guidance.
 - Keep scripts and setup instructions portable across macOS, Linux, and Windows.
 - Verify major UI work at mobile, tablet, laptop, and desktop viewport sizes.
+- Do not automate external, legal, destructive, or unclear high-risk decisions.
