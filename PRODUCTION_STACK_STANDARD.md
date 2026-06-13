@@ -6,6 +6,8 @@ It exists to help the team build a clean public hackathon project with enterpris
 
 For the detailed version, see [docs/architecture/production-stack.md](./docs/architecture/production-stack.md).
 
+For the build approach and merge checklist, see [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
+
 ## Core Rules
 
 - Use synthetic demo data only.
