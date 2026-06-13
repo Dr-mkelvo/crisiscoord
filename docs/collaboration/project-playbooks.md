@@ -23,6 +23,7 @@ Work on a branch, keep changes scoped, use synthetic data only, do not commit se
 For UI work, follow crisiscoord-ui-ux.
 For backend, Supabase, Band, agents, model providers, rate limits, or audit events, follow crisiscoord-backend-agents.
 For docs, setup, repo hygiene, or GitHub workflow, follow crisiscoord-collaboration.
+For master docs, diagrams, phases, sandboxes, or cross-doc consistency, follow crisiscoord-doc-consistency.
 ```
 
 ## Collaboration Playbook
@@ -190,6 +191,31 @@ Recommended provider order:
 1. AI/ML API for Assessment, Legal, Communications, and Escalation reasoning.
 2. Featherless for Technical Forensics or another visible open-model review step.
 3. Direct OpenAI only if deliberately added later for reliability.
+
+## Doc Consistency Playbook
+
+Use for master docs, architecture diagrams, phase plans, sandbox scenarios, agent operating models, and cross-doc link updates.
+
+Required docs:
+
+- `docs/product/master-implementation-guide.md`
+- `docs/product/build-plan.md`
+- `docs/architecture/system-architecture.md`
+- `docs/architecture/agent-implementation-plan.md`
+- `docs/collaboration/skills-and-rules.md`
+
+Rules:
+
+- Keep the project global.
+- Keep the Mermaid diagram in the master implementation guide aligned with the actual agent order, sandbox names, provider assignments, and system flow.
+- Keep Band as the visible collaboration layer, Supabase as queryable state, and the backend as the rule layer.
+- Do not add brainstorming question dumps, private source references, regional-only assumptions, or obsolete framework labels.
+
+Run:
+
+```bash
+node scripts/check-master-doc-consistency.mjs
+```
 
 ## PR Review Rule
 

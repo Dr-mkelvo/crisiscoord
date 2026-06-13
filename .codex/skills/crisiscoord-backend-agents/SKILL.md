@@ -16,6 +16,7 @@ If the tool cannot load skills, paste or attach this file before implementing ba
 ## Read First
 
 - `docs/architecture/system-architecture.md`
+- `docs/product/master-implementation-guide.md`
 - `docs/api/README.md`
 - `docs/api/band-api.md`
 - `docs/api/supabase-api.md`

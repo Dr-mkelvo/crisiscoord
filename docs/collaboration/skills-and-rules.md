@@ -23,6 +23,7 @@ For a non-hidden documentation version, use [project-playbooks.md](./project-pla
 | `crisiscoord-collaboration` | Branching, PRs, commits, repo hygiene, setup changes, or contributor workflow. | Do not push directly to `main`; work through branches and PRs. |
 | `crisiscoord-ui-ux` | Figma, page design, frontend implementation, UI review, or shadcn/ui-style component work. | Do not one-shot UI; follow the seven-route page plan and shared states. |
 | `crisiscoord-backend-agents` | Backend APIs, Supabase, Band agents, model providers, crisis signal handling, audit events, or rate limits. | Enforce workflow gates server-side and validate every agent output. |
+| `crisiscoord-doc-consistency` | Master docs, architecture diagrams, phase plans, agent operating models, sandbox scenarios, or README link updates. | Keep docs global and aligned with the master implementation guide; run the consistency script. |
 
 These skills are committed into the repo so every collaborator gets the same guidance after cloning. They are not personal notes, private assistant prompts, or tool-specific preferences.
 
@@ -68,6 +69,7 @@ Every pull request should say which skill was used:
 - `crisiscoord-collaboration` for docs, setup, branches, repository rules, or workflow changes.
 - `crisiscoord-ui-ux` for Figma work, frontend routes, components, interaction states, or visual decisions.
 - `crisiscoord-backend-agents` for API routes, Supabase schema, Band integration, agent contracts, model providers, rate limits, and audit behavior.
+- `crisiscoord-doc-consistency` for master docs, diagrams, sandbox scenarios, phase plans, or cross-doc consistency updates.
 
 If a contributor used another app, they should still name the CrisisCoord skill followed. Example: "Used `crisiscoord-ui-ux` in Cursor" or "Used `crisiscoord-backend-agents` in Claude Code."
 
@@ -233,4 +235,5 @@ Before merging, confirm:
 - backend work validates input and output with Zod
 - agent work records blocked and failed states
 - communications remain draft-only until human approval
+- major docs or diagrams pass `node scripts/check-master-doc-consistency.mjs`
 - the PR says how it was tested
