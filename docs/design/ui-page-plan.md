@@ -60,31 +60,33 @@ Recommended implementation base:
 
 ## Recommended Page Count
 
-Best sweet spot: seven total app routes.
+Best sweet spot: seven real app workspaces.
 
-Seven routes gives us enough room to show the product clearly without turning the hackathon build into a broad enterprise portal. The MVP should feel deep in the command-room workflow, not wide across many shallow pages.
+This is a revised recommendation after reviewing the current product direction, the existing UI inspiration, shadcn/ui application patterns, and incident-management products such as FireHydrant and Rootly. The strongest pattern is not "more pages." It is one excellent incident command surface supported by a small set of meaningful operational workspaces.
+
+Do not count incident creation as a standalone page. Starting an incident should be an action inside Signal Intake, because the page should also show incoming signals, sandbox scenarios, and future integration entry points.
 
 Recommended route set:
 
 | # | Route | Page | MVP role |
 | --- | --- | --- | --- |
-| 1 | `/incidents/new` | Incident Intake And Scenario Launcher | Start synthetic scenarios. |
-| 2 | `/incidents` | Incident Queue | Show active/demo incidents and entry points. |
-| 3 | `/incidents/:incidentId` | Crisis Command Room | Main product surface. |
-| 4 | `/incidents/:incidentId/communications` | Communications Review | Review generated drafts. |
-| 5 | `/incidents/:incidentId/audit` | Evidence And Audit | Review source facts, evidence, and timeline. |
-| 6 | `/decisions` | Decision Queue | Fast executive/mobile approvals. |
-| 7 | `/settings` | Settings And Integration Status | Demo-safe status for Band, Supabase, and model providers. |
+| 1 | `/signals` | Signal Intake And Sandbox Launcher | Receive or launch crisis signals; choose finance, health, or product/supply-chain scenarios. |
+| 2 | `/incidents` | Incident Registry | Show active, demo, resolved, and archived incidents. |
+| 3 | `/incidents/:incidentId` | Crisis Command Room | Main product surface and demo centerpiece. |
+| 4 | `/incidents/:incidentId/communications` | Communications Review | Review regulator, customer, executive, and internal drafts. |
+| 5 | `/decisions` | Decision Desk | Fast executive, legal, or communications approvals. |
+| 6 | `/incidents/:incidentId/audit` | Evidence And Audit | Review source facts, evidence, model/provider metadata, and timeline. |
+| 7 | `/settings` | Integrations And Demo Readiness | Demo-safe status for Band, Supabase, AI/ML API, Featherless, and fallback mode. |
 
 Build priority should be:
 
 1. Crisis Command Room
-2. Scenario Launcher
-3. Incident Queue
-4. Decision Queue
-5. Communications Review
+2. Signal Intake And Sandbox Launcher
+3. Incident Registry
+4. Communications Review
+5. Decision Desk
 6. Evidence And Audit
-7. Settings And Integration Status
+7. Integrations And Demo Readiness
 
 Keep these inside existing pages instead of making separate routes at first:
 
@@ -92,35 +94,40 @@ Keep these inside existing pages instead of making separate routes at first:
 - Compliance Rules Review: panel/tab inside Crisis Command Room or Evidence And Audit.
 - Agent details: drawer inside Crisis Command Room.
 - Evidence detail: drawer inside Evidence And Audit.
+- Playbook details: section inside Signal Intake or Evidence And Audit.
+- Provider diagnostics detail: drawer inside Settings.
 
 This gives us a clean URL map while still allowing the UI to show detailed workflow states.
 
 ## Page Details
 
-### 1. Incident Intake And Scenario Launcher
+### 1. Signal Intake And Sandbox Launcher
 
-Priority: MVP helper, keep simple.
+Priority: MVP support page, but make it feel like a real product entry point.
 
 Route:
 
 ```text
-/incidents/new
+/signals
 ```
 
 Primary user:
 
-- Demo operator or Incident Commander
+- Demo operator, Incident Commander, Security Lead, Compliance Lead
 
 Purpose:
 
-- Start a synthetic crisis scenario without connecting real systems.
+- Receive or launch synthetic crisis signals without connecting real systems.
+- Show how CrisisCoord would later sit in front of business tools, alert sources, vendor notices, support escalations, and legal/compliance reports.
 
 Core layout:
 
-- scenario template selector
+- signal source cards: security alert, vendor notice, support escalation, legal/compliance report, manual tabletop scenario
+- sandbox selector: finance, health, product/supply chain
 - incident signal text area
 - data category chips
 - affected systems chips
+- expected agents preview
 - launch command room button
 
 Suggested scenario templates:
@@ -133,9 +140,11 @@ Suggested scenario templates:
 
 Rule:
 
-- Do not make this a marketing page. It is a small operational intake form.
+- Do not make this a marketing page or file-upload page.
+- Do not label the nav item as a creation form. Use "Signals" or "Signal Intake."
+- File upload can appear later as supporting evidence after an incident exists.
 
-### 2. Incident Queue
+### 2. Incident Registry
 
 Priority: MVP support page.
 
@@ -166,7 +175,7 @@ Core layout:
 
 Rule:
 
-- Keep this page lean. It is a navigation and triage surface, not the main dashboard.
+- Keep this page lean. It is a registry and triage surface, not the main dashboard.
 
 ### 3. Crisis Command Room
 
@@ -278,7 +287,39 @@ Rule:
 
 - Every generated message is a draft. The UI must never imply external delivery happened automatically.
 
-### 5. Evidence And Audit
+### 5. Decision Desk
+
+Priority: MVP for mobile and executive review.
+
+Route:
+
+```text
+/decisions
+```
+
+Primary user:
+
+- Executive Approver, Legal Reviewer, Communications Lead
+
+Purpose:
+
+- Let a reviewer see pending human decisions quickly.
+
+Core layout:
+
+- compact list of decision cards
+- incident severity and deadline
+- recommendation summary
+- risk of approving
+- risk of waiting
+- approve / reject / request more info
+
+Mobile behavior:
+
+- This is the most important mobile view.
+- No dense tables on mobile.
+
+### 6. Evidence And Audit
 
 Priority: MVP if time allows; otherwise post-MVP.
 
@@ -312,36 +353,6 @@ Must show:
 - confidence
 - review status
 
-### 6. Decision Queue
-
-Priority: MVP for mobile and executive review.
-
-Route:
-
-```text
-/decisions
-```
-
-Primary user:
-
-- Executive Approver
-
-Purpose:
-
-- Let a reviewer see pending decisions quickly.
-
-Core layout:
-
-- compact list of decision cards
-- incident severity and deadline
-- recommendation summary
-- approve / reject / request more info
-
-Mobile behavior:
-
-- This is the most important mobile view.
-- No dense tables on mobile.
-
 ### Command Room Or Audit Panel: Compliance Rules Review
 
 Priority: post-MVP unless needed for demo explanation. Keep it as a panel/tab first.
@@ -374,7 +385,7 @@ Rule:
 
 - The product surfaces possible obligations for review. It does not finalize legal conclusions.
 
-### 7. Settings And Integrations
+### 7. Integrations And Demo Readiness
 
 Priority: post-MVP.
 
@@ -386,7 +397,7 @@ Route:
 
 Primary user:
 
-- Admin
+- Admin, Demo Operator, Technical Lead
 
 Purpose:
 
@@ -396,8 +407,11 @@ Core layout:
 
 - Band agent status
 - Supabase status
-- model-provider status
+- AI/ML API status
+- Featherless status
 - synthetic-data mode indicator
+- seeded fallback state
+- last successful provider run
 
 Rule:
 
@@ -411,8 +425,9 @@ Create these frames before frontend coding:
 2. `Desktop / Crisis Command Room / Communications blocked`
 3. `Desktop / Crisis Command Room / Communications unlocked`
 4. `Desktop / Communications Review / Draft needs approval`
-5. `Desktop / Evidence Audit / Filtered timeline`
-6. `Mobile / Decision Queue / Pending approval`
+5. `Desktop / Signal Intake / Sandbox launcher`
+6. `Desktop / Evidence Audit / Filtered timeline`
+7. `Mobile / Decision Desk / Pending approval`
 
 ## Figma Frame Sizes
 

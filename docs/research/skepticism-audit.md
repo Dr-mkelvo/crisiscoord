@@ -172,7 +172,7 @@ Contributors may split effort across route shells and leave the core room shallo
 Recommendation:
 
 - Build `/incidents/:incidentId` first.
-- Add `/incidents/new` only as a scenario launcher.
+- Add `/signals` as the Signal Intake and Sandbox Launcher.
 - Add `/settings` only if needed for provider diagnostics.
 - Treat the remaining routes as panels or later routes until the demo path works.
 

@@ -16,10 +16,11 @@ Make a judge immediately understand that CrisisCoord is not a chatbot. It is a s
 ## Screen Priorities
 
 1. Crisis Command Room.
-2. Agent Handoff Map.
-3. Evidence And Audit View.
+2. Signal Intake And Sandbox Launcher.
+3. Agent Handoff Map.
 4. Communications Review.
-5. Mobile Decision Queue.
+5. Decision Desk.
+6. Evidence And Audit View.
 
 ## Critical UX Requirements
 
