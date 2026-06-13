@@ -12,6 +12,17 @@ They are not production app code. Use them to guide layout, color, density, and 
 - [mockups/styles.css](./mockups/styles.css)
 - [mockups/README.md](./mockups/README.md)
 
+## Editable Figma File
+
+- [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L)
+
+Current Figma status:
+
+- Created in Dr_Mkelvo's team.
+- Contains the color/token board, paint and text styles, and local editable component references.
+- Uses three physical Figma pages because the selected Starter team is limited to three pages. The requested six logical sections are represented inside those pages.
+- The 21 baseline workspace frames and the four required screenshot captures are still queued because the Figma MCP tool quota was exhausted during generation.
+
 ## Screenshots
 
 Screenshots are exported into [mockups/screenshots](./mockups/screenshots).
