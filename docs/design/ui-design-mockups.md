@@ -28,7 +28,8 @@ Current Figma status:
 - Live canvas update completed on June 13, 2026: the old board was replaced through the Figma browser UI with the generated global responsive board.
 - The current source of truth for the responsive board is [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg).
 - That generated board has seven workspace sections and three responsive versions per section: desktop, tablet, and mobile.
-- The generated board now includes the action layer: Notification Center, acknowledgement ladder, Communications delivery package, agent reasoning map, and simulated provider status.
+- The generated board now includes the action layer: Notification Center, acknowledgement ladder, Communications delivery package, Band handoff map, and simulated provider status.
+- The June 13 repair pass removed the repeated map from non-command pages, centered contextual buttons, added visible post-click outcomes, and replaced generic panels with page-specific working panels.
 - Re-import the generated SVG into Figma whenever the source changes, so the team does not rebuild the structure by hand.
 - A later native Figma component pass should rebuild the same structure as true Figma frames/components once MCP write access is available again.
 
@@ -107,3 +108,12 @@ Start from the `01 Responsive Workspaces` board in Figma or from the generated S
 7. Integrations And Demo Readiness: desktop, tablet, mobile.
 
 The Crisis Command Room remains the hero frame. Other pages should support the demo story without becoming broad admin dashboards.
+
+## Current Repair Rules
+
+- Keep the Band agent handoff map focused on the Command Room, where it explains agent collaboration.
+- Use page-specific panels elsewhere: signal builder, incident triage, draft review, decision detail, audit trail, and provider readiness.
+- Center action buttons inside the panel that owns the action.
+- Show the after-click outcome close to the action so reviewers understand whether the system opens a room, starts an agent, notifies a human, queues a simulated package, or writes an audit event.
+- Use `Communications` as the full UI label. Avoid unexplained shorthand.
+- Mobile frames must prioritize active decision, post-click outcome, Notification Center, and one contextual action panel above the bottom navigation.

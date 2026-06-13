@@ -83,7 +83,7 @@ Required regions:
 - notification center drawer
 - human escalation ladder
 - outbound communication delivery log
-- agent reasoning drawer
+- agent detail drawer
 - audit timeline
 
 UI rules:

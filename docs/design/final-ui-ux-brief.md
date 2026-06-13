@@ -170,7 +170,7 @@ Create these before frontend polish:
 
 - incident bar
 - agent rail row
-- agent reasoning drawer
+- agent detail drawer
 - Band timeline item
 - global command/search bar
 - notification bell

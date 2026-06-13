@@ -129,7 +129,7 @@ The repaired Figma frames must include:
 - agent rail item
 - Band timeline item
 - agent conversation map
-- agent reasoning drawer
+- agent detail drawer
 - handoff/dependency map
 - dependency gate
 - decision card
@@ -208,7 +208,7 @@ Desktop:
 - agent conversation map
 - Band timeline
 - Communications dependency gate
-- agent reasoning drawer entry point
+- agent detail drawer entry point
 - decision desk
 - notification center preview
 - human escalation ladder
