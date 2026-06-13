@@ -18,7 +18,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 - [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
 - [Technology partner plan](../research/technology-partners.md): required Band, AI/ML API, and Featherless usage plus Codeband/lablab.ai/AgentOps boundaries.
-- [Presentation packet](../presentation/README.md): Gamma deck plan, meeting workbook, and architecture caveat for the pitch.
+- [Presentation packet](../presentation/README.md): Gamma deck brief, visual storyboard, and architecture caveat for the pitch.
 - [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
 
 ## What The App Must Do
