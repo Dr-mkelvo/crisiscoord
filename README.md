@@ -57,7 +57,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md) and [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md) for setup and stack details.
+See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack details, and the project build approach.
 
 ## Collaboration Policy
 

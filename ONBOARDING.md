@@ -138,3 +138,16 @@ pnpm db:seed
 4. Define structured output contracts for each agent.
 5. Build the synthetic 60-second demo scenario.
 6. Create the first UI wireframe for the crisis command room.
+
+## Build Approach
+
+Before coding a feature, read [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md).
+
+Use the playbook to map each feature through:
+
+- user workflow
+- agent workflow
+- data model
+- permission model
+- audit model
+- demo value
