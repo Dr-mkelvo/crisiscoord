@@ -65,7 +65,7 @@ The Band room is the coordination layer, state surface, and audit trail.
 - Hosting: Vercel for the demo app, with synthetic data only.
 - Testing: Vitest for unit tests and Playwright for browser/demo flow checks.
 
-See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/product/project-vision.md](./docs/product/project-vision.md), [docs/product/build-plan.md](./docs/product/build-plan.md), [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md), [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md), [docs/research/research-roadmap.md](./docs/research/research-roadmap.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, product scope, architecture, compliance triggers, API details, and the project build approach.
+See [ONBOARDING.md](./ONBOARDING.md), [PRODUCTION_STACK_STANDARD.md](./PRODUCTION_STACK_STANDARD.md), [docs/product/project-vision.md](./docs/product/project-vision.md), [docs/product/build-plan.md](./docs/product/build-plan.md), [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md), [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md), [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md), [docs/research/research-roadmap.md](./docs/research/research-roadmap.md), [docs/api/README.md](./docs/api/README.md), and [docs/architecture/engineering-playbook.md](./docs/architecture/engineering-playbook.md) for setup, stack, product scope, architecture, UI page planning, compliance triggers, API details, and the project build approach.
 
 ## Collaboration Policy
 

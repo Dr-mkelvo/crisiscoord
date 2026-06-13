@@ -25,6 +25,12 @@ It should not feel like:
 
 The first screen should be the working crisis command room.
 
+## No One-Shot UI Rule
+
+Do not build the full UI in one pass.
+
+Each page should be planned, sketched, reviewed, built with synthetic data, and then connected to real app state. The page plan, page priorities, Figma frame list, and low-fidelity command-room wireframe live in [ui-page-plan.md](./ui-page-plan.md).
+
 Default desktop layout:
 
 ```text
@@ -135,6 +141,8 @@ The 60-second demo should show:
 
 Before implementing or merging UI work:
 
+- Has the page been added to [ui-page-plan.md](./ui-page-plan.md)?
+- Does a Figma frame or low-fidelity sketch exist for the page?
 - Does the first screen show the actual crisis room?
 - Can a judge understand the five agents in under 10 seconds?
 - Is the Communications dependency gate visible?

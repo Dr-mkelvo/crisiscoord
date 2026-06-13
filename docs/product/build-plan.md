@@ -14,6 +14,7 @@ This is not a chatbot, a generic incident tracker, or a static dashboard. The pr
 
 - [Project vision](./project-vision.md): goal, vision, users, differentiation, and product boundaries.
 - [System architecture](../architecture/system-architecture.md): frontend, Figma, backend, agents, Band tools, data, and build order.
+- [UI page plan](../design/ui-page-plan.md): page map, no-one-shot rule, Figma frames, and wireframe sketch.
 - [Research roadmap](../research/research-roadmap.md): what has been researched, what still needs targeted validation, and when to research it.
 - [Trigger model](../compliance/trigger-model.md): what counts as a crisis trigger and how SEC, CVE, zero-day, GDPR, HIPAA, CISA, ransomware, and supply-chain scenarios route through the system.
 

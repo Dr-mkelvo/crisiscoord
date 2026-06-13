@@ -167,10 +167,11 @@ Before implementation starts, read:
 - [docs/product/project-vision.md](./docs/product/project-vision.md)
 - [docs/product/build-plan.md](./docs/product/build-plan.md)
 - [docs/architecture/system-architecture.md](./docs/architecture/system-architecture.md)
+- [docs/design/ui-page-plan.md](./docs/design/ui-page-plan.md)
 - [docs/compliance/trigger-model.md](./docs/compliance/trigger-model.md)
 - [docs/research/research-roadmap.md](./docs/research/research-roadmap.md)
 
-These documents explain what we are building, how UI/UX and backend work together, what the MVP includes, what we are not building, which research is already complete, and which targeted questions still need validation.
+These documents explain what we are building, how UI/UX and backend work together, which pages we plan to add, what the MVP includes, what we are not building, which research is already complete, and which targeted questions still need validation.
 
 ## Build Approach
 
