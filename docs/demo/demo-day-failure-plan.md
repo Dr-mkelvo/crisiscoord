@@ -23,6 +23,7 @@ Live mode uses:
 - AI/ML API for Assessment, Legal, Communications, and Escalation
 - Featherless for Technical Forensics
 - real provider metadata shown in UI
+- in-app Notification Center and simulated outbound communication queue
 
 UI label:
 
@@ -77,10 +78,12 @@ Seeded mode is acceptable if we are transparent and still show the product story
 | Band credentials fail | Band status red in settings | Switch to assisted transcript from latest successful Band run | Show dependency gate and explain live credential issue briefly only if asked. |
 | Band WebSocket slow | Timeline stalls | Use REST/polling or seeded timeline | Keep UI moving; do not wait silently. |
 | Band room creation fails | No new room ID | Use pre-created demo room or seeded room reference | Open existing demo incident. |
-| AI/ML API rate-limited | Main-path agent fails | Use latest validated Assessment/Legal/Comms/Escalation outputs | UI shows `fallback` provider status. |
+| AI/ML API rate-limited | Main-path agent fails | Use latest validated Assessment/Legal/Communications/Escalation outputs | UI shows `fallback` provider status. |
 | Featherless model unavailable | Technical Forensics fails | Try alternate configured model; otherwise use latest validated Technical output | Settings page shows model availability. |
 | Provider returns invalid JSON | Agent output validation fails | Retry once with repair prompt; otherwise use seeded validated output | Audit logs validation failure. |
 | Supabase unavailable | App cannot load saved state | Use local JSON fixture read-only | Do not attempt writes. |
+| Email/SMS provider unavailable | Notification provider status is degraded | Keep in-app and Band notifications, mark outbound communication as simulated | Do not claim real external delivery. |
+| Human acknowledgement timer bug | Escalation state looks wrong | Use seeded notification state | Explain that the live demo is using a validated notification transcript. |
 | Vercel cold start or deploy issue | App slow/unavailable | Use local dev server or recorded video | Keep final deck/video ready. |
 | Browser or UI bug | Click path breaks | Use backup URL/state or recorded walkthrough | Do not debug live in front of judges. |
 | Network failure | App cannot reach services | Use local recording and Gamma deck | Keep demo video downloaded locally. |
@@ -97,6 +100,8 @@ The `/settings` page should include a demo readiness panel:
 - Featherless configured
 - Featherless model availability
 - Supabase configured
+- Notification Center state available
+- email/SMS/internal connector safe mode
 - seeded fallback fixture available
 - latest demo run recorded
 
@@ -123,6 +128,7 @@ POST /api/demo/run-live
 POST /api/demo/run-assisted
 GET  /api/diagnostics/band
 GET  /api/diagnostics/model-providers
+GET  /api/integrations/notification-providers/health
 ```
 
 ## Pre-Demo Checklist
@@ -143,6 +149,7 @@ GET  /api/diagnostics/model-providers
 - Run AI/ML API diagnostic.
 - Run Featherless diagnostic.
 - Run Supabase connection check.
+- Run notification provider safe-mode check.
 - Reset demo incident.
 - Verify assisted and seeded modes work.
 - Rehearse voiceover once with a timer.
@@ -191,6 +198,7 @@ GET  /api/diagnostics/model-providers
 
 - Escalation asks for a human decision.
 - Show approve/request changes/escalate options.
+- Show the Notification Center state: owner notified, acknowledgement pending or acknowledged, and simulated send package queued.
 
 80-90 seconds:
 
@@ -203,6 +211,7 @@ GET  /api/diagnostics/model-providers
 - Do not debug credentials live.
 - Do not wait more than 10 seconds for a model call without switching mode.
 - Do not claim live mode if using seeded data.
+- Do not claim real notification delivery if the UI is using simulated outbound communication.
 - Do not upload real files.
 - Do not show API keys, browser history, private tabs, or unrelated repos.
 - Do not over-explain architecture while the UI is stuck.
@@ -218,3 +227,4 @@ The demo is ready when:
 - backup video is available
 - the team can explain fallback honestly in one sentence
 - the dependency gate remains visible in every mode
+- notification and simulated delivery status remain visible in every mode

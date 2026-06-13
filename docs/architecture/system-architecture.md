@@ -20,6 +20,7 @@ flowchart LR
   Band["Band room + Agent API + WebSocket"]
   Agents["Specialized agent workers"]
   Models["Model providers"]
+  Notify["Notification + communication adapters"]
   Audit["Audit timeline"]
 
   User --> UI
@@ -31,11 +32,16 @@ flowchart LR
   Agents --> Models
   Agents --> Band
   Agents --> DB
+  API --> Notify
+  Notify --> DB
+  Notify --> Audit
   DB --> Audit
   Audit --> UI
 ```
 
 Live source adapters include CISA KEV, NVD, FIRST EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, and optional keyed threat-intelligence sources. They enrich crisis signals and evidence snapshots, but Supabase and Band remain the product's system of record.
+
+Notification and communication adapters include in-app notifications, Band messages, email/SMS test providers, Slack/Teams-style internal alerts, PagerDuty/Opsgenie-style escalation, and Jira/ServiceNow-style work records. They are invoked by backend policy, not directly by agents.
 
 ## Frontend Section
 
@@ -74,6 +80,10 @@ Required regions:
 - technical findings panel
 - communications draft review
 - escalation decision desk
+- notification center drawer
+- human escalation ladder
+- outbound communication delivery log
+- agent reasoning drawer
 - audit timeline
 
 UI rules:
@@ -94,6 +104,8 @@ Frontend data responsibilities:
 - render incident state from API/Supabase
 - render Band room message/event references
 - show agent statuses and dependency gates
+- show human notification, acknowledgement, and escalation state
+- show approved, queued, simulated, or sent outbound communication state
 - submit human approval/rejection decisions
 - never enforce critical workflow rules only in the browser
 
@@ -157,6 +169,8 @@ Core backend responsibilities:
 - Communications dependency gate
 - draft generation request handling
 - decision request creation
+- notification and acknowledgement request handling
+- outbound communication queueing or simulated sending
 - audit event recording
 - error and retry handling
 
@@ -164,6 +178,9 @@ Important backend rules:
 
 - Communications cannot run until Legal and Technical findings exist.
 - Generated communications remain drafts until approved.
+- Internal notification escalation must be visible and auditable.
+- External stakeholder communication must be approved by a human before it is queued or sent.
+- Demo outbound communication defaults to simulated or test-recipient-only.
 - Agent outputs are untrusted until parsed and validated.
 - Every state-changing request records an audit event.
 - All retryable operations use idempotency keys.
@@ -181,11 +198,22 @@ POST /api/incidents/:incidentId/start-room
 POST /api/incidents/:incidentId/agents/:agentName/run
 GET  /api/incidents/:incidentId/timeline
 POST /api/incidents/:incidentId/drafts
+GET  /api/incidents/:incidentId/notifications
+POST /api/incidents/:incidentId/notifications
+POST /api/notifications/:notificationId/acknowledge
+POST /api/notifications/:notificationId/escalate
+GET  /api/incidents/:incidentId/communications
+POST /api/communications/:draftId/approve
+POST /api/communications/:draftId/request-revision
+POST /api/communications/:draftId/queue
+POST /api/communications/:draftId/send
 POST /api/decisions/:decisionId/approve
 POST /api/decisions/:decisionId/reject
 GET  /api/health
 GET  /api/health/providers
 ```
+
+See [../api/notification-apis.md](../api/notification-apis.md) for notification adapters, outbound communication routes, acknowledgement state, delivery safety, and demo-mode behavior.
 
 ## Agent Architecture
 
@@ -278,6 +306,8 @@ Suggested tables:
 - `communication_drafts`
 - `decision_requests`
 - `decision_responses`
+- `notifications`
+- `notification_attempts`
 - `audit_events`
 - `evidence_artifacts`
 

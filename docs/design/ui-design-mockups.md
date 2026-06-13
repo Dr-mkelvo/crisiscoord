@@ -25,8 +25,10 @@ Current Figma status:
 - Created in Dr_Mkelvo's team.
 - Contains the color/token board, paint and text styles, and local editable component references.
 - Uses the Starter-plan fallback structure because the selected Figma team is limited by MCP quota.
-- The page `01 Responsive Workspaces` now contains a clean imported board with seven workspace sections and three responsive versions per section: desktop, tablet, and mobile.
-- The imported board was generated from [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg), so the team can regenerate or re-import it without rebuilding by hand.
+- The current source of truth for the responsive board is [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg).
+- That generated board has seven workspace sections and three responsive versions per section: desktop, tablet, and mobile.
+- The generated board now includes the action layer: Notification Center, acknowledgement ladder, Communications delivery package, agent reasoning map, and simulated provider status.
+- Re-import the generated SVG into Figma when replacing the current canvas board, so the team does not rebuild the structure by hand.
 - A later native Figma component pass should rebuild the same structure as true Figma frames/components once MCP write access is available again.
 
 ## Screenshots

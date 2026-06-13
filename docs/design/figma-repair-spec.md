@@ -119,6 +119,8 @@ The repaired Figma frames must include:
 - app shell
 - sidebar and mobile drawer
 - top bar
+- notification bell
+- Notification Center drawer
 - global command/search bar
 - operational status strip
 - status badge
@@ -126,10 +128,15 @@ The repaired Figma frames must include:
 - provider/feed status badge
 - agent rail item
 - Band timeline item
-- handoff topology map
+- agent conversation map
+- agent reasoning drawer
+- handoff/dependency map
 - dependency gate
 - decision card
+- human escalation ladder
 - draft review panel
+- outbound communication composer
+- notification delivery log
 - audit/event ledger row
 - source/intel feed item
 - signal source card
@@ -139,6 +146,8 @@ The repaired Figma frames must include:
 
 See [live-data-ui-components.md](./live-data-ui-components.md) for placement rules.
 
+See [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md) for button behavior, notification destinations, human escalation, and agent-node meaning.
+
 ## Workspace Frame Content
 
 ### 01 Signal Intake And Sandbox Launcher
@@ -146,6 +155,7 @@ See [live-data-ui-components.md](./live-data-ui-components.md) for placement rul
 Desktop:
 
 - global command bar
+- notification bell
 - source cards
 - live source feed
 - sandbox selector
@@ -173,6 +183,7 @@ Mobile:
 Desktop:
 
 - operational status strip
+- notification count for unacknowledged decisions
 - lean incident table
 - deadline-risk and decision-needed filters
 
@@ -194,10 +205,13 @@ Desktop:
 
 - incident bar
 - agent rail
-- handoff topology map
+- agent conversation map
 - Band timeline
 - Communications dependency gate
+- agent reasoning drawer entry point
 - decision desk
+- notification center preview
+- human escalation ladder
 - compact source feed
 
 Tablet:
@@ -211,6 +225,7 @@ Mobile:
 
 - incident summary
 - active decision card
+- acknowledgement and escalation status
 - agent accordion
 - timeline cards
 - mobile bottom action bar
@@ -224,7 +239,10 @@ Desktop:
 - facts used
 - missing facts
 - legal warnings
-- approve/revise/escalate actions
+- approve/revise/escalate/queue actions
+- recipient safety warning
+- simulated-send status
+- outbound communication composer
 
 Tablet:
 
@@ -236,6 +254,7 @@ Mobile:
 - facts used chips
 - missing fact warning
 - review actions
+- simulated-send badge
 
 ### 05 Decision Desk
 
@@ -246,6 +265,10 @@ Desktop:
 - risk of approving
 - risk of waiting
 - facts used
+- assigned owner
+- acknowledgement timer
+- escalation ladder
+- notify/escalate controls
 
 Tablet:
 
@@ -255,6 +278,8 @@ Mobile:
 
 - one primary decision
 - approve, request more facts, escalate
+- acknowledge action
+- owner and escalation status
 - next decisions below
 
 ### 06 Evidence And Audit
@@ -265,6 +290,9 @@ Desktop:
 - source snapshots
 - provider/model metadata
 - Band references
+- notification attempts
+- outbound communication delivery log
+- human acknowledgements
 - export action
 
 Tablet:
@@ -281,6 +309,9 @@ Mobile:
 Desktop:
 
 - provider/feed status grid
+- email provider status
+- SMS provider status
+- internal channel connector status
 - last successful run
 - seeded fallback mode
 - safe diagnostics

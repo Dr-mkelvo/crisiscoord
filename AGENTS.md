@@ -21,7 +21,7 @@ Use short, descriptive branches:
 feature/demo-ui
 feature/supabase-schema
 feature/band-agent-assessment
-feature/comms-review
+feature/communications-review
 fix/model-provider-timeout
 docs/ui-page-plan
 ```

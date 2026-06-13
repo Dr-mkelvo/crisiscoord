@@ -34,6 +34,8 @@ Static visual references for the first seven workspaces are available in [ui-des
 
 Live-data component placement is defined in [live-data-ui-components.md](./live-data-ui-components.md). These components support the same seven routes; they do not add a broad analytics dashboard or new top-level pages.
 
+Interaction, notification, escalation, and outbound communication behavior is defined in [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md). Use that document when designing button states, notification destinations, acknowledgement, and communication delivery states.
+
 The Figma repair structure is defined in [figma-repair-spec.md](./figma-repair-spec.md). Each workspace should be sketched as a desktop/tablet/mobile triptych.
 
 Figma owns:
@@ -97,6 +99,10 @@ Build priority should be:
 Keep these inside existing pages instead of making separate routes at first:
 
 - Agent Handoff Map: panel/tab inside Crisis Command Room.
+- Notification Center: drawer and tab inside Crisis Command Room, plus compact state inside Decision Desk.
+- Agent reasoning detail: drawer inside Crisis Command Room.
+- Outbound communication composer: panel inside Communications Review.
+- Notification delivery log: panel inside Evidence And Audit.
 - Compliance Rules Review: panel/tab inside Crisis Command Room or Evidence And Audit.
 - Agent details: drawer inside Crisis Command Room.
 - Evidence detail: drawer inside Evidence And Audit.
@@ -130,6 +136,8 @@ Core layout:
 
 - signal source cards: security alert, vendor notice, support escalation, legal/compliance report, manual tabletop scenario
 - sandbox selector: finance, health, product/supply chain
+- source origin and intake channel labels
+- sanitized versus blocked data preview
 - incident signal text area
 - data category chips
 - affected systems chips
@@ -175,6 +183,8 @@ Core layout:
 - incident type
 - current phase
 - decision status
+- acknowledgement status
+- unread notification count
 - deadline
 - assigned owner
 - open command room action
@@ -206,8 +216,9 @@ Core layout:
 - top incident bar
 - left agent rail
 - center Band timeline and handoff map
-- right decision desk with draft review and evidence summary
-- tabs for Overview, Handoffs, Findings, Drafts, and Audit
+- right decision desk with draft review, notification status, escalation ladder, and evidence summary
+- Notification Center drawer from top bar
+- tabs for Overview, Handoffs, Findings, Drafts, Notifications, and Audit
 
 Must show:
 
@@ -218,7 +229,12 @@ Must show:
 - five agent statuses
 - Communications dependency gate
 - Band messages/events
+- what each agent read and posted
+- agent confidence, unknowns, and Band reference
 - human decision request
+- who has been notified
+- whether the owner acknowledged
+- what happens if the owner does not acknowledge
 
 The first viewport should not be a table. Tables belong in the incident queue, evidence/audit view, and diagnostics/settings surfaces.
 
@@ -255,12 +271,14 @@ Core layout:
 - graph of Assessment to Legal/Technical to Communications to Escalation
 - status row for each handoff
 - dependency details drawer
+- click target for each agent node
 
 Must show:
 
 - Communications waits for both Legal and Technical
 - Escalation reads full room state
 - failed or missing handoffs are visible
+- agent nodes are not decorative; they reveal inputs, outputs, missing facts, source references, provider/model, next dependency, and human decisions created
 
 ### 4. Communications Review
 
@@ -287,11 +305,18 @@ Core layout:
 - facts used
 - missing facts
 - legal warnings
+- recipient/audience safety panel
+- outbound communication composer
+- simulated delivery preview
+- notification provider status
 - approve / request changes / escalate actions
+- queue/send package action after approval
 
 Rule:
 
 - Every generated message is a draft. The UI must never imply external delivery happened automatically.
+- During the hackathon, real external delivery is disabled unless a safe test-recipient provider is configured.
+- Use the full label "Communications" in the UI, not unexplained shorthand.
 
 ### 5. Decision Desk
 
@@ -315,15 +340,19 @@ Core layout:
 
 - compact list of decision cards
 - incident severity and deadline
+- notification and acknowledgement status
+- current owner and backup owner
+- escalation ladder
 - recommendation summary
 - risk of approving
 - risk of waiting
-- approve / reject / request more info
+- acknowledge / approve / reject / request more info / reassign / escalate
 
 Mobile behavior:
 
 - This is the most important mobile view.
 - No dense tables on mobile.
+- Put acknowledgement and next action above charts or secondary metadata.
 
 ### 6. Evidence And Audit
 
@@ -349,6 +378,9 @@ Core layout:
 - evidence table
 - agent outputs
 - decision records
+- notification attempts
+- acknowledgement events
+- communication delivery log
 - export placeholder
 
 Must show:
@@ -358,6 +390,7 @@ Must show:
 - source
 - confidence
 - review status
+- provider message ID or simulated status when applicable
 
 ### Command Room Or Audit Panel: Compliance Rules Review
 
@@ -415,6 +448,8 @@ Core layout:
 - Supabase status
 - AI/ML API status
 - Featherless status
+- notification provider status: in-app, Band, email, SMS, Slack/Teams, paging, ticketing
+- safe test-recipient mode
 - synthetic-data mode indicator
 - seeded fallback state
 - last successful provider run
@@ -430,10 +465,12 @@ Create these frames before frontend coding:
 1. `Desktop / Crisis Command Room / Assessment running`
 2. `Desktop / Crisis Command Room / Communications blocked`
 3. `Desktop / Crisis Command Room / Communications unlocked`
-4. `Desktop / Communications Review / Draft needs approval`
-5. `Desktop / Signal Intake / Sandbox launcher`
-6. `Desktop / Evidence Audit / Filtered timeline`
-7. `Mobile / Decision Desk / Pending approval`
+4. `Desktop / Crisis Command Room / Notification Center open`
+5. `Desktop / Communications Review / Draft needs approval`
+6. `Desktop / Communications Review / Approved draft queued for simulated send`
+7. `Desktop / Signal Intake / Sandbox launcher`
+8. `Desktop / Evidence Audit / Notification delivery log`
+9. `Mobile / Decision Desk / Pending acknowledgement`
 
 ## Figma Frame Sizes
 

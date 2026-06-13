@@ -37,7 +37,8 @@ UI action or scheduled crisis signal
   -> backend validates output
   -> backend writes Supabase records
   -> backend posts Band message/event
-  -> UI renders status, evidence, drafts, decisions, and audit trail
+  -> backend creates notification or decision records when humans are required
+  -> UI renders status, evidence, drafts, notifications, decisions, and audit trail
 ```
 
 This keeps the demo visibly collaborative while still giving us a reliable source of truth.
@@ -104,6 +105,8 @@ Build one complete agent loop first, then repeat the pattern.
    - detects conflicts or missing facts
    - uses AI/ML API for conflict detection and decision routing in the demo path
    - creates human decision requests
+   - creates internal notification requests for assigned reviewers
+   - explains why escalation happened and what acknowledgement is required
    - writes decision request and audit event
 
 ## Standard Agent Contract
@@ -184,6 +187,8 @@ Recommended tables:
 - `technical_findings`
 - `communication_drafts`
 - `decision_requests`
+- `notifications`
+- `notification_attempts`
 - `audit_events`
 
 Store Band IDs on Supabase records whenever possible.
@@ -205,6 +210,18 @@ communication_drafts:
   id, incident_id, room_id, run_id, audience, status, subject,
   body, required_approver_role, legal_finding_id, technical_finding_id,
   band_message_id, created_at
+
+decision_requests:
+  id, incident_id, room_id, title, status, owner_role, owner_user_id,
+  risk_of_approving, risk_of_waiting, acknowledgement_required,
+  acknowledgement_deadline, acknowledged_at, escalation_level,
+  created_by_run_id, created_at
+
+notifications:
+  id, incident_id, decision_request_id, channel, audience_type,
+  recipient_label, status, priority, provider, provider_message_id,
+  acknowledgement_required, acknowledgement_deadline, acknowledged_at,
+  escalation_level, simulated, created_at
 
 audit_events:
   id, incident_id, actor_type, actor_id, action, target_type,
@@ -237,6 +254,29 @@ Escalate to a human instead of automating when an action:
 - affects evidence integrity
 - depends on unclear facts
 - involves ransom, attribution, materiality, or final breach determination
+
+## Notification And Human Escalation Behavior
+
+Agents may recommend that a human is notified. Agents do not send external notifications directly.
+
+Server-side behavior:
+
+1. Create a `decision_requests` record when a human must act.
+2. Create an in-app `notifications` record for the assigned owner.
+3. Post a Band message or event that names the owner role and required action.
+4. Start an acknowledgement window.
+5. If the owner does not acknowledge in time, escalate to the next configured owner or channel.
+6. Store every attempt in `notification_attempts`.
+7. Show acknowledgement, timeout, escalation, and simulated-send status in the UI.
+
+For the MVP:
+
+- internal notifications should work through app records and Band messages
+- external emails/SMS should default to simulated or safe test-recipient-only
+- Communications drafts can be approved and queued, but not actually sent to real customers or regulators
+- Evidence And Audit must show who was notified, which channel was used, and whether the notification was acknowledged
+
+See [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md) and [../api/notification-apis.md](../api/notification-apis.md).
 
 ## Model Provider Rules
 
@@ -299,8 +339,9 @@ Recommended branch ownership:
 - `feature/agent-assessment`: first complete agent run pattern.
 - `feature/technical-forensics-agent`: technical finding contract and runner.
 - `feature/legal-regulatory-agent`: obligation contract and runner.
-- `feature/comms-agent`: dependency gate and draft generation.
+- `feature/communications-agent`: dependency gate and draft generation.
 - `feature/escalation-agent`: conflict detection and decision requests.
+- `feature/notifications`: Notification Center, acknowledgement, escalation ladder, and simulated outbound communication.
 - `feature/demo-ui`: command room rendering against synthetic and API state.
 
 Each branch should keep its contract files and test fixtures close to the implementation so reviewers can see the behavior.

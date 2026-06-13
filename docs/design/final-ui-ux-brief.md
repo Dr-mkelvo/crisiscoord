@@ -56,7 +56,9 @@ The UI should prove:
 3. Legal and Technical worked from shared context.
 4. Communications waited for required findings.
 5. Escalation created a human decision.
-6. The audit trail preserved who said what and why.
+6. The system notified the right human owner and tracked acknowledgement.
+7. Approved communications were queued or simulated safely.
+8. The audit trail preserved who said what, who was notified, what was approved, and why.
 
 ## Visual Style
 
@@ -73,6 +75,8 @@ Use the color direction the team liked from the darker competitor/reference work
 Keep the palette restrained. The product should look serious and premium, not neon or decorative.
 
 The first visual mockups and screenshot gallery live in [ui-design-mockups.md](./ui-design-mockups.md). Use them as inspiration for the Figma frames, not as final locked UI.
+
+The UI interaction rules live in [../product/interaction-and-notification-model.md](../product/interaction-and-notification-model.md). Treat that document as the source of truth for button behavior, notification destinations, human escalation, agent-node meaning, and demo sandbox count.
 
 The editable Figma file is [CrisisCoord UI Sketches - Responsive Workspaces](https://www.figma.com/design/TvJbJSgxMEnanM4DuCRi0L). The page `01 Responsive Workspaces` contains the repaired responsive sketch board: seven workspace sections, each with desktop, tablet, and mobile versions.
 
@@ -118,13 +122,14 @@ Left agent rail
   Escalation
 
 Center workspace
-  Overview | Handoffs | Findings | Drafts | Audit
+  Overview | Handoffs | Findings | Drafts | Notifications | Audit
 
 Right decision desk
   active human decision
+  assigned owner and acknowledgement state
   risks of approving
   risks of waiting
-  approve / request revision / escalate
+  approve / request revision / notify / escalate
 ```
 
 Mobile:
@@ -132,6 +137,7 @@ Mobile:
 ```text
 Incident summary
 Active decision card
+Notification and acknowledgement status
 Agent status accordion
 Overview timeline
 Draft and audit tabs
@@ -155,22 +161,29 @@ Create these before frontend polish:
 3. Desktop command room: communications blocked state.
 4. Desktop command room: communications unlocked with draft review.
 5. Desktop communications review: draft needs approval.
-6. Desktop audit tab: provider metadata and Band references.
-7. Mobile command room: active decision state.
-8. Settings: partner/demo readiness diagnostics.
+6. Desktop communications review: approved draft queued for simulated send.
+7. Desktop audit tab: provider metadata, Band references, and notification delivery log.
+8. Mobile command room: active decision and escalation ladder.
+9. Settings: partner/demo readiness diagnostics.
 
 ## Required Components
 
 - incident bar
 - agent rail row
+- agent reasoning drawer
 - Band timeline item
 - global command/search bar
+- notification bell
+- Notification Center drawer
 - operational status strip
 - handoff/dependency gate
 - handoff topology map
 - legal finding card
 - technical finding card
 - draft review panel
+- outbound communication composer
+- notification delivery log
+- escalation ladder
 - decision card
 - source/intel feed item
 - audit event row

@@ -36,6 +36,7 @@ Desktop layout:
 | - Technical           | Handoffs                         | - missing facts       |
 | - Communications      | Findings                         | - provider proof      |
 | - Escalation          | Drafts                           | - fallback banner     |
+|                       | Notifications                    | - ack/escalation      |
 |                       | Audit                            |                      |
 +----------------------+----------------------------------+----------------------+
 ```
@@ -43,7 +44,7 @@ Desktop layout:
 Mobile layout:
 
 - incident summary first
-- decision card second
+- notification and decision card second
 - agent status accordion third
 - timeline and audit collapsed behind tabs
 - no dense table above the fold
@@ -71,6 +72,7 @@ Must include:
 - safe synthetic-data label
 - compact provider/feed health badges
 - optional global command/search access
+- notification bell with unread decision count
 
 Do not include fake KPI tiles. This is not a metrics dashboard.
 
@@ -91,6 +93,9 @@ Each row includes:
 - provider badge when model-backed
 - last output timestamp
 - blocker text when blocked
+- input read and output posted in the details drawer
+- Band message or event reference
+- missing facts and next dependency
 
 Agent row example:
 
@@ -182,9 +187,36 @@ Includes:
 
 Rule:
 
-- All communications are draft-only. No external sending in the demo.
+- All communications start as draft-only. No real external sending in the demo unless a safe test-recipient provider is explicitly configured.
 
-### 5. Audit
+### 5. Notifications
+
+Purpose:
+
+- Show where human escalation and approved communication packages go.
+
+Includes:
+
+- in-app notifications
+- Band notification messages
+- current owner and backup owner
+- acknowledgement deadline
+- escalation ladder
+- delivery attempts
+- simulated email/SMS/internal channel status
+
+The key visual is the ladder:
+
+```text
+Primary owner notified
+  -> waiting for acknowledgement
+  -> backup owner if no acknowledgement
+  -> incident commander if still unacknowledged
+```
+
+This tab should answer: "If the person is asleep, what happens next?"
+
+### 6. Audit
 
 Purpose:
 
@@ -197,6 +229,8 @@ Includes:
 - provider/model metadata
 - Band references
 - human decisions
+- notification attempts
+- communication delivery log
 
 This is where tables belong.
 
@@ -265,6 +299,28 @@ Columns:
 - provider/model
 - Band reference
 
+### Notification Attempts Table
+
+Route or tab:
+
+```text
+/incidents/:incidentId/audit
+/incidents/:incidentId -> Notifications tab
+```
+
+Columns:
+
+- timestamp
+- owner or audience
+- channel
+- provider
+- status
+- acknowledgement deadline
+- acknowledged at
+- escalation level
+- simulated or live
+- provider reference
+
 ### Evidence Table
 
 Columns:
@@ -307,6 +363,10 @@ Must include:
 - recommendation summary
 - risks of approving
 - risks of waiting
+- assigned owner
+- acknowledgement status
+- escalation ladder preview
+- notify owner / acknowledge / escalate actions
 - approve/request revision/escalate buttons
 - audit event preview
 
@@ -326,8 +386,9 @@ The user should be able to complete this flow with minimal instruction:
 6. See Communications unlock.
 7. Review one draft.
 8. See Escalation ask for a human decision.
-9. Approve, request revision, or escalate.
-10. Open Audit to see the recorded trail.
+9. Notify owner, acknowledge, approve, request revision, or escalate.
+10. Queue a simulated communication package after approval.
+11. Open Audit to see the recorded trail and delivery log.
 
 ## What Not To Add Yet
 
@@ -338,7 +399,7 @@ Avoid these in the first build:
 - user management screens
 - status-page publishing
 - real evidence upload
-- real customer notification sending
+- real customer notification sending outside safe test-recipient mode
 - postmortem builder
 - complex charts
 - too many metrics
@@ -362,6 +423,8 @@ Keep the same seven-route plan, but build depth in this order:
 - Band handoffs are visible as messages/events, not hidden backend calls.
 - Tables appear only where they support review.
 - The right decision desk always shows what the human needs to do next.
+- Notification and acknowledgement status are visible without leaving the command room.
+- Agent nodes explain inputs, outputs, source confidence, and why escalation happened.
 - Mobile view makes decisions possible without reading a dense dashboard.
 - Tablet view stays usable without squeezed three-column panels.
 - The page passes mobile, tablet, laptop, and desktop screenshot checks once the app exists.

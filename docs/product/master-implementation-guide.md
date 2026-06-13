@@ -12,6 +12,7 @@ It answers the missing operating questions:
 - what the five agents actually do
 - how the agents communicate through Band
 - what the backend owns versus what Band owns
+- where notifications and outbound communications go
 - how global sector sandboxes should work
 - what contributors should implement step by step
 
@@ -33,10 +34,11 @@ The major unfinished pieces are:
 8. Five-agent loop: one complete agent end to end, then the remaining four agents.
 9. Server-side gates: especially Communications waiting on Legal and Technical.
 10. Global sandbox catalog: finance, health, and product/supply-chain demo contexts.
-11. UI data wiring: global command bar, operational status strip, source feed, command room, agent rail, handoff topology, timeline, dependency gate, draft review, decision desk, provider health, and audit view.
-12. Demo modes: live, assisted, and seeded fallback.
-13. Figma repair: seven workspace triptychs with desktop, tablet, and mobile frames.
-14. Verification: contract tests, agent tests, Playwright demo path, responsive checks, and doc consistency checks.
+11. Notification model: in-app Notification Center, acknowledgement state, escalation ladder, simulated outbound communication, provider status, and delivery attempts.
+12. UI data wiring: global command bar, operational status strip, source feed, command room, agent rail, handoff topology, timeline, dependency gate, draft review, notification center, decision desk, provider health, and audit view.
+13. Demo modes: live, assisted, and seeded fallback.
+14. Figma repair: seven workspace triptychs with desktop, tablet, and mobile frames.
+15. Verification: contract tests, agent tests, Playwright demo path, responsive checks, and doc consistency checks.
 
 ## Relationship To Phases
 
@@ -69,6 +71,8 @@ flowchart TD
   AIMLAPI["AI/ML API"]
   Featherless["Featherless"]
   HumanReview["Human reviewers"]
+  NotificationCenter["Notification Center + escalation ladder"]
+  DeliveryAdapters["Email/SMS/internal channel adapters"]
   DraftsDecisions["Drafts + decision requests"]
   UICommandRoom["Command room UI"]
 
@@ -100,8 +104,14 @@ flowchart TD
   BandRoom --> EscalationAgent
   EscalationAgent --> AIMLAPI
   EscalationAgent --> HumanReview
+  EscalationAgent --> NotificationCenter
+  NotificationCenter --> DeliveryAdapters
+  NotificationCenter --> SupabaseAudit
   HumanReview --> BackendRules
+  HumanReview --> DraftsDecisions
+  DraftsDecisions --> NotificationCenter
   SupabaseAudit --> UICommandRoom
+  NotificationCenter --> UICommandRoom
   BandRoom --> UICommandRoom
 ```
 
@@ -122,6 +132,8 @@ Keep the MVP at five agents. Five gives enough specialization for a regulated cr
 | Technical Forensics Agent | Summarize affected systems, likely scope, containment state, evidence confidence, and technical gaps. | Assessment finding, sanitized technical facts, evidence references. | Technical finding, containment status, affected systems, confidence, unknowns. | Featherless |
 | Stakeholder Communications Agent | Draft review-only regulator, customer, executive, internal, and holding-statement language. | Validated Legal and Technical outputs for the same incident and room. | Draft communications in review state, audience, required approver, source links. | AI/ML API |
 | Escalation & Decision Agent | Read full room state, detect conflicts, identify missing approvals, and ask humans for decisions. | Assessment, Legal, Technical, Communications drafts, audit timeline. | Decision requests, conflict flags, unresolved facts, recommended reviewer role. | AI/ML API |
+
+Every agent node in the UI must show useful operating state, not just the agent name. At minimum, it should expose the input it read, output it posted, confidence, missing facts, Band reference, provider/model when AI-backed, and the next dependency. A reviewer should be able to click the node and understand why the system moved forward, blocked, or escalated.
 
 ## How Agents Communicate
 
@@ -183,6 +195,12 @@ Use events for machine-readable workflow state:
 | `agent.run.failed` | Agent failed after retry policy. |
 | `decision.requested` | Human decision is required. |
 | `decision.recorded` | Human reviewer acts. |
+| `notification.created` | A human owner, internal channel, or draft recipient package is queued. |
+| `notification.acknowledged` | An assigned owner confirms they are active. |
+| `notification.escalated` | The acknowledgement window expired or a reviewer manually escalated. |
+| `communication.queued` | An approved draft is queued for simulated or configured delivery. |
+| `communication.sent` | A test-safe provider send completed and provider metadata was stored. |
+| `communication.failed` | A configured provider failed and the draft remains safe. |
 
 ### Dependency Rules
 
@@ -209,8 +227,9 @@ The demo should show full-room mode because it makes the Band handoff clearer.
 | --- | --- |
 | Room creation, participants, mentions, handoff messages, live collaboration | Band |
 | Input validation, dependency gates, permissions, rate limits, retries | Backend |
-| Incident records, agent outputs, drafts, decisions, audit queries | Supabase |
+| Incident records, agent outputs, drafts, decisions, notifications, delivery attempts, audit queries | Supabase |
 | Structured reasoning, classification, summarization, drafting | Model providers through `model-provider` |
+| Internal owner notification, acknowledgement timers, simulated send packages, provider metadata | Backend notification adapters |
 | Final approval, external action, legal judgment, destructive action | Human reviewers |
 
 The backend can orchestrate when agents run, but it should not become a hidden sixth agent. It is the rule layer.
@@ -367,6 +386,8 @@ Create shared Zod contracts for:
 - `TechnicalFinding`
 - `CommunicationDraft`
 - `DecisionRequest`
+- `NotificationRequest`
+- `NotificationAttempt`
 - `AuditEvent`
 
 Every UI, backend, and agent contributor should use these contracts.
@@ -405,6 +426,8 @@ Required backend services:
 - `model-provider`
 - `audit-service`
 - `decision-service`
+- `notification-service`
+- `communication-delivery-service`
 - `redaction-service`
 - `rate-limit-service`
 
@@ -479,7 +502,24 @@ It should detect:
 
 It should create decision requests, not final decisions.
 
-### Step 9: Build The Command Room Around Real State
+### Step 9: Add Notification And Acknowledgement Flow
+
+Notifications should prove that the app can move work to the right human without pretending to automate judgment.
+
+Build:
+
+- in-app notification records
+- Band notification messages
+- assigned owner and backup owner fields
+- acknowledgement deadlines
+- escalation ladder state
+- notification attempts table
+- simulated outbound communication queue
+- provider status panel for email, SMS, and internal channels
+
+For the hackathon demo, external stakeholder sends should remain simulated or test-recipient-only. The UI can show the payload, recipient label, provider, status, and audit event without contacting real customers, regulators, vendors, or the public.
+
+### Step 10: Build The Command Room Around Real State
 
 The UI should render:
 
@@ -491,11 +531,14 @@ The UI should render:
 - Legal and Technical findings
 - Communications drafts
 - Escalation decisions
+- Notification Center state
+- acknowledgement and escalation ladder state
+- simulated communication delivery log
 - audit trail
 - provider badges
 - seeded/live demo state
 
-### Step 10: Add Verification And Demo Readiness
+### Step 11: Add Verification And Demo Readiness
 
 Required checks:
 
@@ -520,6 +563,7 @@ Use these roles to split work without overlapping:
 | Agent Contracts Lead | Zod schemas, fixtures, prompt inputs, validation, provider output parsing. |
 | Model Provider Lead | AI/ML API, Featherless, fallback, provider metadata, timeouts. |
 | Sandbox Lead | Finance, Health, Product/Supply Chain fake-company scenarios and safe facts. |
+| Notification Lead | in-app notifications, acknowledgement, escalation ladder, simulated send packages, and provider health. |
 | QA/Demo Lead | seeded fallback, Playwright, responsive checks, demo-day failure plan. |
 
 ## Non-Negotiable Rules
@@ -529,6 +573,8 @@ Use these roles to split work without overlapping:
 - Do not send raw sensitive data to model providers.
 - Keep Communications blocked until Legal and Technical validate.
 - Keep all generated external communications in draft state.
+- Keep internal notifications, acknowledgement, and escalation visible in the UI.
+- Keep outbound communications simulated or test-recipient-only during the hackathon unless explicitly configured.
 - Keep Band visible as the agent collaboration layer.
 - Keep Supabase as the queryable audit state.
 - Keep provider metadata visible for model-backed runs.

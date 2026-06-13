@@ -11,6 +11,7 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 | Agent collaboration | Band Agent API / Band SDK | Shared crisis room, agent handoffs, message routing, room events, participant management | [Band Agent API](https://docs.thenvoi.com/api/agent-api) |
 | App data | Supabase | Auth, Postgres records, audit timeline, synthetic evidence storage, optional realtime updates | [Supabase JS reference](https://supabase.com/docs/reference/javascript/introduction) |
 | Live source data | CISA KEV, NVD, FIRST EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA, optional OTX/AbuseIPDB/URLhaus | Real source snapshots for CVE, vulnerability, disclosure, recall, provider/feed health, source feed, global search, and audit evidence | [Live Data APIs](./live-data-apis.md) |
+| Notifications and outbound communication | In-app, Band, Resend, Twilio, Slack, Teams, PagerDuty/Opsgenie-style paging, Jira/ServiceNow-style ticketing | Human escalation, acknowledgement, approved communication queueing, simulated demo sends, and audit logging | [Notification APIs](./notification-apis.md) |
 | Main-path model calls | AI/ML API | Required OpenAI-compatible model calls for agent reasoning and structured outputs | [AI/ML API quickstart](https://docs.aimlapi.com/quickstart/simple-model) |
 | Visible open-model call | Featherless AI | Required open-model inference, model discovery, and fallback support | [Featherless API overview](https://featherless.ai/docs/api-overview-and-common-options) |
 | Agent observability | AgentOps | Optional session replay, metrics, cost tracking, and debugging if core demo is stable | [AgentOps docs](https://docs.agentops.ai/v1/introduction) |
@@ -24,15 +25,18 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 4. Create Supabase schema for incidents, rooms, agent outputs, evidence artifacts, human decisions, and audit events.
 5. Implement live-data adapters for CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, and openFDA.
 6. Implement the crisis signal API that creates or seeds a Band room and records the incident in Supabase.
-7. Add agent workers that process Band messages, write structured output, and post events back to Band.
-8. Prove AI/ML API and Featherless both appear in `agent_runs` and the UI/audit trail.
-9. Add Vercel rate limits, cache rules, and observability before the public demo link is shared.
+7. Add in-app notification and human decision records before external sending.
+8. Add agent workers that process Band messages, write structured output, and post events back to Band.
+9. Prove AI/ML API and Featherless both appear in `agent_runs` and the UI/audit trail.
+10. Add simulated outbound communication queueing for demo-safe email/SMS flows.
+11. Add Vercel rate limits, cache rules, and observability before the public demo link is shared.
 
 ## Data Rules
 
 - Use synthetic demo incidents only.
 - Do not send real regulated, legal, security, payment, employee, patient, or customer data to any API.
 - Keep all generated communications in draft/review state until a human approves them.
+- Keep outbound communications simulated or test-recipient-only during the hackathon demo.
 - Store API keys only in local `.env.local`, Supabase secrets, or deployment environment settings.
 - Do not expose Band agent keys, Supabase service-role keys, or model-provider keys in browser code.
 
@@ -42,6 +46,7 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 - [supabase-api.md](./supabase-api.md): Supabase client methods, schema starting point, RLS, Storage, Realtime, and Edge Functions.
 - [model-provider-apis.md](./model-provider-apis.md): AI/ML API, Featherless AI, provider wrapper, fallback behavior, and structured-output rules.
 - [live-data-apis.md](./live-data-apis.md): public and optional keyed source APIs, UI placement, adapters, cache rules, and privacy constraints.
+- [notification-apis.md](./notification-apis.md): in-app notifications, human escalation, email/SMS/internal connector options, API routes, and delivery safety.
 - [runtime-and-rate-limits.md](./runtime-and-rate-limits.md): Vercel Functions, caching, CDN, and WAF rate-limiting notes.
 - [../research/technology-partners.md](../research/technology-partners.md): Band, Codeband, AI/ML API, Featherless, lablab.ai, and optional AgentOps usage plan.
 - [../architecture/partner-implementation-requirements.md](../architecture/partner-implementation-requirements.md): required partner proof and implementation acceptance gates.
