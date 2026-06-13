@@ -10,7 +10,18 @@ Band is the collaboration layer. The agents should not be hidden behind a single
 
 The actual agents are not implemented yet. This document is the implementation rulebook for adding them without each contributor inventing a different pattern.
 
-The five-agent architecture is the recommended default. See [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the global guardrails plan, AI autonomy boundaries, human-only decisions, and escalation rules that agent implementations must follow.
+The five-agent architecture is the recommended default. Keep five agents for the MVP instead of adding more specialist agents before the first stable demo. See [../product/phased-delivery-plan.md](../product/phased-delivery-plan.md) for the phase-by-phase delivery plan and [../product/decision-guardrails-questionnaire.md](../product/decision-guardrails-questionnaire.md) for the global guardrails plan, AI autonomy boundaries, human-only decisions, and escalation rules that agent implementations must follow.
+
+## Agent Count Decision
+
+Use five agents for the first build:
+
+- It is above the hackathon minimum of three without becoming too heavy.
+- It maps to the real crisis roles: assessment, legal, technical, communications, and escalation.
+- It makes the Band dependency visible because Communications waits on Legal and Technical, while Escalation reads the full room state.
+- It gives contributors clear implementation lanes.
+
+Do not add a sixth agent until the five-agent loop runs end to end with audit events, provider metadata, and a seeded demo fallback.
 
 ## Architecture Decision
 
