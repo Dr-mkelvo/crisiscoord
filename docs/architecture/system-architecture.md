@@ -6,6 +6,8 @@ Last updated: June 13, 2026.
 
 Build a visible, auditable, multi-agent crisis workflow where the frontend, backend, database, Band room, model providers, and human-review gates all reinforce the same product story.
 
+For how this architecture connects to existing business systems after the demo, see [business-integration-plan.md](./business-integration-plan.md).
+
 ## System Map
 
 ```mermaid
@@ -139,6 +141,7 @@ Recommended stack:
 Core backend responsibilities:
 
 - incident intake
+- business integration gateway for future read-only crisis signals
 - synthetic scenario seeding
 - crisis room creation
 - agent run orchestration
@@ -162,6 +165,7 @@ Suggested API routes:
 
 ```text
 POST /api/incidents
+POST /api/integrations/signals
 GET  /api/incidents/:incidentId
 POST /api/incidents/:incidentId/start-room
 POST /api/incidents/:incidentId/agents/:agentName/run
@@ -302,6 +306,9 @@ Minimum safety controls:
 - redaction-ready output shapes
 - no automatic external sending
 - no direct model access from browser
+- read-only enterprise integrations first
+- webhook signature verification and idempotency for future integration endpoints
+- sensitivity classification/redaction before any future model-backed real-data workflow
 
 ## Build Order
 
