@@ -64,7 +64,20 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(screen.queryByText(/CrisisCoord \//)).not.toBeInTheDocument();
     expect(getSelectedTab("Pending")).toHaveAttribute("aria-selected", "true");
     expect(screen.getByText("Pending decisions")).toBeInTheDocument();
-    expect(screen.getByText("Notification Center")).toBeInTheDocument();
+    expect(screen.getByText("Action Trail")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Decision Desk" })).toBeInTheDocument();
+  });
+
+  test("global search opens matching workspace tabs and records the action", async () => {
+    const user = userEvent.setup();
+    renderAt("/command");
+
+    await user.type(screen.getByRole("textbox", { name: "Search incidents, evidence, owners" }), "sms");
+    await user.click(screen.getByRole("button", { name: /Communications \/ SMS/i }));
+
+    expect(window.location.pathname).toBe(communicationsHref);
+    expect(getSelectedTab("SMS")).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("heading", { name: "Search result opened" })).toBeInTheDocument();
   });
 
   test("switches tabs inside a workspace without changing the page count", async () => {

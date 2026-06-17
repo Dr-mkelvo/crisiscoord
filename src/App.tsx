@@ -46,6 +46,16 @@ type WorkflowEvent = FeedItem & {
   id: string;
 };
 
+type SearchResult = {
+  id: string;
+  label: string;
+  detail: string;
+  href: string;
+  pageId?: string;
+  tabName?: string;
+  tone: Tone;
+};
+
 type AppProps = {
   workspacePages?: WorkspacePage[];
   initialWorkspacePayload?: WorkspacePayload;
@@ -150,6 +160,59 @@ function countEvents(events: WorkflowEvent[], pattern: RegExp) {
     .length;
 }
 
+function createSearchResults(
+  query: string,
+  workspacePages: WorkspacePage[],
+  incidents: IncidentSummary[],
+) {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return [];
+
+  const candidates: SearchResult[] = [];
+
+  for (const page of workspacePages) {
+    candidates.push({
+      id: `page-${page.id}`,
+      label: page.title,
+      detail: `${page.navLabel}: ${page.subtitle}`,
+      href: page.href,
+      pageId: page.id,
+      tabName: page.tabs[0]?.name,
+      tone: page.tone,
+    });
+
+    for (const tab of page.tabs) {
+      candidates.push({
+        id: `tab-${page.id}-${tab.name}`,
+        label: `${page.navLabel} / ${tab.name}`,
+        detail: `${tab.title}. ${tab.summary}`,
+        href: page.href,
+        pageId: page.id,
+        tabName: tab.name,
+        tone: page.tone,
+      });
+    }
+  }
+
+  for (const incident of incidents) {
+    candidates.push({
+      id: `incident-${incident.id}`,
+      label: incident.title,
+      detail: `${incident.severity} ${incident.type}. Owner: ${incident.owner}. Phase: ${incident.phase}.`,
+      href: getIncidentCommandHref(incident.id),
+      pageId: "command",
+      tabName: "Overview",
+      tone: incident.tone,
+    });
+  }
+
+  return candidates
+    .filter((candidate) =>
+      `${candidate.label} ${candidate.detail}`.toLowerCase().includes(normalizedQuery),
+    )
+    .slice(0, 6);
+}
+
 function createLiveMetrics({
   metrics,
   incident,
@@ -245,6 +308,7 @@ export function App({
     createInitialTabs(activeWorkspacePages),
   );
   const [workflowEvents, setWorkflowEvents] = useState<WorkflowEvent[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 1000);
@@ -294,6 +358,10 @@ export function App({
   const activeIncident = workspacePayload.incidents.find(
     (incident) => incident.id === activeIncidentId,
   );
+  const searchResults = useMemo(
+    () => createSearchResults(searchQuery, activeWorkspacePages, workspacePayload.incidents),
+    [activeWorkspacePages, searchQuery, workspacePayload.incidents],
+  );
   const liveMetrics = createLiveMetrics({
     metrics: activeTab.metrics,
     incident: activeIncident,
@@ -309,6 +377,20 @@ export function App({
 
   const selectTab = (pageId: string, tabName: string) => {
     setSelectedTabs((current) => ({ ...current, [pageId]: tabName }));
+  };
+
+  const openSearchResult = (result: SearchResult) => {
+    if (result.pageId && result.tabName) {
+      selectTab(result.pageId, result.tabName);
+    }
+    navigate(result.href);
+    setSearchQuery("");
+    recordWorkflowEvent({
+      title: "Search result opened",
+      detail: `${result.label} opened from global search.`,
+      meta: result.detail,
+      tone: result.tone,
+    });
   };
 
   const recordWorkflowEvent = (event: Omit<WorkflowEvent, "id">) => {
@@ -419,6 +501,10 @@ export function App({
           activePage={activePage}
           notificationCount={Math.max(3, workflowEvents.length)}
           onOpenNotifications={openNotificationSettings}
+          searchQuery={searchQuery}
+          searchResults={searchResults}
+          onSearchQueryChange={setSearchQuery}
+          onOpenSearchResult={openSearchResult}
         />
         <Workspace
           activePage={activePage}
@@ -532,6 +618,13 @@ function createWorkflowEvent(
         "The communications agent can draft only from verified facts and visible missing-fact warnings.",
       meta: "communications gate",
       tone: "warning",
+    },
+    "Open decision desk": {
+      title: "Decision desk opened",
+      detail:
+        "The unresolved human decision is now visible with risk of approving, risk of waiting, and escalation path.",
+      meta: "human-in-the-loop",
+      tone: "review",
     },
     "Open email": {
       title: "Email composer opened",
@@ -658,6 +751,46 @@ function createWorkflowEvent(
   );
 }
 
+function getActionEffect(action: PageAction) {
+  const actionEffects: Record<string, string> = {
+    "Review signal": "Marks this signal as reviewed and writes a visible intake event.",
+    "Validate packet": "Checks the redaction gate before any agent prompt can use the packet.",
+    "Launch room": "Opens the command room and starts the shared agent handoff flow.",
+    "Launch command room": "Creates the shared crisis room for agent posts, decisions, and audit.",
+    "Open command room": "Returns to the live room for the selected incident.",
+    "Open room": "Returns to the live room without exposing incident IDs in the URL.",
+    "Open registry": "Shows the incident queue with severity, phase, owner, and deadline.",
+    "Open messaging": "Opens the in-app owner thread inside the command room.",
+    "Message owner": "Prepares a structured request for the accountable human owner.",
+    "Open decisions": "Opens the decision desk and escalation tab for human review.",
+    "Open decision desk": "Opens the human decision desk for the active incident.",
+    Escalate: "Creates an escalation packet and moves the decision to the escalation lane.",
+    "Notify backup": "Records a backup-owner notification attempt in the action trail.",
+    "Open email draft": "Opens the guarded email draft with missing-fact warnings.",
+    "Open email": "Opens the email composer tab with allowlisted recipients only.",
+    "Open SMS": "Opens the SMS composer tab for internal acknowledgement only.",
+    "Send test": "Records a safe internal test send without external delivery.",
+    "Queue package": "Moves the approved communication package into the delivery log.",
+    "Simulate SMS": "Records a simulated SMS acknowledgement attempt.",
+    "Request facts": "Routes missing facts to the evidence tab and audit trail.",
+    "Open audit": "Opens the evidence and audit workspace for traceability.",
+    "Open exports": "Opens redacted export packages for internal review.",
+    "Inspect reasoning": "Opens agent inputs, outputs, unknowns, and provider metadata.",
+    "Open evidence": "Opens confirmed facts, assumptions, unknowns, and source references.",
+    "Export audit": "Prepares a redacted audit package for internal review.",
+    "Prepare export": "Builds the review package from timeline, evidence, decisions, and communications.",
+    "Run diagnostics": "Checks provider, notification, fallback, and safety-control status.",
+    "Notification setup": "Opens channel policy for in-app, Band, email, SMS, and allowlists.",
+    "Delivery log": "Opens queued, acknowledged, timed-out, and failed notification attempts.",
+    "Run policy check": "Checks redaction, approval gates, hidden secrets, and live-send locks.",
+  };
+
+  if (actionEffects[action.label]) return actionEffects[action.label];
+  if (action.kind?.startsWith("navigate")) return "Opens the relevant workspace and records the action.";
+  if (action.kind?.startsWith("tab")) return "Switches to the relevant operational tab and records the action.";
+  return "Records the action in the visible trail so the operator sees cause and effect.";
+}
+
 function Sidebar({
   activePage,
   navigate,
@@ -696,6 +829,7 @@ function Sidebar({
               key={page.id}
               className={isActive ? "nav-item active" : "nav-item"}
               href={page.href}
+              aria-label={page.navLabel}
               onClick={(event) => {
                 event.preventDefault();
                 navigate(page.href);
@@ -726,10 +860,18 @@ function TopBar({
   activePage,
   notificationCount,
   onOpenNotifications,
+  searchQuery,
+  searchResults,
+  onSearchQueryChange,
+  onOpenSearchResult,
 }: {
   activePage: WorkspacePage;
   notificationCount: number;
   onOpenNotifications: () => void;
+  searchQuery: string;
+  searchResults: SearchResult[];
+  onSearchQueryChange: (query: string) => void;
+  onOpenSearchResult: (result: SearchResult) => void;
 }) {
   return (
     <header className="topbar">
@@ -737,11 +879,48 @@ function TopBar({
         <h1>{activePage.title}</h1>
       </div>
       <div className="topbar-actions">
-        <label className="search-shell">
-          <Search size={15} />
-          <span className="sr-only">Search</span>
-          <input placeholder="Search incidents, evidence, owners" />
-        </label>
+        <div className="search-wrap">
+          <label className="search-shell">
+            <Search size={15} />
+            <span className="sr-only">Search</span>
+            <input
+              aria-label="Search incidents, evidence, owners"
+              onChange={(event) => onSearchQueryChange(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && searchResults[0]) {
+                  onOpenSearchResult(searchResults[0]);
+                }
+                if (event.key === "Escape") {
+                  onSearchQueryChange("");
+                }
+              }}
+              placeholder="Search incidents, evidence, owners"
+              value={searchQuery}
+            />
+          </label>
+          {searchQuery.trim() ? (
+            <div className="search-results" role="listbox" aria-label="Search results">
+              {searchResults.length > 0 ? (
+                searchResults.map((result) => (
+                  <button
+                    key={result.id}
+                    className="search-result"
+                    onClick={() => onOpenSearchResult(result)}
+                    type="button"
+                  >
+                    <span className={`status-dot ${result.tone}`} aria-hidden="true" />
+                    <span>
+                      <strong>{result.label}</strong>
+                      <small>{result.detail}</small>
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <div className="search-empty">No matching incident, owner, tab, or evidence area.</div>
+              )}
+            </div>
+          ) : null}
+        </div>
         <Badge tone="info" label="Band active" />
         <Badge tone="success" label="Synthetic mode" />
         <button
@@ -879,20 +1058,22 @@ function ActionPanel({
       <section className="panel decision-card">
         <div className="decision-tag">
           <Users size={14} />
-          <span>Human review</span>
+          <span>Operator step</span>
         </div>
         <h3>{tab.actionTitle}</h3>
         <p>{tab.actionSummary}</p>
         <div className="button-stack">
           {tab.actions.map((action) => (
-            <button
-              key={action.label}
-              className={`button tone-${action.tone}`}
-              onClick={() => runAction(action)}
-              type="button"
-            >
-              {action.label}
-            </button>
+            <div className="action-choice" key={action.label}>
+              <button
+                className={`button tone-${action.tone}`}
+                onClick={() => runAction(action)}
+                type="button"
+              >
+                {action.label}
+              </button>
+              <small>{getActionEffect(action)}</small>
+            </div>
           ))}
         </div>
       </section>
@@ -910,14 +1091,18 @@ function ActionPanel({
       ) : null}
 
       <section className="panel">
-        <PanelHeader icon={Gauge} title="Notification Center" subtitle="CrisisCoord records first" />
+        <PanelHeader
+          icon={Gauge}
+          title="Action Trail"
+          subtitle="Every click records an operator-visible result"
+        />
         <div className="stack">
           {workflowEvents.length === 0 ? (
             <FeedRow
               item={{
                 title: "Ready for interaction",
                 detail:
-                  "Click an action to create a visible notification, delivery, escalation, or audit event.",
+                  "Click an action to create a visible notification, delivery, escalation, search, or audit event.",
                 meta: "event trail",
                 tone: "info",
               }}
