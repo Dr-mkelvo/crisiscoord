@@ -102,6 +102,8 @@ export type IncidentScenario = {
   owner: string;
   detectedAt: string;
   deadline: string;
+  deadlineHours: number;
+  clockStartedMinutesAgo: number;
   summary: string;
   suspectedScope: string;
   affectedSystems: string[];
@@ -126,6 +128,8 @@ export type IncidentSummary = Pick<
   | "phase"
   | "owner"
   | "deadline"
+  | "deadlineHours"
+  | "clockStartedMinutesAgo"
   | "summary"
 >;
 
@@ -198,6 +202,8 @@ export const seededIncidents: IncidentScenario[] = [
     owner: "Incident commander",
     detectedAt: "04:18 UTC",
     deadline: "48h",
+    deadlineHours: 48,
+    clockStartedMinutesAgo: 74,
     summary:
       "A third-party platform reports that integration credentials may have been used outside the approved network boundary.",
     suspectedScope:
@@ -230,6 +236,8 @@ export const seededIncidents: IncidentScenario[] = [
     owner: "Technical lead",
     detectedAt: "01:36 UTC",
     deadline: "24h",
+    deadlineHours: 24,
+    clockStartedMinutesAgo: 96,
     summary:
       "Multiple endpoints show encryption behavior while the attacker claims data exfiltration through an external mailbox.",
     suspectedScope:
@@ -261,6 +269,8 @@ export const seededIncidents: IncidentScenario[] = [
     owner: "Privacy reviewer",
     detectedAt: "13:22 UTC",
     deadline: "60d",
+    deadlineHours: 1440,
+    clockStartedMinutesAgo: 360,
     summary:
       "A healthcare workflow shows unusual report access by a service account during a vendor maintenance window.",
     suspectedScope:
@@ -292,6 +302,8 @@ export const seededIncidents: IncidentScenario[] = [
     owner: "Operations owner",
     detectedAt: "16:05 UTC",
     deadline: "36h",
+    deadlineHours: 36,
+    clockStartedMinutesAgo: 210,
     summary:
       "Support and field teams report a repeatable product failure pattern that may require customer instructions or recall review.",
     suspectedScope:
@@ -323,6 +335,8 @@ export const seededIncidents: IncidentScenario[] = [
     owner: "Legal reviewer",
     detectedAt: "02:47 UTC",
     deadline: "72h",
+    deadlineHours: 72,
+    clockStartedMinutesAgo: 147,
     summary:
       "Unauthorized access was detected in a payment environment with a synthetic card-record exposure estimate.",
     suspectedScope:
@@ -355,6 +369,8 @@ function getIncidentSummary(incident: IncidentScenario): IncidentSummary {
     phase: incident.phase,
     owner: incident.owner,
     deadline: incident.deadline,
+    deadlineHours: incident.deadlineHours,
+    clockStartedMinutesAgo: incident.clockStartedMinutesAgo,
     summary: incident.summary,
   };
 }
@@ -381,16 +397,16 @@ export function isKnownIncidentId(incidentId = defaultIncidentId) {
   return seededIncidents.some((incident) => incident.id === canonicalIncidentId);
 }
 
-export function getIncidentCommandHref(incidentId = defaultIncidentId) {
-  return `/incidents/${normalizeIncidentId(incidentId)}`;
+export function getIncidentCommandHref(_incidentId = defaultIncidentId) {
+  return "/command";
 }
 
-export function getIncidentCommunicationsHref(incidentId = defaultIncidentId) {
-  return `/incidents/${normalizeIncidentId(incidentId)}/communications`;
+export function getIncidentCommunicationsHref(_incidentId = defaultIncidentId) {
+  return "/communications";
 }
 
-export function getIncidentAuditHref(incidentId = defaultIncidentId) {
-  return `/incidents/${normalizeIncidentId(incidentId)}/audit`;
+export function getIncidentAuditHref(_incidentId = defaultIncidentId) {
+  return "/audit";
 }
 
 export function getIncidentIdFromPath(pathname: string) {
@@ -400,18 +416,16 @@ export function getIncidentIdFromPath(pathname: string) {
 }
 
 export function isLegacyIncidentPath(pathname: string) {
-  const match = pathname.match(/^\/incidents\/([^/]+)/);
-  return Boolean(match && legacyIncidentIdMap[match[1]]);
+  return /^\/incidents\/[^/]+/.test(pathname);
 }
 
 export function getCanonicalIncidentPath(pathname: string) {
   const match = pathname.match(/^\/incidents\/([^/]+)(\/communications|\/audit)?$/);
   if (!match) return pathname;
 
-  const canonicalIncidentId = normalizeIncidentId(match[1]);
-  if (canonicalIncidentId === match[1]) return pathname;
-
-  return `/incidents/${canonicalIncidentId}${match[2] ?? ""}`;
+  if (match[2] === "/communications") return getIncidentCommunicationsHref();
+  if (match[2] === "/audit") return getIncidentAuditHref();
+  return getIncidentCommandHref();
 }
 
 const commonStatus = (incident: IncidentScenario): FeedItem[] => [

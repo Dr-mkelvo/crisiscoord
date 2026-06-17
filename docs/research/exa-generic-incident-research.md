@@ -28,7 +28,7 @@ NIST SP 800-61 Rev. 3 supersedes Rev. 2 and frames incident response as part of 
 
 Product implication:
 
-- Keep `/incidents/:incidentId` as the primary route shape.
+- Keep `/command` as the primary command-room route while carrying the active incident as app/API context.
 - Keep many incident scenarios in the catalog.
 - Keep one reusable command-room workflow that adapts to the incident, sector, source, affected assets, obligations, and owners.
 - Do not build the app around one permanent demo slug or one permanent data-breach story.

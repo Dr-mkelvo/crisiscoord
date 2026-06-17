@@ -60,13 +60,14 @@ Sources:
 | --- | --- | --- |
 | `/signals` | Signal Intake And Sandbox Launcher | Signals, Scenarios, Redaction, Launch Review |
 | `/incidents` | Incident Registry | Queue, Details, Owners, Deadlines |
-| `/incidents/:incidentId` | Crisis Command Room | Overview, Agents, Messaging, Decisions |
-| `/incidents/:incidentId/communications` | Communications Review | Drafts, Email, SMS, Delivery Log |
+| `/command` | Crisis Command Room | Overview, Agents, Messaging, Decisions |
+| `/communications` | Communications Review | Drafts, Email, SMS, Delivery Log |
 | `/decisions` | Decision Desk | Pending, Evidence Needed, Escalations, Resolved |
-| `/incidents/:incidentId/audit` | Evidence And Audit | Timeline, Evidence, Agent Reasoning, Exports |
+| `/audit` | Evidence And Audit | Timeline, Evidence, Agent Reasoning, Exports |
 | `/settings` | Integrations And Demo Readiness | Providers, Notification Channels, Secrets And Policies, Demo Readiness |
 
 Tabs are local UI states. They should not become new top-level routes in the MVP unless deep linking becomes necessary later.
+The active incident is workspace context, not part of the visible page route.
 
 ## What Clicks Do
 

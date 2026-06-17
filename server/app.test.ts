@@ -64,7 +64,7 @@ describe("CrisisCoord seeded backend API", () => {
     expect(response.status).toBe(200);
     expect(body.activeIncidentId).toBe("inc-2026-0002");
     expect(body.pages.find((page: { id: string }) => page.id === "command").href).toBe(
-      "/incidents/inc-2026-0002",
+      "/command",
     );
     expect(JSON.stringify(body.pages)).toContain("Ransomware containment event");
   });
@@ -76,7 +76,7 @@ describe("CrisisCoord seeded backend API", () => {
     expect(response.status).toBe(200);
     expect(body.activeIncidentId).toBe("inc-2026-0001");
     expect(body.pages.find((page: { id: string }) => page.id === "audit").href).toBe(
-      "/incidents/inc-2026-0001/audit",
+      "/audit",
     );
   });
 

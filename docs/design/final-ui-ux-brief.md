@@ -98,11 +98,13 @@ The seven-workspace model is:
 
 1. `/signals` - Signal Intake And Sandbox Launcher
 2. `/incidents` - Incident Registry
-3. `/incidents/:incidentId` - Crisis Command Room
-4. `/incidents/:incidentId/communications` - Communications Review
+3. `/command` - Crisis Command Room
+4. `/communications` - Communications Review
 5. `/decisions` - Decision Desk
-6. `/incidents/:incidentId/audit` - Evidence And Audit
+6. `/audit` - Evidence And Audit
 7. `/settings` - Integrations And Demo Readiness
+
+Selected incident context comes from Signal Intake, Incident Registry, or the backend workspace payload. Do not expose incident record IDs in the main page URLs.
 
 This is the best balance between depth and scope. It gives the team enough real pages to make the product feel complete, while still keeping the first build focused on one excellent command-room workflow.
 

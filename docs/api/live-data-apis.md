@@ -78,10 +78,10 @@ No new pages are added.
 | --- | --- | --- |
 | `/signals` Signal Intake And Sandbox Launcher | global search bar, source cards, live source feed, sandbox selector, source health labels, confidence labels | CISA KEV, NVD, EPSS, OSV, GitHub advisories, openFDA, seeded snapshots |
 | `/incidents` Incident Registry | operational status strip, lean incident table, deadline-risk filter, decision-needed filter | Supabase incident aggregates |
-| `/incidents/:incidentId` Crisis Command Room | handoff topology map, Band timeline, source feed rail, dependency gate, last-updated labels | Band, Supabase, selected source snapshots |
-| `/incidents/:incidentId/communications` Communications Review | facts used, missing facts, legal warnings, confidence labels, source references | Supabase evidence, Legal/Technical agent outputs, Band refs |
+| `/command` Crisis Command Room | handoff topology map, Band timeline, source feed rail, dependency gate, last-updated labels | Band, Supabase, selected source snapshots |
+| `/communications` Communications Review | facts used, missing facts, legal warnings, confidence labels, source references | Supabase evidence, Legal/Technical agent outputs, Band refs |
 | `/decisions` Decision Desk | mobile-first approval cards, risk of approving, risk of waiting, confidence and last-updated labels | Supabase decisions, agent outputs, audit events |
-| `/incidents/:incidentId/audit` Evidence And Audit | real event ledger, source snapshots, provider/model metadata, Band references, export status | Supabase audit/events/evidence/provider tables |
+| `/audit` Evidence And Audit | real event ledger, source snapshots, provider/model metadata, Band references, export status | Supabase audit/events/evidence/provider tables |
 | `/settings` Integrations And Demo Readiness | provider/feed health cards, last successful sync, fallback mode, latency, key status | health checks, source sync logs, Vercel diagnostics |
 
 ## Component Decisions

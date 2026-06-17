@@ -4,23 +4,23 @@
 
 The first UI pass overfit the app to one synthetic payment incident. That was useful for a demo story, but it was too narrow for the actual product. CrisisCoord must handle many regulated crisis types through the same command-room workflow.
 
-The product now treats the incident as a route parameter:
+The product now treats the incident as active workspace context instead of a visible section URL:
 
-- `/incidents/:incidentId`
-- `/incidents/:incidentId/communications`
-- `/incidents/:incidentId/audit`
+- `/command`
+- `/communications`
+- `/audit`
 
-Incident URLs must use opaque incident record IDs. The crisis type belongs in the incident payload and UI, not in the route. Legacy semantic demo URLs redirect to the current canonical incident record instead of remaining permanent product assumptions.
+Incident record IDs still exist in backend payloads and API endpoints, but they should not be exposed in the main product navigation. The crisis type belongs in the incident payload and UI, not in the route. Legacy incident-scoped demo URLs redirect to clean workspace sections instead of becoming permanent product assumptions.
 
 ## Assumptions Found And Fixed
 
 | Narrow assumption | Why it was wrong | Fix |
 | --- | --- | --- |
-| Hardcoded semantic incident URLs | CrisisCoord receives unknown signals and then classifies them. URLs must not imply we knew the crisis type upfront. | Replaced route slugs with opaque incident IDs such as `inc-2026-0001`. |
+| Hardcoded semantic incident URLs | CrisisCoord receives unknown signals and then classifies them. URLs must not imply we knew the crisis type upfront. | Replaced page URLs with clean workspace sections such as `/command`, `/communications`, and `/audit`. |
 | One active payment-data command room | The same workflow must handle vendor, ransomware, privacy, product, and finance scenarios. | Added five seeded incident scenarios. |
 | Frontend-only seeded data | API keys alone would not make the backend work. | Added a no-key local backend API that serves seeded workspace payloads. |
-| Frontend actions knew only one incident | Clicking Email, Audit, or Command needed to preserve the selected incident. | Actions now derive URLs from the active incident id. |
-| Browser tests only checked one scenario URL | Tests could pass while the product stayed narrow. | E2E tests now cover multiple generic incident URLs and legacy redirect behavior. |
+| Frontend actions knew only one incident | Clicking Email, Audit, or Command needed to preserve selected incident context without exposing it in every URL. | Actions navigate to clean workspace URLs while the payload keeps `activeIncidentId`. |
+| Browser tests only checked one scenario URL | Tests could pass while the product stayed narrow. | E2E tests now cover clean workspace URLs, legacy redirect behavior, and a live deadline clock. |
 
 ## Current Backend Foundation
 
@@ -42,15 +42,17 @@ Current seeded incident scenarios:
 - `inc-2026-0004` - product and supply-chain safety scenario
 - `inc-2026-0005` - finance and payments exposure scenario
 
-Legacy semantic slugs are compatibility redirects only. New code, docs, tests, and demos should use opaque incident IDs.
+Legacy semantic slugs and old incident-scoped workspace URLs are compatibility redirects only. New UI code, docs, tests, and demos should use clean workspace routes.
 
 ## Frontend Data Flow
 
-1. Browser route determines `incidentId` from `/incidents/:incidentId`.
-2. Frontend requests `/api/workspace?incidentId=:incidentId`.
-3. API returns the seven workspace pages shaped for that incident.
-4. Frontend keeps a local seeded fallback if the API is unavailable.
-5. Actions such as Email, Audit, Messaging, and Command preserve the active incident id.
+1. Signal Intake or Incident Registry selects an active incident.
+2. Frontend stores the selected incident as workspace context and navigates to `/command`, `/communications`, `/decisions`, or `/audit`.
+3. Frontend requests `/api/workspace?incidentId=:incidentId`.
+4. API returns the seven workspace pages shaped for that incident.
+5. Frontend keeps a local seeded fallback if the API is unavailable.
+6. Actions such as Email, Audit, Messaging, and Command preserve the active incident id in state/API context, not in the visible section URL.
+7. Deadline and counter cards derive from scenario timing plus recorded workflow events, not random numbers.
 
 ## Exa Research Cross-Check
 
