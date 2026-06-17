@@ -25,6 +25,8 @@ describe("sandbox scenario dataset", () => {
     );
 
     for (const incident of seededIncidents) {
+      expect(incident.id).toMatch(/^inc-\d{4}-\d{4}$/);
+      expect(incident.id).not.toMatch(/credential|ransomware|privacy|recall|payment|breach/);
       expect(incident.title).toBeTruthy();
       expect(incident.shortTitle).toBeTruthy();
       expect(incident.summary).toBeTruthy();

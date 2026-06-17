@@ -38,6 +38,9 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(normalizePath("/")).toBe(commandHref);
     expect(commandHref).toBe(`/incidents/${defaultIncidentId}`);
     expect(normalizePath("/incidents/payment-breach")).toBe(commandHref);
+    expect(normalizePath("/incidents/vendor-credential-compromise/audit")).toBe(
+      "/incidents/inc-2026-0001/audit",
+    );
     expect(resolveWorkspacePage("/").id).toBe("command");
     expect(resolveWorkspacePage("/decisions", []).id).toBe("command");
   });
@@ -77,7 +80,7 @@ describe("CrisisCoord app routing and workspace data", () => {
 
   test("navigates from command room action to the email composer tab", async () => {
     const user = userEvent.setup();
-    const incidentId = "ransomware-containment";
+    const incidentId = "inc-2026-0002";
     const payload = createWorkspacePayload(incidentId);
     renderAt(getIncidentCommandHref(incidentId), payload.pages);
 
@@ -112,7 +115,7 @@ describe("CrisisCoord app routing and workspace data", () => {
 
   test("queues a communication package and records the delivery event", async () => {
     const user = userEvent.setup();
-    const incidentId = "vendor-credential-compromise";
+    const incidentId = "inc-2026-0001";
     const payload = createWorkspacePayload(incidentId);
     renderAt(getIncidentCommunicationsHref(incidentId), payload.pages);
 
@@ -140,20 +143,22 @@ describe("CrisisCoord app routing and workspace data", () => {
   });
 
   test("keeps audit and communications URLs tied to the selected incident", () => {
-    expect(getIncidentCommandHref("product-recall-safety")).toBe(
-      "/incidents/product-recall-safety",
+    expect(getIncidentCommandHref("inc-2026-0004")).toBe(
+      "/incidents/inc-2026-0004",
     );
-    expect(getIncidentCommunicationsHref("product-recall-safety")).toBe(
-      "/incidents/product-recall-safety/communications",
+    expect(getIncidentCommunicationsHref("inc-2026-0004")).toBe(
+      "/incidents/inc-2026-0004/communications",
     );
-    expect(getIncidentAuditHref("product-recall-safety")).toBe(
-      "/incidents/product-recall-safety/audit",
+    expect(getIncidentAuditHref("inc-2026-0004")).toBe(
+      "/incidents/inc-2026-0004/audit",
     );
+    expect(getIncidentCommandHref("product-recall-safety")).toBe("/incidents/inc-2026-0004");
     expect(communicationsHref).not.toContain("payment-breach");
+    expect(communicationsHref).not.toContain("vendor-credential-compromise");
   });
 
   test("renders human page labels instead of raw route labels", () => {
-    const incidentId = "product-recall-safety";
+    const incidentId = "inc-2026-0004";
     const payload = createWorkspacePayload(incidentId);
 
     renderAt(getIncidentCommandHref(incidentId), payload.pages);

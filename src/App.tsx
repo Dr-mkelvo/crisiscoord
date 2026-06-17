@@ -22,6 +22,7 @@ import { useEffect, useMemo, useState } from "react";
 import { fallbackWorkspacePayload, fetchWorkspacePayload } from "./api";
 import {
   defaultIncidentId,
+  getCanonicalIncidentPath,
   getIncidentAuditHref,
   getIncidentCommandHref,
   getIncidentCommunicationsHref,
@@ -68,10 +69,13 @@ export function createInitialTabs(workspacePages: WorkspacePage[]) {
 }
 
 export function normalizePath(pathname: string) {
-  if (pathname === "/" || isLegacyIncidentPath(pathname)) {
+  if (pathname === "/") {
     return getIncidentCommandHref(defaultIncidentId);
   }
-  return pathname;
+  if (isLegacyIncidentPath(pathname)) {
+    return getCanonicalIncidentPath(pathname);
+  }
+  return getCanonicalIncidentPath(pathname);
 }
 
 function getPath() {

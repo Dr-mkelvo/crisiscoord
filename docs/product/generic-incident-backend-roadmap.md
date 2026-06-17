@@ -10,13 +10,13 @@ The product now treats the incident as a route parameter:
 - `/incidents/:incidentId/communications`
 - `/incidents/:incidentId/audit`
 
-The legacy `/incidents/payment-breach` route redirects to the current default seeded incident instead of remaining a permanent product assumption.
+Incident URLs must use opaque incident record IDs. The crisis type belongs in the incident payload and UI, not in the route. Legacy semantic demo URLs redirect to the current canonical incident record instead of remaining permanent product assumptions.
 
 ## Assumptions Found And Fixed
 
 | Narrow assumption | Why it was wrong | Fix |
 | --- | --- | --- |
-| One hardcoded `payment-breach` URL | CrisisCoord must support many incident types. | Replaced with generic `:incidentId` routes. |
+| Hardcoded semantic incident URLs | CrisisCoord receives unknown signals and then classifies them. URLs must not imply we knew the crisis type upfront. | Replaced route slugs with opaque incident IDs such as `inc-2026-0001`. |
 | One active payment-data command room | The same workflow must handle vendor, ransomware, privacy, product, and finance scenarios. | Added five seeded incident scenarios. |
 | Frontend-only seeded data | API keys alone would not make the backend work. | Added a no-key local backend API that serves seeded workspace payloads. |
 | Frontend actions knew only one incident | Clicking Email, Audit, or Command needed to preserve the selected incident. | Actions now derive URLs from the active incident id. |
@@ -36,11 +36,13 @@ Implemented endpoints:
 
 Current seeded incident scenarios:
 
-- `vendor-credential-compromise`
-- `ransomware-containment`
-- `health-privacy-review`
-- `product-recall-safety`
-- `payment-data-exposure`
+- `inc-2026-0001` - vendor and SaaS access scenario
+- `inc-2026-0002` - ransomware and outage response scenario
+- `inc-2026-0003` - healthcare privacy workflow scenario
+- `inc-2026-0004` - product and supply-chain safety scenario
+- `inc-2026-0005` - finance and payments exposure scenario
+
+Legacy semantic slugs are compatibility redirects only. New code, docs, tests, and demos should use opaque incident IDs.
 
 ## Frontend Data Flow
 
