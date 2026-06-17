@@ -38,6 +38,7 @@ npm run dev
 npm run test
 npm run test:e2e
 npm run build
+npm run build:api
 ```
 
 Do not add bash-only commands to normal project scripts unless there is a Windows-compatible wrapper.
@@ -176,7 +177,7 @@ Never commit `.env.local`, Band API keys, Supabase service-role keys, model API 
 
 ## Local Setup
 
-The app is scaffolded with React, TypeScript, and Vite. Use npm because the repo has a committed `package-lock.json`.
+The app is scaffolded with React, TypeScript, Vite, and a local Hono API. Use npm because the repo has a committed `package-lock.json`.
 
 ```bash
 npm install
@@ -184,6 +185,13 @@ cp .env.example .env.local
 npx playwright install chromium
 npm run dev
 ```
+
+`npm run dev` starts both:
+
+- API: `http://127.0.0.1:8787`
+- UI: `http://127.0.0.1:5173`
+
+The UI proxies `/api/*` to the local API in development.
 
 Project scripts:
 
@@ -193,13 +201,15 @@ npm run test
 npm run test:e2e
 npm run test:all
 npm run build
+npm run build:api
 ```
 
 Testing expectations before opening a pull request:
 
 - `npm run test` covers unit behavior: route resolution, tab state, action routing, and backend-shaped workspace data injection.
 - `npm run test:e2e` covers desktop, tablet, and mobile browser flows for all seven workspaces plus key command-room and communication actions.
-- `npm run test:all` runs unit tests, viewport browser checks, and the production build in one command.
+- `npm run build:api` type-checks the backend API.
+- `npm run test:all` runs unit tests, viewport browser checks, frontend build, and backend type-checking in one command.
 
 ## First Research Tasks
 

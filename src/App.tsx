@@ -19,10 +19,13 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { fallbackWorkspacePayload, fetchWorkspacePayload } from "./api";
 import {
-  auditHref,
-  commandHref,
-  communicationsHref,
+  defaultIncidentId,
+  getIncidentAuditHref,
+  getIncidentCommandHref,
+  getIncidentCommunicationsHref,
+  getIncidentIdFromPath,
   type ActionKind,
   type DetailCard,
   type FeedItem,
@@ -30,13 +33,17 @@ import {
   type PageAction,
   type PageTab,
   pages as defaultWorkspacePages,
+  isLegacyIncidentPath,
   type Tone,
+  type WorkspacePayload,
   type WorkspacePage,
 } from "./data";
 
 type TabState = Record<string, string>;
 type AppProps = {
   workspacePages?: WorkspacePage[];
+  initialWorkspacePayload?: WorkspacePayload;
+  loadWorkspaceData?: boolean;
 };
 
 const pageIcons: Record<string, typeof Activity> = {
@@ -57,7 +64,10 @@ export function createInitialTabs(workspacePages: WorkspacePage[]) {
 }
 
 export function normalizePath(pathname: string) {
-  return pathname === "/" ? commandHref : pathname;
+  if (pathname === "/" || isLegacyIncidentPath(pathname)) {
+    return getIncidentCommandHref(defaultIncidentId);
+  }
+  return pathname;
 }
 
 function getPath() {
@@ -92,6 +102,10 @@ export function resolveWorkspacePage(
   return fallbackPage;
 }
 
+function getRouteIncidentId(path: string, fallbackIncidentId = defaultIncidentId) {
+  return getIncidentIdFromPath(path) ?? fallbackIncidentId;
+}
+
 function reconcileSelectedTabs(current: TabState, workspacePages: WorkspacePage[]) {
   const next = createInitialTabs(workspacePages);
   for (const page of workspacePages) {
@@ -103,11 +117,30 @@ function reconcileSelectedTabs(current: TabState, workspacePages: WorkspacePage[
   return next;
 }
 
-export function App({ workspacePages = defaultWorkspacePages }: AppProps) {
+export function App({
+  workspacePages,
+  initialWorkspacePayload,
+  loadWorkspaceData,
+}: AppProps) {
   const [path, setPath] = useState(getPath);
+  const shouldLoadWorkspaceData = loadWorkspaceData ?? !workspacePages;
+  const [workspacePayload, setWorkspacePayload] = useState<WorkspacePayload>(() => {
+    if (initialWorkspacePayload) return initialWorkspacePayload;
+    return fallbackWorkspacePayload(getRouteIncidentId(getPath()));
+  });
+  const activeWorkspacePages = workspacePages ?? workspacePayload.pages;
+  const activeIncidentId = getRouteIncidentId(path, workspacePayload.activeIncidentId);
   const [selectedTabs, setSelectedTabs] = useState<TabState>(() =>
-    createInitialTabs(workspacePages),
+    createInitialTabs(activeWorkspacePages),
   );
+
+  useEffect(() => {
+    const normalizedPath = getPath();
+    if (normalizedPath !== window.location.pathname) {
+      window.history.replaceState(null, "", normalizedPath);
+    }
+    setPath(normalizedPath);
+  }, []);
 
   useEffect(() => {
     const onPopState = () => setPath(getPath());
@@ -116,19 +149,34 @@ export function App({ workspacePages = defaultWorkspacePages }: AppProps) {
   }, []);
 
   useEffect(() => {
-    setSelectedTabs((current) => reconcileSelectedTabs(current, workspacePages));
-  }, [workspacePages]);
+    if (!shouldLoadWorkspaceData || workspacePages) return;
+
+    const controller = new AbortController();
+    fetchWorkspacePayload(activeIncidentId, controller.signal)
+      .then((payload) => {
+        setWorkspacePayload(payload);
+      })
+      .catch(() => {
+        setWorkspacePayload(fallbackWorkspacePayload(activeIncidentId));
+      });
+
+    return () => controller.abort();
+  }, [activeIncidentId, shouldLoadWorkspaceData, workspacePages]);
+
+  useEffect(() => {
+    setSelectedTabs((current) => reconcileSelectedTabs(current, activeWorkspacePages));
+  }, [activeWorkspacePages]);
 
   const activePage = useMemo(
-    () => resolveWorkspacePage(path, workspacePages),
-    [path, workspacePages],
+    () => resolveWorkspacePage(path, activeWorkspacePages),
+    [path, activeWorkspacePages],
   );
   const activeTabName = selectedTabs[activePage.id] ?? activePage.tabs[0].name;
   const activeTab =
     activePage.tabs.find((tab) => tab.name === activeTabName) ?? activePage.tabs[0];
 
   const navigate = (href: string) => {
-    window.history.pushState(null, "", href);
+    window.history.pushState(null, "", normalizePath(href));
     setPath(getPath());
   };
 
@@ -141,6 +189,10 @@ export function App({ workspacePages = defaultWorkspacePages }: AppProps) {
     const setTabForPage = (pageId: string, tabName: string) => {
       setSelectedTabs((current) => ({ ...current, [pageId]: tabName }));
     };
+
+    const commandHref = getIncidentCommandHref(activeIncidentId);
+    const communicationsHref = getIncidentCommunicationsHref(activeIncidentId);
+    const auditHref = getIncidentAuditHref(activeIncidentId);
 
     const handlers: Record<ActionKind, () => void> = {
       "navigate-command": () => navigate(commandHref),
@@ -177,7 +229,7 @@ export function App({ workspacePages = defaultWorkspacePages }: AppProps) {
 
   return (
     <div className="app-shell">
-      <Sidebar activePage={activePage} navigate={navigate} workspacePages={workspacePages} />
+      <Sidebar activePage={activePage} navigate={navigate} workspacePages={activeWorkspacePages} />
       <main className="workspace">
         <TopBar activePage={activePage} />
         <Workspace
@@ -201,11 +253,15 @@ function Sidebar({
   navigate: (href: string) => void;
   workspacePages: WorkspacePage[];
 }) {
+  const commandPageHref =
+    workspacePages.find((page) => page.id === "command")?.href ??
+    getIncidentCommandHref(defaultIncidentId);
+
   return (
     <aside className="sidebar" aria-label="Primary navigation">
-      <a className="brand-block" href={commandHref} onClick={(event) => {
+      <a className="brand-block" href={commandPageHref} onClick={(event) => {
         event.preventDefault();
-        navigate(commandHref);
+        navigate(commandPageHref);
       }}>
         <span className="brand-mark">
           <ShieldCheck size={18} strokeWidth={2.4} />
