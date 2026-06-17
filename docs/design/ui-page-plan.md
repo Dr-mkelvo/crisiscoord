@@ -84,7 +84,7 @@ Recommended route set:
 | 4 | `/communications` | Communications Review | Review regulator, customer, executive, and internal drafts. |
 | 5 | `/decisions` | Decision Desk | Fast executive, legal, or communications approvals. |
 | 6 | `/audit` | Evidence And Audit | Review source facts, evidence, model/provider metadata, and timeline. |
-| 7 | `/settings` | Integrations And Demo Readiness | Demo-safe status for Band, Supabase, AI/ML API, Featherless, and fallback mode. |
+| 7 | `/settings` | Integrations And Operations | Operational status for Band, Supabase, AI/ML API, Featherless, and fallback mode. |
 
 Build priority should be:
 
@@ -94,7 +94,7 @@ Build priority should be:
 4. Communications Review
 5. Decision Desk
 6. Evidence And Audit
-7. Integrations And Demo Readiness
+7. Integrations And Operations
 
 Keep these inside existing pages instead of making separate routes at first:
 
@@ -424,7 +424,7 @@ Rule:
 
 - The product surfaces possible obligations for review. It does not finalize legal conclusions.
 
-### 7. Integrations And Demo Readiness
+### 7. Integrations And Operations
 
 Priority: post-MVP.
 

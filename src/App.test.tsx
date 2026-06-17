@@ -142,6 +142,17 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(screen.getAllByText("notification logged").length).toBeGreaterThan(0);
   });
 
+  test("opens notification channel setup from the top bar bell", async () => {
+    const user = userEvent.setup();
+    renderAt("/command");
+
+    await user.click(screen.getByRole("button", { name: "Open notification channels" }));
+
+    expect(window.location.pathname).toBe("/settings");
+    expect(getSelectedTab("Notification Channels")).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("heading", { name: "Notification settings opened" })).toBeInTheDocument();
+  });
+
   test("keeps visible workspace URLs free of incident ids", () => {
     expect(getIncidentCommandHref("inc-2026-0004")).toBe("/command");
     expect(getIncidentCommunicationsHref("inc-2026-0004")).toBe("/communications");

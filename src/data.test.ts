@@ -86,4 +86,22 @@ describe("sandbox scenario dataset", () => {
       }
     }
   });
+
+  test("keeps settings as an operations page, not a planning checklist", () => {
+    const payload = createWorkspacePayload();
+    const settingsPage = payload.pages.find((page) => page.id === "settings");
+    const settingsText = JSON.stringify(settingsPage);
+
+    expect(settingsPage?.title).toBe("Integrations And Operations");
+    expect(settingsPage?.tabs.map((tab) => tab.name)).toEqual([
+      "Providers",
+      "Notification Channels",
+      "Security Controls",
+      "System Health",
+    ]);
+    expect(settingsText).not.toContain("Demo Readiness");
+    expect(settingsText).not.toContain("Judge-visible value");
+    expect(settingsText).not.toContain("Demo fail plan");
+    expect(settingsText).not.toContain("Secrets And Policies");
+  });
 });

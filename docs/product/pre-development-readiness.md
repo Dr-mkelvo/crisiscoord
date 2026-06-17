@@ -74,7 +74,7 @@ Build in this order:
 8. Communications dependency gate.
 9. Notification Center, acknowledgement, escalation ladder, and simulated outbound communication.
 10. Escalation decision request.
-11. Provider diagnostics and demo readiness checks.
+11. Provider diagnostics and system health checks.
 12. Responsive Playwright checks.
 13. Gamma deck update from real screenshots or clearly labeled mockups.
 

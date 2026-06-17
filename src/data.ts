@@ -438,7 +438,7 @@ const commonStatus = (incident: IncidentScenario): FeedItem[] => [
   {
     title: "Synthetic mode enforced",
     detail: "No real customer, patient, payment, legal, security, or private incident data is loaded.",
-    meta: "policy: demo-safe",
+    meta: "policy: safe data",
     tone: "success",
   },
   {
@@ -603,7 +603,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
         {
           name: "Scenarios",
           eyebrow: "sandbox selector",
-          title: "Choose a global regulated-workflow demo scenario",
+          title: "Choose a global regulated-workflow scenario",
           summary:
             "The sandbox gives the team repeatable paths without connecting real enterprise systems or using private data.",
           metrics: [
@@ -627,7 +627,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
             {
               title: "Safe fallback",
               body: "If a provider is unavailable, the app can use seeded fallback outputs while still showing handoff and audit behavior.",
-              meta: "demo resilience",
+              meta: "resilience",
               tone: "info",
             },
           ],
@@ -661,7 +661,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
             },
             {
               title: "Synthetic labels applied",
-              detail: "Counts, systems, jurisdictions, and roles are demo-safe placeholders.",
+              detail: "Counts, systems, jurisdictions, and roles are safe placeholders.",
               meta: "allowed",
               tone: "success",
             },
@@ -725,7 +725,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       href: "/incidents",
       navLabel: "Incident Registry",
       title: "Incident Registry",
-      subtitle: "Triage active, demo, resolved, and deadline-sensitive crisis rooms.",
+      subtitle: "Triage active, sandbox, resolved, and deadline-sensitive crisis rooms.",
       routeLabel: "Incident registry",
       activeBadge: `${seededIncidents.length} scenarios`,
       tone: "brand",
@@ -1230,7 +1230,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           summary:
             "Resolved decisions stay searchable for audit and retrospective review.",
           metrics: [
-            { label: "Resolved", value: "8", detail: "this demo run", tone: "success" },
+            { label: "Resolved", value: "8", detail: "this workspace", tone: "success" },
             { label: "Rejected", value: "1", detail: "unsafe language", tone: "risk" },
             { label: "Revisions", value: "3", detail: "draft edits", tone: "brand" },
             metrics.evidence,
@@ -1367,9 +1367,9 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           eyebrow: "review package",
           title: "Export a safe audit package",
           summary:
-            "Exports are designed for internal review, demo replay, and future compliance evidence packages.",
+            "Exports are designed for internal review, workflow replay, and future compliance evidence packages.",
           metrics: [
-            { label: "Packages", value: "2", detail: "incident and demo", tone: "brand" },
+            { label: "Packages", value: "2", detail: "incident and replay", tone: "brand" },
             { label: "Redacted", value: "100%", detail: "synthetic mode", tone: "success" },
             { label: "References", value: "18", detail: "Band and source links", tone: "info" },
             metrics.deadline,
@@ -1377,7 +1377,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           feedTitle: "Export queue",
           feed: [
             { title: "Incident evidence package", detail: "Timeline, facts, decisions, and communication states.", meta: "ready", tone: "success" },
-            { title: "Demo replay package", detail: "Seeded fallback story for presentation use.", meta: "ready", tone: "brand" },
+            { title: "Workflow replay package", detail: "Fallback path and key decisions are packaged for review.", meta: "ready", tone: "brand" },
           ],
           mainTitle: "Export detail",
           mainSummary:
@@ -1400,23 +1400,23 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       id: "settings",
       href: "/settings",
       navLabel: "Integrations",
-      title: "Integrations And Demo Readiness",
-      subtitle: "Verify provider health, notification channels, safe mode, seeded fallback, and demo readiness.",
+      title: "Integrations And Operations",
+      subtitle: "Manage provider health, notification channels, safety controls, and operational fallback paths.",
       routeLabel: "Integrations",
-      activeBadge: "Safe mode",
+      activeBadge: "Guarded sends",
       tone: "success",
       tabs: [
         {
           name: "Providers",
-          eyebrow: "integration health",
-          title: "Check partner and platform readiness",
+          eyebrow: "provider health",
+          title: "Manage connected providers",
           summary:
-            "Provider cards show purpose, mode, last successful run, safe diagnostic status, and whether fallback is available.",
+            "Provider cards show purpose, current mode, last check, and whether a controlled fallback route is available.",
           metrics: [
             { label: "Band", value: "Ready", detail: "room adapter planned", tone: "success" },
             { label: "Supabase", value: "Schema", detail: "next backend step", tone: "brand" },
             { label: "Models", value: "2", detail: "AI/ML API and Featherless", tone: "info" },
-            { label: "Fallback", value: "On", detail: "seeded data available", tone: "success" },
+            { label: "Fallback", value: "On", detail: "controlled route ready", tone: "success" },
           ],
           feedTitle: "Provider list",
           feed: [
@@ -1424,15 +1424,15 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
             { title: "Supabase", detail: "Postgres, auth, storage, realtime-ready data layer.", meta: "planned", tone: "brand" },
             { title: "AI/ML API and Featherless", detail: "Model providers for agent reasoning and fallback route.", meta: "partner path", tone: "info" },
           ],
-          mainTitle: "Provider detail",
+          mainTitle: "Provider status",
           mainSummary:
-            "The backend API now serves seeded workspace payloads. External providers plug into this layer later.",
+            "These providers support agent coordination, durable incident state, model routing, and human notification workflows.",
           cards: [
-            { title: "Backend seed API", body: "Local API exposes health, incident list, incident detail, and workspace payload endpoints.", meta: "ready", tone: "success" },
-            { title: "Notification adapters", body: "Email and SMS can operate in safe test or simulated mode until credentials and recipients are configured.", meta: "guarded", tone: "warning" },
+            { title: "Backend API", body: "The API exposes health, incident list, incident detail, and workspace payload endpoints.", meta: "ready", tone: "success" },
+            { title: "Notification adapters", body: "Email and SMS stay locked until provider credentials, recipient rules, and approval gates are configured.", meta: "guarded", tone: "warning" },
           ],
           actionTitle: "Provider actions",
-          actionSummary: "Run safe diagnostics or open notification channel setup.",
+          actionSummary: "Run diagnostics or open notification channel setup.",
           actions: [
             { label: "Run diagnostics", tone: "brand" },
             { label: "Notification setup", tone: "review" },
@@ -1447,22 +1447,22 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
             "All notifications start as CrisisCoord records. External channels are adapters with safe-mode rules and allowlists.",
           metrics: [
             { label: "Channels", value: "5", detail: "in-app, Band, email, SMS, optional chat", tone: "brand" },
-            { label: "Allowlist", value: "8", detail: "safe demo recipients", tone: "success" },
-            { label: "Live external", value: "Off", detail: "MVP default", tone: "warning" },
+            { label: "Recipients", value: "8", detail: "approved internal owners", tone: "success" },
+            { label: "External send", value: "Locked", detail: "approval required", tone: "warning" },
             metrics.decisions,
           ],
           feedTitle: "Channel list",
           feed: [
             { title: "In-app", detail: "Notification center, decision cards, and command-room messaging.", meta: "enabled", tone: "success" },
             { title: "Band", detail: "Agent room posts and human mentions.", meta: "enabled", tone: "success" },
-            { title: "Email and SMS", detail: "Safe test or simulated mode for MVP.", meta: "guarded", tone: "warning" },
+            { title: "Email and SMS", detail: "Provider credentials and approval rules are required before live delivery.", meta: "guarded", tone: "warning" },
           ],
           mainTitle: "Channel policy",
           mainSummary:
             "The UI separates channel health from permission to send. A channel can be healthy while live external send remains disabled.",
           cards: [
-            { title: "Safe recipients", body: "Test sends are limited to configured internal demo recipients.", meta: "allowlist", tone: "success" },
-            { title: "Live-send lock", body: "External audience sending remains disabled in MVP without approval gates.", meta: "locked", tone: "warning" },
+            { title: "Approved recipients", body: "Internal owner notifications can only go to configured roles and recipients.", meta: "allowlist", tone: "success" },
+            { title: "Live-send lock", body: "External audience sending remains disabled unless approval gates and provider policy allow it.", meta: "locked", tone: "warning" },
           ],
           actionTitle: "Channel actions",
           actionSummary: "Open a test composer or inspect delivery log behavior.",
@@ -1473,13 +1473,13 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           status,
         },
         {
-          name: "Secrets And Policies",
+          name: "Security Controls",
           eyebrow: "safe configuration",
-          title: "Show required environment without exposing values",
+          title: "Show required configuration without exposing secrets",
           summary:
             "The app can display configuration health and missing variables without showing secrets.",
           metrics: [
-            { label: "Secrets", value: "0", detail: "values never shown", tone: "success" },
+            { label: "Secrets", value: "Hidden", detail: "values never shown", tone: "success" },
             { label: "Policy checks", value: "9", detail: "redaction, approval, send locks", tone: "brand" },
             { label: "Missing", value: "1", detail: "live email disabled", tone: "warning" },
             metrics.evidence,
@@ -1488,17 +1488,17 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           feed: [
             { title: "No secrets in browser", detail: "Service-role and provider keys never reach client code.", meta: "pass", tone: "success" },
             { title: "Draft-only communications", detail: "External communication requires human approval and safe channel mode.", meta: "pass", tone: "success" },
-            { title: "Fallback mode", detail: "Seeded data supports demo if provider calls fail.", meta: "enabled", tone: "brand" },
+            { title: "Fallback route", detail: "The app can continue in a controlled state if a provider call fails.", meta: "enabled", tone: "brand" },
           ],
           mainTitle: "Configuration overview",
           mainSummary:
             "Environment status is shown as configured, missing, disabled, or simulated with no sensitive values.",
           cards: [
-            { title: "Configured", body: "Backend seed API, Band placeholders, Supabase placeholders, model provider route, and seeded fallback mode.", meta: "safe", tone: "success" },
-            { title: "Disabled", body: "Live audience messaging is disabled by default in demo mode.", meta: "policy", tone: "warning" },
+            { title: "Configured services", body: "Backend API, Band route, Supabase plan, model provider route, and fallback controls are tracked here.", meta: "safe", tone: "success" },
+            { title: "Disabled by policy", body: "Live audience messaging is locked until approval rules and recipient policy are configured.", meta: "policy", tone: "warning" },
           ],
           actionTitle: "Policy actions",
-          actionSummary: "Run a safe configuration check or inspect audit export readiness.",
+          actionSummary: "Run a safe configuration check or inspect audit export status.",
           actions: [
             { label: "Run policy check", tone: "brand" },
             { label: "Open exports", tone: "success", kind: "navigate-audit" },
@@ -1506,31 +1506,31 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
           status,
         },
         {
-          name: "Demo Readiness",
-          eyebrow: "presentation mode",
-          title: "Make the 60-second demo reliable",
+          name: "System Health",
+          eyebrow: "operational checks",
+          title: "Monitor system health and fallback state",
           summary:
-            "Demo readiness shows seeded fallback, provider status, last successful run, and safe diagnostic checks.",
+            "System health shows provider status, last successful check, operational risks, and fallback availability.",
           metrics: [
-            { label: "Readiness", value: "92%", detail: "demo safe", tone: "success" },
-            { label: "Fallback", value: "On", detail: "seeded run available", tone: "brand" },
-            { label: "Last run", value: "OK", detail: incident.shortTitle, tone: "success" },
+            { label: "Health", value: "92%", detail: "operational checks", tone: "success" },
+            { label: "Fallback", value: "On", detail: "controlled route ready", tone: "brand" },
+            { label: "Last check", value: "OK", detail: incident.shortTitle, tone: "success" },
             { label: "Risks", value: "2", detail: "provider latency and review", tone: "warning" },
           ],
-          feedTitle: "Demo checklist",
+          feedTitle: "Health checks",
           feed: [
-            { title: incident.title, detail: "Launch, agent handoff, communications gate, decision, and audit path are ready.", meta: "ready", tone: "success" },
-            { title: "Seeded fallback", detail: "Demo can continue if Band or model provider calls are slow.", meta: "enabled", tone: "brand" },
-            { title: "Safe data only", detail: "Screens use synthetic crisis data and no private business records.", meta: "pass", tone: "success" },
+            { title: incident.title, detail: "Agent handoff, communications gate, decision, and audit path are available.", meta: "ready", tone: "success" },
+            { title: "Fallback route", detail: "The room stays usable if Band or model provider calls are slow.", meta: "enabled", tone: "brand" },
+            { title: "Data protection", detail: "No private business records are required for local workflow validation.", meta: "pass", tone: "success" },
           ],
-          mainTitle: "60-second scenario run",
+          mainTitle: "Operational run status",
           mainSummary:
-            `${incident.detectedAt}: ${incident.summary} Assessment fires, Legal and Technical post findings, Communications drafts, and Escalation asks for a human decision.`,
+            `${incident.detectedAt}: ${incident.summary} Assessment, Legal, Technical, Communications, and Escalation states are tracked from the same room.`,
           cards: [
-            { title: "Judge-visible value", body: "Band is required because every agent output changes the next agent action.", meta: "core proof", tone: "info" },
-            { title: "Demo fail plan", body: "Seeded fallback keeps the room, decisions, communications, and audit flow visible.", meta: "resilient", tone: "success" },
+            { title: "Band dependency", body: "Each agent output changes the next agent action, so handoffs must stay visible in the shared room.", meta: "coordination", tone: "info" },
+            { title: "Fallback path", body: "If a provider is slow or unavailable, the room keeps decisions, communications, and audit records usable.", meta: "resilient", tone: "success" },
           ],
-          actionTitle: "Demo actions",
+          actionTitle: "System actions",
           actionSummary: "Open the command room or inspect the audit package.",
           actions: [
             { label: "Open command room", tone: "brand", kind: "navigate-command" },

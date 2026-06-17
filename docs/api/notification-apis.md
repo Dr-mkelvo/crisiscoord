@@ -295,7 +295,7 @@ SERVICENOW_PASSWORD=
 | Communications Review | Draft approval, queue/send controls, delivery preview, recipient safety warning. |
 | Decision Desk | Human acknowledgement, approve, request facts, assign, escalate. |
 | Evidence And Audit | Notification attempts, provider IDs, acknowledgements, failed sends, simulated sends. |
-| Integrations And Demo Readiness | Provider config and safe test-mode status. |
+| Integrations And Operations | Provider config and safe test-mode status. |
 
 ## Demo Rule
 

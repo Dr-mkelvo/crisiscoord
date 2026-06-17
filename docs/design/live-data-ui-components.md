@@ -181,7 +181,7 @@ Use tables here, not on the first viewport of the Command Room.
 
 Placement:
 
-- Integrations And Demo Readiness
+- Integrations And Operations
 - Command Room compact provider badges
 - Evidence And Audit provider metadata
 
@@ -293,7 +293,7 @@ Center action is contextual:
 | Communications Review | Review |
 | Decision Desk | Approve |
 | Evidence And Audit | Export |
-| Integrations And Demo Readiness | Test |
+| Integrations And Operations | Test |
 
 ### 10. Last Updated And Confidence Labels
 
@@ -329,7 +329,7 @@ Mode: cached
 | Communications Review | facts used, missing facts, legal warnings, outbound composer, simulated delivery preview, confidence labels, human approval actions |
 | Decision Desk | mobile-first decision cards, acknowledgement state, escalation ladder, risk of approving, risk of waiting, confidence labels |
 | Evidence And Audit | event ledger, source snapshots, provider/model metadata, Band references, notification attempts, delivery log |
-| Integrations And Demo Readiness | provider/feed/status cards, email/SMS/internal connector health, last successful run, fallback readiness, safe diagnostics |
+| Integrations And Operations | provider/feed/status cards, email/SMS/internal connector health, last successful run, fallback readiness, safe diagnostics |
 
 ## Figma Triptych Requirement
 

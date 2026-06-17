@@ -7,7 +7,7 @@ const routes = [
   { path: "/communications", heading: "Communications Review" },
   { path: "/decisions", heading: "Decision Desk" },
   { path: "/audit", heading: "Evidence And Audit" },
-  { path: "/settings", heading: "Integrations And Demo Readiness" },
+  { path: "/settings", heading: "Integrations And Operations" },
 ];
 
 async function expectNoDocumentOverflow(page: import("@playwright/test").Page) {
@@ -94,6 +94,21 @@ test.describe("responsive workspace shell", () => {
     await expect(page.getByRole("heading", { name: "Escalation package created" })).toBeVisible();
     await page.getByRole("button", { name: "Notify backup" }).click();
     await expect(page.getByRole("heading", { name: "Backup owner notified" })).toBeVisible();
+    await expectNoDocumentOverflow(page);
+  });
+
+  test("opens notification setup from the top bar bell", async ({ page }) => {
+    await page.goto("/command");
+
+    await page.getByRole("button", { name: "Open notification channels" }).click();
+
+    await expect(page).toHaveURL(/\/settings$/);
+    await expect(page.getByRole("heading", { name: "Integrations And Operations" }).first()).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Notification Channels" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("heading", { name: "Notification settings opened" })).toBeVisible();
     await expectNoDocumentOverflow(page);
   });
 

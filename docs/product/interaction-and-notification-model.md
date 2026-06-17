@@ -53,7 +53,7 @@ The UI should not feel like a static dashboard. Each page should answer one work
 | Communications Review | What can we safely say, to whom, and why? | Approve, revise, queue, or cancel draft communications. |
 | Decision Desk | What human decisions are blocking progress? | Acknowledge, approve, request facts, assign, or escalate. |
 | Evidence And Audit | Can we prove what happened and why? | Export facts, agent outputs, approvals, provider metadata, and notification logs. |
-| Integrations And Demo Readiness | Are our providers and demo modes ready? | Check Band, Supabase, AI/ML API, Featherless, notification providers, and seeded fallback. |
+| Integrations And Operations | Are our providers and operational controls ready? | Check Band, Supabase, AI/ML API, Featherless, notification providers, safety locks, and fallback controls. |
 
 ## Tabs Inside The Seven Pages
 
@@ -67,7 +67,7 @@ The app keeps seven top-level routes, but each route uses tabs as real working m
 | Communications Review | Drafts, Email, SMS, Delivery Log |
 | Decision Desk | Pending, Evidence Needed, Escalations, Resolved |
 | Evidence And Audit | Timeline, Evidence, Agent Reasoning, Exports |
-| Integrations And Demo Readiness | Providers, Notification Channels, Secrets And Policies, Demo Readiness |
+| Integrations And Operations | Providers, Notification Channels, Security Controls, System Health |
 
 Tabs are local UI states, not new routes unless implementation needs deep links later. For example, clicking `Open Email` in Communications Review should switch to the Email tab with the selected draft loaded, not send the user to a separate email tool. Clicking `Message Owner` from a decision should open the relevant Messaging state with the owner, evidence request, and acknowledgement timer already selected.
 
@@ -445,7 +445,7 @@ Add:
 - agent detail drawer on each agent card
 - `why escalated` explanation on every human decision
 - `facts used` and `facts missing` on every communication draft
-- provider delivery status in Integrations And Demo Readiness
+- provider delivery status in Integrations And Operations
 - demo mode label: live, assisted, seeded, or simulated
 
 Retract or reduce:

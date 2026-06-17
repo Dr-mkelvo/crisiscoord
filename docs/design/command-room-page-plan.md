@@ -414,7 +414,7 @@ Keep the same seven-route plan, but build depth in this order:
 4. `/communications` - expanded draft review
 5. `/decisions` - decision desk
 6. `/audit` - expanded audit/evidence
-7. `/settings` - integrations and demo readiness
+7. `/settings` - integrations and system health
 
 ## Acceptance Criteria
 
