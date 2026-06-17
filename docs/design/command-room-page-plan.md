@@ -19,7 +19,7 @@ Everything else should support those three questions.
 ## Route
 
 ```text
-/incidents/:incidentId
+/command
 ```
 
 ## Primary Layout
@@ -283,8 +283,8 @@ Columns:
 Route or tab:
 
 ```text
-/incidents/:incidentId/audit
-/incidents/:incidentId -> Audit tab
+/audit
+/command -> Audit tab
 ```
 
 Columns:
@@ -304,8 +304,8 @@ Columns:
 Route or tab:
 
 ```text
-/incidents/:incidentId/audit
-/incidents/:incidentId -> Notifications tab
+/audit
+/command -> Notifications tab
 ```
 
 Columns:
@@ -408,12 +408,12 @@ Avoid these in the first build:
 
 Keep the same seven-route plan, but build depth in this order:
 
-1. `/incidents/:incidentId` - command room
+1. `/command` - command room
 2. `/signals` - signal intake and sandbox launcher
 3. `/incidents` - incident registry
-4. `/incidents/:incidentId/communications` - expanded draft review
+4. `/communications` - expanded draft review
 5. `/decisions` - decision desk
-6. `/incidents/:incidentId/audit` - expanded audit/evidence
+6. `/audit` - expanded audit/evidence
 7. `/settings` - integrations and demo readiness
 
 ## Acceptance Criteria

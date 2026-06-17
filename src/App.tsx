@@ -30,6 +30,7 @@ import {
   type ActionKind,
   type DetailCard,
   type FeedItem,
+  type IncidentSummary,
   type Metric,
   type PageAction,
   type PageTab,
@@ -125,16 +126,118 @@ function reconcileSelectedTabs(current: TabState, workspacePages: WorkspacePage[
   return next;
 }
 
+function formatCountdown(remainingMs: number) {
+  const safeMs = Math.max(0, remainingMs);
+  const totalSeconds = Math.floor(safeMs / 1000);
+  const seconds = totalSeconds % 60;
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const minutes = totalMinutes % 60;
+  const hours = Math.floor(totalMinutes / 60);
+
+  return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+function getDeadlineTone(remainingMs: number): Tone {
+  const remainingHours = remainingMs / (60 * 60 * 1000);
+  if (remainingHours <= 0) return "danger";
+  if (remainingHours <= 6) return "danger";
+  if (remainingHours <= 24) return "warning";
+  return "success";
+}
+
+function countEvents(events: DemoEvent[], pattern: RegExp) {
+  return events.filter((event) => pattern.test(`${event.title} ${event.detail} ${event.meta}`))
+    .length;
+}
+
+function createLiveMetrics({
+  metrics,
+  incident,
+  demoEvents,
+  now,
+  demoClockStartedAt,
+}: {
+  metrics: Metric[];
+  incident?: IncidentSummary;
+  demoEvents: DemoEvent[];
+  now: number;
+  demoClockStartedAt: number;
+}): Metric[] {
+  if (!incident) return metrics;
+
+  const elapsedDuringDemoMs = now - demoClockStartedAt;
+  const alreadyElapsedMs = incident.clockStartedMinutesAgo * 60 * 1000;
+  const totalWindowMs = incident.deadlineHours * 60 * 60 * 1000;
+  const remainingMs = totalWindowMs - alreadyElapsedMs - elapsedDuringDemoMs;
+  const handoffEvents = countEvents(
+    demoEvents,
+    /room|message|email|sms|package|signal|diagnostic|delivery/i,
+  );
+  const decisionEvents = countEvents(
+    demoEvents,
+    /decision|escalation|backup|evidence request|owner|facts/i,
+  );
+  const evidenceEvents = countEvents(demoEvents, /evidence|audit|export|package|queued/i);
+  const queuedEvents = countEvents(demoEvents, /queued|package|delivery/i);
+
+  return metrics.map((metric) => {
+    if (metric.label === "Next deadline") {
+      return {
+        ...metric,
+        value: formatCountdown(remainingMs),
+        detail: "live incident clock",
+        tone: getDeadlineTone(remainingMs),
+      };
+    }
+
+    if (metric.label === "Band handoffs") {
+      return {
+        ...metric,
+        value: String(12 + handoffEvents),
+        detail: `${5 + handoffEvents} room events verified`,
+      };
+    }
+
+    if (metric.label === "Human decisions") {
+      return {
+        ...metric,
+        value: String(3 + decisionEvents),
+        detail: decisionEvents === 0 ? metric.detail : `${decisionEvents} action events added`,
+      };
+    }
+
+    if (metric.label === "Evidence packets") {
+      return {
+        ...metric,
+        value: String(9 + evidenceEvents),
+        detail: evidenceEvents === 0 ? metric.detail : "updated by action trail",
+      };
+    }
+
+    if (metric.label === "Queued") {
+      return {
+        ...metric,
+        value: String(Number(metric.value) + queuedEvents),
+        detail: queuedEvents === 0 ? metric.detail : "delivery action trail",
+      };
+    }
+
+    return metric;
+  });
+}
+
 export function App({
   workspacePages,
   initialWorkspacePayload,
   loadWorkspaceData,
 }: AppProps) {
   const [path, setPath] = useState(getPath);
+  const [demoClockStartedAt] = useState(() => Date.now());
+  const [now, setNow] = useState(() => Date.now());
   const shouldLoadWorkspaceData = loadWorkspaceData ?? !workspacePages;
   const [workspacePayload, setWorkspacePayload] = useState<WorkspacePayload>(() => {
     if (initialWorkspacePayload) return initialWorkspacePayload;
-    return fallbackWorkspacePayload(getRouteIncidentId(getPath()));
+    return fallbackWorkspacePayload(getRouteIncidentId(window.location.pathname));
   });
   const activeWorkspacePages = workspacePages ?? workspacePayload.pages;
   const activeIncidentId = getRouteIncidentId(path, workspacePayload.activeIncidentId);
@@ -142,6 +245,11 @@ export function App({
     createInitialTabs(activeWorkspacePages),
   );
   const [demoEvents, setDemoEvents] = useState<DemoEvent[]>([]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const normalizedPath = getPath();
@@ -183,6 +291,16 @@ export function App({
   const activeTabName = selectedTabs[activePage.id] ?? activePage.tabs[0].name;
   const activeTab =
     activePage.tabs.find((tab) => tab.name === activeTabName) ?? activePage.tabs[0];
+  const activeIncident = workspacePayload.incidents.find(
+    (incident) => incident.id === activeIncidentId,
+  );
+  const liveMetrics = createLiveMetrics({
+    metrics: activeTab.metrics,
+    incident: activeIncident,
+    demoEvents,
+    now,
+    demoClockStartedAt,
+  });
 
   const navigate = (href: string) => {
     window.history.pushState(null, "", normalizePath(href));
@@ -289,6 +407,7 @@ export function App({
         <Workspace
           activePage={activePage}
           activeTab={activeTab}
+          metrics={liveMetrics}
           selectedTabName={activeTabName}
           selectTab={selectTab}
           runAction={runAction}
@@ -613,6 +732,7 @@ function TopBar({ activePage }: { activePage: WorkspacePage }) {
 function Workspace({
   activePage,
   activeTab,
+  metrics,
   selectedTabName,
   selectTab,
   runAction,
@@ -620,6 +740,7 @@ function Workspace({
 }: {
   activePage: WorkspacePage;
   activeTab: PageTab;
+  metrics: Metric[];
   selectedTabName: string;
   selectTab: (pageId: string, tabName: string) => void;
   runAction: (action: PageAction) => void;
@@ -652,7 +773,7 @@ function Workspace({
         ))}
       </div>
 
-      <Metrics metrics={activeTab.metrics} />
+      <Metrics metrics={metrics} />
 
       <div className="content-grid">
         <FeedPanel title={activeTab.feedTitle} items={activeTab.feed} />

@@ -80,10 +80,10 @@ Recommended route set:
 | --- | --- | --- | --- |
 | 1 | `/signals` | Signal Intake And Sandbox Launcher | Receive or launch crisis signals; choose finance, health, or product/supply-chain scenarios. |
 | 2 | `/incidents` | Incident Registry | Show active, demo, resolved, and archived incidents. |
-| 3 | `/incidents/:incidentId` | Crisis Command Room | Main product surface and demo centerpiece. |
-| 4 | `/incidents/:incidentId/communications` | Communications Review | Review regulator, customer, executive, and internal drafts. |
+| 3 | `/command` | Crisis Command Room | Main product surface and demo centerpiece. |
+| 4 | `/communications` | Communications Review | Review regulator, customer, executive, and internal drafts. |
 | 5 | `/decisions` | Decision Desk | Fast executive, legal, or communications approvals. |
-| 6 | `/incidents/:incidentId/audit` | Evidence And Audit | Review source facts, evidence, model/provider metadata, and timeline. |
+| 6 | `/audit` | Evidence And Audit | Review source facts, evidence, model/provider metadata, and timeline. |
 | 7 | `/settings` | Integrations And Demo Readiness | Demo-safe status for Band, Supabase, AI/ML API, Featherless, and fallback mode. |
 
 Build priority should be:
@@ -200,7 +200,7 @@ Priority: MVP, build first.
 Route:
 
 ```text
-/incidents/:incidentId
+/command
 ```
 
 Primary user:
@@ -255,7 +255,7 @@ Priority: MVP, but keep it inside the command room first.
 Location:
 
 ```text
-/incidents/:incidentId
+/command
 ```
 
 Primary user:
@@ -287,7 +287,7 @@ Priority: MVP.
 Route:
 
 ```text
-/incidents/:incidentId/communications
+/communications
 ```
 
 Primary user:
@@ -361,7 +361,7 @@ Priority: MVP if time allows; otherwise post-MVP.
 Route:
 
 ```text
-/incidents/:incidentId/audit
+/audit
 ```
 
 Primary user:
@@ -399,8 +399,8 @@ Priority: post-MVP unless needed for demo explanation. Keep it as a panel/tab fi
 Location:
 
 ```text
-/incidents/:incidentId
-/incidents/:incidentId/audit
+/command
+/audit
 ```
 
 Primary user:

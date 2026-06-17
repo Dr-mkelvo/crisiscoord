@@ -12,7 +12,6 @@ import {
   commandHref,
   communicationsHref,
   createWorkspacePayload,
-  defaultIncidentId,
   getIncidentAuditHref,
   getIncidentCommandHref,
   getIncidentCommunicationsHref,
@@ -36,11 +35,12 @@ describe("CrisisCoord app routing and workspace data", () => {
 
   test("normalizes the root route to the command room", () => {
     expect(normalizePath("/")).toBe(commandHref);
-    expect(commandHref).toBe(`/incidents/${defaultIncidentId}`);
+    expect(commandHref).toBe("/command");
     expect(normalizePath("/incidents/payment-breach")).toBe(commandHref);
     expect(normalizePath("/incidents/vendor-credential-compromise/audit")).toBe(
-      "/incidents/inc-2026-0001/audit",
+      auditHref,
     );
+    expect(normalizePath("/incidents/inc-2026-0003/communications")).toBe(communicationsHref);
     expect(resolveWorkspacePage("/").id).toBe("command");
     expect(resolveWorkspacePage("/decisions", []).id).toBe("command");
   });
@@ -142,19 +142,14 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(screen.getAllByText("notification logged").length).toBeGreaterThan(0);
   });
 
-  test("keeps audit and communications URLs tied to the selected incident", () => {
-    expect(getIncidentCommandHref("inc-2026-0004")).toBe(
-      "/incidents/inc-2026-0004",
-    );
-    expect(getIncidentCommunicationsHref("inc-2026-0004")).toBe(
-      "/incidents/inc-2026-0004/communications",
-    );
-    expect(getIncidentAuditHref("inc-2026-0004")).toBe(
-      "/incidents/inc-2026-0004/audit",
-    );
-    expect(getIncidentCommandHref("product-recall-safety")).toBe("/incidents/inc-2026-0004");
+  test("keeps visible workspace URLs free of incident ids", () => {
+    expect(getIncidentCommandHref("inc-2026-0004")).toBe("/command");
+    expect(getIncidentCommunicationsHref("inc-2026-0004")).toBe("/communications");
+    expect(getIncidentAuditHref("inc-2026-0004")).toBe("/audit");
+    expect(getIncidentCommandHref("product-recall-safety")).toBe("/command");
     expect(communicationsHref).not.toContain("payment-breach");
     expect(communicationsHref).not.toContain("vendor-credential-compromise");
+    expect(communicationsHref).not.toContain("inc-2026");
   });
 
   test("renders human page labels instead of raw route labels", () => {
@@ -166,6 +161,13 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(screen.getByText("Command room")).toBeInTheDocument();
     expect(screen.queryByText(getIncidentCommandHref(incidentId))).not.toBeInTheDocument();
     expect(screen.queryByText("/incidents/:incidentId")).not.toBeInTheDocument();
+  });
+
+  test("renders a live deadline countdown instead of a frozen deadline label", () => {
+    renderAt(commandHref);
+
+    expect(screen.getAllByText(/\d+h \d+m \d+s/).length).toBeGreaterThan(0);
+    expect(screen.queryByText("48h")).not.toBeInTheDocument();
   });
 
   test("renders supplied workspace data so the backend can replace seeded data later", () => {

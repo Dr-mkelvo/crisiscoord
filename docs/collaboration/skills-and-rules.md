@@ -85,10 +85,10 @@ The seven planned app routes are:
 
 - `/signals`
 - `/incidents`
-- `/incidents/:incidentId`
-- `/incidents/:incidentId/communications`
+- `/command`
+- `/communications`
 - `/decisions`
-- `/incidents/:incidentId/audit`
+- `/audit`
 - `/settings`
 
 Do not count incident creation as a standalone page. Starting an incident is an action inside Signal Intake.

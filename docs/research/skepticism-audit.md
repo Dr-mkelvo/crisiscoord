@@ -171,7 +171,7 @@ Contributors may split effort across route shells and leave the core room shallo
 
 Recommendation:
 
-- Build `/incidents/:incidentId` first.
+- Build `/command` first, with the selected incident held in app/API context.
 - Add `/signals` as the Signal Intake and Sandbox Launcher.
 - Add `/settings` only if needed for provider diagnostics.
 - Treat the remaining routes as panels or later routes until the demo path works.

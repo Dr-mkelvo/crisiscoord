@@ -30,6 +30,9 @@ describe("sandbox scenario dataset", () => {
       expect(incident.title).toBeTruthy();
       expect(incident.shortTitle).toBeTruthy();
       expect(incident.summary).toBeTruthy();
+      expect(incident.deadlineHours).toBeGreaterThan(0);
+      expect(incident.clockStartedMinutesAgo).toBeGreaterThanOrEqual(0);
+      expect(incident.clockStartedMinutesAgo).toBeLessThan(incident.deadlineHours * 60);
       expect(incident.affectedSystems.length).toBeGreaterThan(0);
       expect(incident.dataCategories.length).toBeGreaterThan(0);
     }
@@ -49,6 +52,15 @@ describe("sandbox scenario dataset", () => {
         "decisions",
         "audit",
         "settings",
+      ]);
+      expect(payload.pages.map((page) => page.href)).toEqual([
+        "/signals",
+        "/incidents",
+        "/command",
+        "/communications",
+        "/decisions",
+        "/audit",
+        "/settings",
       ]);
       expect(payload.pages.every((page) => page.tabs.length === 4)).toBe(true);
 

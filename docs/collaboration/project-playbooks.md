@@ -95,10 +95,10 @@ Seven-route plan:
 
 - `/signals`
 - `/incidents`
-- `/incidents/:incidentId`
-- `/incidents/:incidentId/communications`
+- `/command`
+- `/communications`
 - `/decisions`
-- `/incidents/:incidentId/audit`
+- `/audit`
 - `/settings`
 
 Starting an incident is an action inside Signal Intake, not a standalone nav page.
