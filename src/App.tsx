@@ -3,21 +3,16 @@ import {
   AlertTriangle,
   Bell,
   Bot,
-  CheckCircle2,
   ChevronRight,
   CircleDot,
   ClipboardList,
-  Clock3,
-  Database,
   FileCheck2,
   Gauge,
   Gavel,
-  Home,
   LockKeyhole,
   MessageSquareText,
   RadioTower,
   Search,
-  Send,
   Settings,
   ShieldCheck,
   Siren,
@@ -34,12 +29,15 @@ import {
   type Metric,
   type PageAction,
   type PageTab,
-  pages,
+  pages as defaultWorkspacePages,
   type Tone,
   type WorkspacePage,
 } from "./data";
 
 type TabState = Record<string, string>;
+type AppProps = {
+  workspacePages?: WorkspacePage[];
+};
 
 const pageIcons: Record<string, typeof Activity> = {
   signals: RadioTower,
@@ -51,33 +49,65 @@ const pageIcons: Record<string, typeof Activity> = {
   settings: Settings,
 };
 
-const initialTabs = pages.reduce<TabState>((state, page) => {
-  state[page.id] = page.tabs[0]?.name ?? "";
-  return state;
-}, {});
+export function createInitialTabs(workspacePages: WorkspacePage[]) {
+  return workspacePages.reduce<TabState>((state, page) => {
+    state[page.id] = page.tabs[0]?.name ?? "";
+    return state;
+  }, {});
+}
+
+export function normalizePath(pathname: string) {
+  return pathname === "/" ? commandHref : pathname;
+}
 
 function getPath() {
-  return window.location.pathname === "/" ? commandHref : window.location.pathname;
+  return normalizePath(window.location.pathname);
 }
 
-function getActivePage(path: string) {
-  const exact = pages.find((page) => page.href === path);
+function getFallbackPage(workspacePages: WorkspacePage[]) {
+  return (
+    workspacePages.find((page) => page.id === "command") ??
+    defaultWorkspacePages.find((page) => page.id === "command") ??
+    workspacePages[0] ??
+    defaultWorkspacePages[0]
+  );
+}
+
+export function resolveWorkspacePage(
+  path: string,
+  workspacePages: WorkspacePage[] = defaultWorkspacePages,
+) {
+  const fallbackPage = getFallbackPage(workspacePages);
+  const exact = workspacePages.find((page) => page.href === path);
   if (exact) return exact;
   if (path.includes("/communications")) {
-    return pages.find((page) => page.id === "communications") ?? pages[0];
+    return workspacePages.find((page) => page.id === "communications") ?? fallbackPage;
   }
   if (path.includes("/audit")) {
-    return pages.find((page) => page.id === "audit") ?? pages[0];
+    return workspacePages.find((page) => page.id === "audit") ?? fallbackPage;
   }
   if (path.startsWith("/incidents/") && path !== "/incidents") {
-    return pages.find((page) => page.id === "command") ?? pages[0];
+    return workspacePages.find((page) => page.id === "command") ?? fallbackPage;
   }
-  return pages.find((page) => page.id === "command") ?? pages[0];
+  return fallbackPage;
 }
 
-export function App() {
+function reconcileSelectedTabs(current: TabState, workspacePages: WorkspacePage[]) {
+  const next = createInitialTabs(workspacePages);
+  for (const page of workspacePages) {
+    const selected = current[page.id];
+    if (selected && page.tabs.some((tab) => tab.name === selected)) {
+      next[page.id] = selected;
+    }
+  }
+  return next;
+}
+
+export function App({ workspacePages = defaultWorkspacePages }: AppProps) {
   const [path, setPath] = useState(getPath);
-  const [selectedTabs, setSelectedTabs] = useState<TabState>(initialTabs);
+  const [selectedTabs, setSelectedTabs] = useState<TabState>(() =>
+    createInitialTabs(workspacePages),
+  );
 
   useEffect(() => {
     const onPopState = () => setPath(getPath());
@@ -85,7 +115,14 @@ export function App() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  const activePage = useMemo(() => getActivePage(path), [path]);
+  useEffect(() => {
+    setSelectedTabs((current) => reconcileSelectedTabs(current, workspacePages));
+  }, [workspacePages]);
+
+  const activePage = useMemo(
+    () => resolveWorkspacePage(path, workspacePages),
+    [path, workspacePages],
+  );
   const activeTabName = selectedTabs[activePage.id] ?? activePage.tabs[0].name;
   const activeTab =
     activePage.tabs.find((tab) => tab.name === activeTabName) ?? activePage.tabs[0];
@@ -140,7 +177,7 @@ export function App() {
 
   return (
     <div className="app-shell">
-      <Sidebar activePage={activePage} navigate={navigate} />
+      <Sidebar activePage={activePage} navigate={navigate} workspacePages={workspacePages} />
       <main className="workspace">
         <TopBar activePage={activePage} />
         <Workspace
@@ -158,9 +195,11 @@ export function App() {
 function Sidebar({
   activePage,
   navigate,
+  workspacePages,
 }: {
   activePage: WorkspacePage;
   navigate: (href: string) => void;
+  workspacePages: WorkspacePage[];
 }) {
   return (
     <aside className="sidebar" aria-label="Primary navigation">
@@ -179,7 +218,7 @@ function Sidebar({
 
       <nav className="nav-group" aria-label="Workspaces">
         <span className="nav-label">Workspaces</span>
-        {pages.map((page) => {
+        {workspacePages.map((page) => {
           const Icon = pageIcons[page.id] ?? CircleDot;
           const isActive = page.id === activePage.id;
           return (
