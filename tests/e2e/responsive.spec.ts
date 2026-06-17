@@ -3,13 +3,13 @@ import { expect, test } from "@playwright/test";
 const routes = [
   { path: "/signals", heading: "Signal Intake And Sandbox Launcher" },
   { path: "/incidents", heading: "Incident Registry" },
-  { path: "/incidents/vendor-credential-compromise", heading: "Crisis Command Room" },
+  { path: "/incidents/inc-2026-0001", heading: "Crisis Command Room" },
   {
-    path: "/incidents/ransomware-containment/communications",
+    path: "/incidents/inc-2026-0002/communications",
     heading: "Communications Review",
   },
   { path: "/decisions", heading: "Decision Desk" },
-  { path: "/incidents/health-privacy-review/audit", heading: "Evidence And Audit" },
+  { path: "/incidents/inc-2026-0003/audit", heading: "Evidence And Audit" },
   { path: "/settings", heading: "Integrations And Demo Readiness" },
 ];
 
@@ -30,6 +30,7 @@ test.describe("responsive workspace shell", () => {
 
       await expect(page.getByRole("heading", { name: route.heading }).first()).toBeVisible();
       await expect(page.getByText(/CrisisCoord \//)).toHaveCount(0);
+      expect(page.url()).not.toMatch(/vendor|credential|ransomware|privacy|recall|payment|breach/);
       const routePillText = await page.locator(".route-pill").textContent();
       expect(routePillText?.startsWith("/")).toBe(false);
       expect(routePillText).not.toContain(":incidentId");
@@ -51,7 +52,7 @@ test.describe("responsive workspace shell", () => {
     await expect(page.getByRole("heading", { name: "Why escalation happened" })).toBeVisible();
 
     await page.getByRole("button", { name: "Open email" }).click();
-    await expect(page).toHaveURL(/\/incidents\/vendor-credential-compromise\/communications$/);
+    await expect(page).toHaveURL(/\/incidents\/inc-2026-0001\/communications$/);
     await expect(page.getByRole("tab", { name: "Email" })).toHaveAttribute(
       "aria-selected",
       "true",
@@ -61,13 +62,13 @@ test.describe("responsive workspace shell", () => {
   });
 
   test("shows command-room handoff and opens communication composer", async ({ page }) => {
-    await page.goto("/incidents/product-recall-safety");
+    await page.goto("/incidents/inc-2026-0004");
 
     await expect(page.getByLabel("Band mediated handoff map")).toBeVisible();
     await expect(page.getByText("Communications unlocks after Legal and Technical")).toBeVisible();
 
     await page.getByRole("button", { name: "Open email draft" }).click();
-    await expect(page).toHaveURL(/\/incidents\/product-recall-safety\/communications$/);
+    await expect(page).toHaveURL(/\/incidents\/inc-2026-0004\/communications$/);
     await expect(page.getByRole("tab", { name: "Email" })).toHaveAttribute(
       "aria-selected",
       "true",
@@ -82,7 +83,7 @@ test.describe("responsive workspace shell", () => {
     await page.getByRole("button", { name: "Review signal" }).click();
     await expect(page.getByRole("heading", { name: "Signal reviewed" })).toBeVisible();
 
-    await page.goto("/incidents/vendor-credential-compromise/communications");
+    await page.goto("/incidents/inc-2026-0001/communications");
     await page.getByRole("tab", { name: "Email" }).click();
     await page.getByRole("button", { name: "Queue package" }).click();
     await expect(page.getByRole("tab", { name: "Delivery Log" })).toHaveAttribute(
@@ -102,7 +103,16 @@ test.describe("responsive workspace shell", () => {
   test("redirects the old payment-breach URL to the generic active incident", async ({ page }) => {
     await page.goto("/incidents/payment-breach");
 
-    await expect(page).toHaveURL(/\/incidents\/vendor-credential-compromise$/);
+    await expect(page).toHaveURL(/\/incidents\/inc-2026-0001$/);
     await expect(page.getByText("Vendor credential compromise")).toBeVisible();
+  });
+
+  test("redirects semantic demo slugs to opaque incident ids", async ({ page }) => {
+    await page.goto("/incidents/vendor-credential-compromise/audit");
+
+    await expect(page).toHaveURL(/\/incidents\/inc-2026-0001\/audit$/);
+    await expect(page.getByRole("heading", { name: "Evidence And Audit" }).first()).toBeVisible();
+    expect(page.url()).not.toContain("vendor-credential-compromise");
+    await expectNoDocumentOverflow(page);
   });
 });

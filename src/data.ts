@@ -135,7 +135,16 @@ export type WorkspacePayload = {
   pages: WorkspacePage[];
 };
 
-export const defaultIncidentId = "vendor-credential-compromise";
+export const defaultIncidentId = "inc-2026-0001";
+
+export const legacyIncidentIdMap: Record<string, string> = {
+  "vendor-credential-compromise": "inc-2026-0001",
+  "ransomware-containment": "inc-2026-0002",
+  "health-privacy-review": "inc-2026-0003",
+  "product-recall-safety": "inc-2026-0004",
+  "payment-data-exposure": "inc-2026-0005",
+  "payment-breach": "inc-2026-0001",
+};
 
 export const sandboxProfiles: SandboxProfile[] = [
   {
@@ -177,7 +186,7 @@ export const sandboxProfiles: SandboxProfile[] = [
 
 export const seededIncidents: IncidentScenario[] = [
   {
-    id: "vendor-credential-compromise",
+    id: "inc-2026-0001",
     sandboxId: "third-party-risk",
     title: "Vendor credential compromise",
     shortTitle: "Vendor credentials",
@@ -209,7 +218,7 @@ export const seededIncidents: IncidentScenario[] = [
       "Waiting could leave account teams without a consistent answer while customers ask about vendor access.",
   },
   {
-    id: "ransomware-containment",
+    id: "inc-2026-0002",
     sandboxId: "cyber-resilience",
     title: "Ransomware containment event",
     shortTitle: "Ransomware",
@@ -240,7 +249,7 @@ export const seededIncidents: IncidentScenario[] = [
       "Delayed executive alignment can slow containment, customer support, and business continuity decisions.",
   },
   {
-    id: "health-privacy-review",
+    id: "inc-2026-0003",
     sandboxId: "health-privacy",
     title: "Health privacy exposure review",
     shortTitle: "Health privacy",
@@ -271,7 +280,7 @@ export const seededIncidents: IncidentScenario[] = [
       "Waiting may reduce time available for privacy review, containment, and stakeholder preparation.",
   },
   {
-    id: "product-recall-safety",
+    id: "inc-2026-0004",
     sandboxId: "product-supply-chain",
     title: "Product recall safety review",
     shortTitle: "Product safety",
@@ -302,7 +311,7 @@ export const seededIncidents: IncidentScenario[] = [
       "Waiting may increase public-risk exposure if the failure pattern is confirmed.",
   },
   {
-    id: "payment-data-exposure",
+    id: "inc-2026-0005",
     sandboxId: "finance-payments",
     title: "Payment data exposure",
     shortTitle: "Payment exposure",
@@ -351,7 +360,8 @@ function getIncidentSummary(incident: IncidentScenario): IncidentSummary {
 }
 
 export function getIncidentById(incidentId = defaultIncidentId) {
-  return seededIncidents.find((incident) => incident.id === incidentId) ?? seededIncidents[0];
+  const canonicalIncidentId = normalizeIncidentId(incidentId);
+  return seededIncidents.find((incident) => incident.id === canonicalIncidentId) ?? seededIncidents[0];
 }
 
 export function getSandboxProfile(sandboxId: SandboxId) {
@@ -362,26 +372,46 @@ export function getIncidentsBySandbox(sandboxId: SandboxId) {
   return seededIncidents.filter((incident) => incident.sandboxId === sandboxId);
 }
 
+export function normalizeIncidentId(incidentId = defaultIncidentId) {
+  return legacyIncidentIdMap[incidentId] ?? incidentId;
+}
+
+export function isKnownIncidentId(incidentId = defaultIncidentId) {
+  const canonicalIncidentId = normalizeIncidentId(incidentId);
+  return seededIncidents.some((incident) => incident.id === canonicalIncidentId);
+}
+
 export function getIncidentCommandHref(incidentId = defaultIncidentId) {
-  return `/incidents/${incidentId}`;
+  return `/incidents/${normalizeIncidentId(incidentId)}`;
 }
 
 export function getIncidentCommunicationsHref(incidentId = defaultIncidentId) {
-  return `/incidents/${incidentId}/communications`;
+  return `/incidents/${normalizeIncidentId(incidentId)}/communications`;
 }
 
 export function getIncidentAuditHref(incidentId = defaultIncidentId) {
-  return `/incidents/${incidentId}/audit`;
+  return `/incidents/${normalizeIncidentId(incidentId)}/audit`;
 }
 
 export function getIncidentIdFromPath(pathname: string) {
   const match = pathname.match(/^\/incidents\/([^/]+)/);
-  if (!match || match[1] === "payment-breach") return null;
-  return match[1];
+  if (!match) return null;
+  return normalizeIncidentId(match[1]);
 }
 
 export function isLegacyIncidentPath(pathname: string) {
-  return pathname.includes("/incidents/payment-breach");
+  const match = pathname.match(/^\/incidents\/([^/]+)/);
+  return Boolean(match && legacyIncidentIdMap[match[1]]);
+}
+
+export function getCanonicalIncidentPath(pathname: string) {
+  const match = pathname.match(/^\/incidents\/([^/]+)(\/communications|\/audit)?$/);
+  if (!match) return pathname;
+
+  const canonicalIncidentId = normalizeIncidentId(match[1]);
+  if (canonicalIncidentId === match[1]) return pathname;
+
+  return `/incidents/${canonicalIncidentId}${match[2] ?? ""}`;
 }
 
 const commonStatus = (incident: IncidentScenario): FeedItem[] => [

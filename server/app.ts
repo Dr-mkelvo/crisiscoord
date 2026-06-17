@@ -4,6 +4,8 @@ import {
   defaultIncidentId,
   getIncidentById,
   getIncidentsBySandbox,
+  isKnownIncidentId,
+  normalizeIncidentId,
   seededIncidents,
   sandboxProfiles,
 } from "../src/data";
@@ -53,10 +55,10 @@ app.get("/api/sandboxes", (context) =>
 );
 
 app.get("/api/incidents/:incidentId", (context) => {
-  const requestedId = context.req.param("incidentId");
+  const requestedId = normalizeIncidentId(context.req.param("incidentId"));
   const incident = getIncidentById(requestedId);
 
-  if (incident.id !== requestedId) {
+  if (!isKnownIncidentId(requestedId)) {
     return context.json({ error: "Incident not found", fallbackIncidentId: incident.id }, 404);
   }
 
@@ -64,15 +66,15 @@ app.get("/api/incidents/:incidentId", (context) => {
 });
 
 app.get("/api/workspace", (context) => {
-  const requestedId = context.req.query("incidentId") ?? defaultIncidentId;
+  const requestedId = normalizeIncidentId(context.req.query("incidentId") ?? defaultIncidentId);
   return context.json(createWorkspacePayload(requestedId));
 });
 
 app.get("/api/incidents/:incidentId/workspace", (context) => {
-  const requestedId = context.req.param("incidentId");
+  const requestedId = normalizeIncidentId(context.req.param("incidentId"));
   const incident = getIncidentById(requestedId);
 
-  if (incident.id !== requestedId) {
+  if (!isKnownIncidentId(requestedId)) {
     return context.json({ error: "Incident not found", fallbackIncidentId: incident.id }, 404);
   }
 
