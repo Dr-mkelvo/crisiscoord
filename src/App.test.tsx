@@ -7,7 +7,18 @@ import {
   normalizePath,
   resolveWorkspacePage,
 } from "./App";
-import { auditHref, commandHref, communicationsHref, pages, type WorkspacePage } from "./data";
+import {
+  auditHref,
+  commandHref,
+  communicationsHref,
+  createWorkspacePayload,
+  defaultIncidentId,
+  getIncidentAuditHref,
+  getIncidentCommandHref,
+  getIncidentCommunicationsHref,
+  pages,
+  type WorkspacePage,
+} from "./data";
 
 function renderAt(pathname: string, workspacePages?: WorkspacePage[]) {
   window.history.replaceState(null, "", pathname);
@@ -25,6 +36,8 @@ describe("CrisisCoord app routing and workspace data", () => {
 
   test("normalizes the root route to the command room", () => {
     expect(normalizePath("/")).toBe(commandHref);
+    expect(commandHref).toBe(`/incidents/${defaultIncidentId}`);
+    expect(normalizePath("/incidents/payment-breach")).toBe(commandHref);
     expect(resolveWorkspacePage("/").id).toBe("command");
     expect(resolveWorkspacePage("/decisions", []).id).toBe("command");
   });
@@ -63,11 +76,13 @@ describe("CrisisCoord app routing and workspace data", () => {
 
   test("navigates from command room action to the email composer tab", async () => {
     const user = userEvent.setup();
-    renderAt(commandHref);
+    const incidentId = "ransomware-containment";
+    const payload = createWorkspacePayload(incidentId);
+    renderAt(getIncidentCommandHref(incidentId), payload.pages);
 
     await user.click(screen.getByRole("button", { name: "Open email draft" }));
 
-    expect(window.location.pathname).toBe(communicationsHref);
+    expect(window.location.pathname).toBe(getIncidentCommunicationsHref(incidentId));
     expect(getSelectedTab("Email")).toHaveAttribute("aria-selected", "true");
     expect(screen.getByText("Email composer")).toBeInTheDocument();
     expect(screen.getByText("safe email composer")).toBeInTheDocument();
@@ -82,6 +97,19 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(window.location.pathname).toBe(auditHref);
     expect(getSelectedTab("Evidence")).toHaveAttribute("aria-selected", "true");
     expect(screen.getByText("Evidence detail")).toBeInTheDocument();
+  });
+
+  test("keeps audit and communications URLs tied to the selected incident", () => {
+    expect(getIncidentCommandHref("product-recall-safety")).toBe(
+      "/incidents/product-recall-safety",
+    );
+    expect(getIncidentCommunicationsHref("product-recall-safety")).toBe(
+      "/incidents/product-recall-safety/communications",
+    );
+    expect(getIncidentAuditHref("product-recall-safety")).toBe(
+      "/incidents/product-recall-safety/audit",
+    );
+    expect(communicationsHref).not.toContain("payment-breach");
   });
 
   test("renders supplied workspace data so the backend can replace seeded data later", () => {

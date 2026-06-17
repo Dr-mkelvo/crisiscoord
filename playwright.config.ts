@@ -8,12 +8,20 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:5173",
     trace: "on-first-retry",
   },
-  webServer: {
-    command: "npm run dev -- --port 5173",
-    reuseExistingServer: true,
-    url: "http://127.0.0.1:5173",
-    timeout: 120_000,
-  },
+  webServer: [
+    {
+      command: "npm run dev:api",
+      reuseExistingServer: true,
+      url: "http://127.0.0.1:8787/api/health",
+      timeout: 120_000,
+    },
+    {
+      command: "npm run dev:ui -- --port 5173",
+      reuseExistingServer: true,
+      url: "http://127.0.0.1:5173",
+      timeout: 120_000,
+    },
+  ],
   projects: [
     {
       name: "desktop",

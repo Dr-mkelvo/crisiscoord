@@ -3,10 +3,13 @@ import { expect, test } from "@playwright/test";
 const routes = [
   { path: "/signals", heading: "Signal Intake And Sandbox Launcher" },
   { path: "/incidents", heading: "Incident Registry" },
-  { path: "/incidents/payment-breach", heading: "Crisis Command Room" },
-  { path: "/incidents/payment-breach/communications", heading: "Communications Review" },
+  { path: "/incidents/vendor-credential-compromise", heading: "Crisis Command Room" },
+  {
+    path: "/incidents/ransomware-containment/communications",
+    heading: "Communications Review",
+  },
   { path: "/decisions", heading: "Decision Desk" },
-  { path: "/incidents/payment-breach/audit", heading: "Evidence And Audit" },
+  { path: "/incidents/health-privacy-review/audit", heading: "Evidence And Audit" },
   { path: "/settings", heading: "Integrations And Demo Readiness" },
 ];
 
@@ -44,7 +47,7 @@ test.describe("responsive workspace shell", () => {
     await expect(page.getByRole("heading", { name: "Why escalation happened" })).toBeVisible();
 
     await page.getByRole("button", { name: "Open email" }).click();
-    await expect(page).toHaveURL(/\/incidents\/payment-breach\/communications$/);
+    await expect(page).toHaveURL(/\/incidents\/vendor-credential-compromise\/communications$/);
     await expect(page.getByRole("tab", { name: "Email" })).toHaveAttribute(
       "aria-selected",
       "true",
@@ -54,18 +57,25 @@ test.describe("responsive workspace shell", () => {
   });
 
   test("shows command-room handoff and opens communication composer", async ({ page }) => {
-    await page.goto("/incidents/payment-breach");
+    await page.goto("/incidents/product-recall-safety");
 
     await expect(page.getByLabel("Band mediated handoff map")).toBeVisible();
     await expect(page.getByText("Communications unlocks after Legal and Technical")).toBeVisible();
 
     await page.getByRole("button", { name: "Open email draft" }).click();
-    await expect(page).toHaveURL(/\/incidents\/payment-breach\/communications$/);
+    await expect(page).toHaveURL(/\/incidents\/product-recall-safety\/communications$/);
     await expect(page.getByRole("tab", { name: "Email" })).toHaveAttribute(
       "aria-selected",
       "true",
     );
     await expect(page.getByText("safe email composer")).toBeVisible();
     await expectNoDocumentOverflow(page);
+  });
+
+  test("redirects the old payment-breach URL to the generic active incident", async ({ page }) => {
+    await page.goto("/incidents/payment-breach");
+
+    await expect(page).toHaveURL(/\/incidents\/vendor-credential-compromise$/);
+    await expect(page.getByText("Vendor credential compromise")).toBeVisible();
   });
 });

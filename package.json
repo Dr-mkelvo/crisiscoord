@@ -4,15 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "concurrently -k -n api,ui -c cyan,magenta \"npm run dev:api\" \"npm run dev:ui\"",
+    "dev:api": "tsx server/index.ts",
+    "dev:ui": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
+    "build:api": "tsc --noEmit -p tsconfig.server.json",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:all": "npm run test && npm run test:e2e && npm run build"
+    "test:all": "npm run test && npm run test:e2e && npm run build && npm run build:api"
   },
   "dependencies": {
+    "@hono/node-server": "^2.0.5",
+    "hono": "^4.12.25",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -22,10 +27,13 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.9.3",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.5.2",
+    "concurrently": "^10.0.3",
     "jsdom": "^29.1.1",
+    "tsx": "^4.22.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vitest": "^4.1.9"
