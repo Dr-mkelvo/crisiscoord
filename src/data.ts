@@ -8,6 +8,20 @@ export type Tone =
   | "review"
   | "muted";
 
+export type SandboxId =
+  | "third-party-risk"
+  | "cyber-resilience"
+  | "health-privacy"
+  | "product-supply-chain"
+  | "finance-payments";
+
+export type SandboxProfile = {
+  id: SandboxId;
+  label: string;
+  domain: string;
+  description: string;
+};
+
 export type ActionKind =
   | "navigate-command"
   | "navigate-communications"
@@ -77,6 +91,7 @@ export type WorkspacePage = {
 
 export type IncidentScenario = {
   id: string;
+  sandboxId: SandboxId;
   title: string;
   shortTitle: string;
   type: string;
@@ -104,6 +119,7 @@ export type IncidentSummary = Pick<
   | "id"
   | "title"
   | "shortTitle"
+  | "sandboxId"
   | "type"
   | "severity"
   | "tone"
@@ -121,9 +137,48 @@ export type WorkspacePayload = {
 
 export const defaultIncidentId = "vendor-credential-compromise";
 
+export const sandboxProfiles: SandboxProfile[] = [
+  {
+    id: "third-party-risk",
+    label: "Third-party risk",
+    domain: "Vendor and SaaS access",
+    description:
+      "Vendor notices, integration credentials, SaaS access logs, and customer-impact review.",
+  },
+  {
+    id: "cyber-resilience",
+    label: "Cyber resilience",
+    domain: "Ransomware and outage response",
+    description:
+      "Containment, restoration, executive updates, and unverified exfiltration claims.",
+  },
+  {
+    id: "health-privacy",
+    label: "Health privacy",
+    domain: "Healthcare privacy workflow",
+    description:
+      "Privacy review, service-account access, report exports, and protected-data safeguards.",
+  },
+  {
+    id: "product-supply-chain",
+    label: "Product and supply chain",
+    domain: "Safety, recall, and supplier quality",
+    description:
+      "Support spikes, public-risk assessment, field reports, supplier facts, and customer guidance.",
+  },
+  {
+    id: "finance-payments",
+    label: "Finance and payments",
+    domain: "Payment and personal-data exposure",
+    description:
+      "Payment-system access, card-data candidates, customer notices, and regulator review.",
+  },
+];
+
 export const seededIncidents: IncidentScenario[] = [
   {
     id: "vendor-credential-compromise",
+    sandboxId: "third-party-risk",
     title: "Vendor credential compromise",
     shortTitle: "Vendor credentials",
     type: "Third-party access incident",
@@ -155,6 +210,7 @@ export const seededIncidents: IncidentScenario[] = [
   },
   {
     id: "ransomware-containment",
+    sandboxId: "cyber-resilience",
     title: "Ransomware containment event",
     shortTitle: "Ransomware",
     type: "Extortion and service disruption",
@@ -185,6 +241,7 @@ export const seededIncidents: IncidentScenario[] = [
   },
   {
     id: "health-privacy-review",
+    sandboxId: "health-privacy",
     title: "Health privacy exposure review",
     shortTitle: "Health privacy",
     type: "Healthcare data workflow",
@@ -215,6 +272,7 @@ export const seededIncidents: IncidentScenario[] = [
   },
   {
     id: "product-recall-safety",
+    sandboxId: "product-supply-chain",
     title: "Product recall safety review",
     shortTitle: "Product safety",
     type: "Public-risk product incident",
@@ -245,6 +303,7 @@ export const seededIncidents: IncidentScenario[] = [
   },
   {
     id: "payment-data-exposure",
+    sandboxId: "finance-payments",
     title: "Payment data exposure",
     shortTitle: "Payment exposure",
     type: "Payment and personal-data incident",
@@ -278,6 +337,7 @@ export const seededIncidents: IncidentScenario[] = [
 function getIncidentSummary(incident: IncidentScenario): IncidentSummary {
   return {
     id: incident.id,
+    sandboxId: incident.sandboxId,
     title: incident.title,
     shortTitle: incident.shortTitle,
     type: incident.type,
@@ -292,6 +352,14 @@ function getIncidentSummary(incident: IncidentScenario): IncidentSummary {
 
 export function getIncidentById(incidentId = defaultIncidentId) {
   return seededIncidents.find((incident) => incident.id === incidentId) ?? seededIncidents[0];
+}
+
+export function getSandboxProfile(sandboxId: SandboxId) {
+  return sandboxProfiles.find((sandbox) => sandbox.id === sandboxId) ?? sandboxProfiles[0];
+}
+
+export function getIncidentsBySandbox(sandboxId: SandboxId) {
+  return seededIncidents.filter((incident) => incident.sandboxId === sandboxId);
 }
 
 export function getIncidentCommandHref(incidentId = defaultIncidentId) {
@@ -446,7 +514,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       title: "Signal Intake And Sandbox Launcher",
       subtitle:
         "Start a crisis room from a sanitized signal, seeded sandbox, or manual tabletop scenario.",
-      routeLabel: "/signals",
+      routeLabel: "Signal intake",
       activeBadge: "Multi-scenario input",
       tone: "brand",
       tabs: [
@@ -614,7 +682,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Incident Registry",
       title: "Incident Registry",
       subtitle: "Triage active, demo, resolved, and deadline-sensitive crisis rooms.",
-      routeLabel: "/incidents",
+      routeLabel: "Incident registry",
       activeBadge: `${seededIncidents.length} scenarios`,
       tone: "brand",
       tabs: [
@@ -740,7 +808,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       title: "Crisis Command Room",
       subtitle:
         "The primary workspace for Band handoffs, agent state, human decisions, and safe communications.",
-      routeLabel: commandHref,
+      routeLabel: "Command room",
       activeBadge: incident.shortTitle,
       tone: "review",
       tabs: [
@@ -869,7 +937,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Communications",
       title: "Communications Review",
       subtitle: "Draft, review, test, queue, and audit outbound communications from verified facts.",
-      routeLabel: communicationsHref,
+      routeLabel: "Communications review",
       activeBadge: "Drafts gated",
       tone: "warning",
       tabs: [
@@ -1010,7 +1078,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Decision Desk",
       title: "Decision Desk",
       subtitle: "Mobile-first human approvals with risk of approving, waiting, requesting facts, or escalating.",
-      routeLabel: "/decisions",
+      routeLabel: "Decision desk",
       activeBadge: "3 pending",
       tone: "review",
       tabs: [
@@ -1151,7 +1219,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Evidence And Audit",
       title: "Evidence And Audit",
       subtitle: "Trace every source fact, model/provider output, Band reference, human decision, and delivery attempt.",
-      routeLabel: auditHref,
+      routeLabel: "Evidence and audit",
       activeBadge: "Audit ready",
       tone: "success",
       tabs: [
@@ -1290,7 +1358,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Integrations",
       title: "Integrations And Demo Readiness",
       subtitle: "Verify provider health, notification channels, safe mode, seeded fallback, and demo readiness.",
-      routeLabel: "/settings",
+      routeLabel: "Integrations",
       activeBadge: "Safe mode",
       tone: "success",
       tabs: [

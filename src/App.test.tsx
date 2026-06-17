@@ -113,13 +113,14 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(communicationsHref).not.toContain("payment-breach");
   });
 
-  test("renders actual incident routes instead of placeholder route labels", () => {
+  test("renders human page labels instead of raw route labels", () => {
     const incidentId = "product-recall-safety";
     const payload = createWorkspacePayload(incidentId);
 
     renderAt(getIncidentCommandHref(incidentId), payload.pages);
 
-    expect(screen.getByText(getIncidentCommandHref(incidentId))).toBeInTheDocument();
+    expect(screen.getByText("Command room")).toBeInTheDocument();
+    expect(screen.queryByText(getIncidentCommandHref(incidentId))).not.toBeInTheDocument();
     expect(screen.queryByText("/incidents/:incidentId")).not.toBeInTheDocument();
   });
 

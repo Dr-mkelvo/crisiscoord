@@ -25,6 +25,36 @@ describe("CrisisCoord seeded backend API", () => {
         "payment-data-exposure",
       ]),
     );
+    expect(body.incidents.map((incident: { sandboxId: string }) => incident.sandboxId)).toEqual(
+      expect.arrayContaining([
+        "third-party-risk",
+        "cyber-resilience",
+        "health-privacy",
+        "product-supply-chain",
+        "finance-payments",
+      ]),
+    );
+  });
+
+  test("serves grouped sandbox scenarios for testing and demos", async () => {
+    const response = await app.request("/api/sandboxes");
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body.sandboxes).toHaveLength(5);
+    expect(body.sandboxes.map((sandbox: { id: string }) => sandbox.id)).toEqual(
+      expect.arrayContaining([
+        "third-party-risk",
+        "cyber-resilience",
+        "health-privacy",
+        "product-supply-chain",
+        "finance-payments",
+      ]),
+    );
+
+    for (const sandbox of body.sandboxes as Array<{ incidents: unknown[] }>) {
+      expect(sandbox.incidents.length).toBeGreaterThan(0);
+    }
   });
 
   test("serves workspace data for a selected incident id", async () => {

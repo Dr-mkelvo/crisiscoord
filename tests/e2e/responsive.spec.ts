@@ -30,6 +30,9 @@ test.describe("responsive workspace shell", () => {
 
       await expect(page.getByRole("heading", { name: route.heading }).first()).toBeVisible();
       await expect(page.getByText(/CrisisCoord \//)).toHaveCount(0);
+      const routePillText = await page.locator(".route-pill").textContent();
+      expect(routePillText?.startsWith("/")).toBe(false);
+      expect(routePillText).not.toContain(":incidentId");
       await expect(page.getByRole("navigation", { name: "Workspaces" })).toBeVisible();
       await expect(page.getByRole("tablist")).toBeVisible();
       await expect(page.getByText("Notification Center")).toBeVisible();
