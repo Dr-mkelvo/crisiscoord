@@ -70,11 +70,11 @@ Correct structure:
   Evidence: Desktop / Tablet / Mobile
   Agent Reasoning: Desktop / Tablet / Mobile
   Exports: Desktop / Tablet / Mobile
-07 Integrations And Demo Readiness
+07 Integrations And Operations
   Providers: Desktop / Tablet / Mobile
   Notification Channels: Desktop / Tablet / Mobile
-  Secrets And Policies: Desktop / Tablet / Mobile
-  Demo Readiness: Desktop / Tablet / Mobile
+  Security Controls: Desktop / Tablet / Mobile
+  System Health: Desktop / Tablet / Mobile
 ```
 
 If the team remains on Figma Starter, use this fallback physical-page structure:
@@ -88,7 +88,7 @@ If the team remains on Figma Starter, use this fallback physical-page structure:
   04 Communications Review section with four tab rows
   05 Decision Desk section with four tab rows
   06 Evidence And Audit section with four tab rows
-  07 Integrations And Demo Readiness section with four tab rows
+  07 Integrations And Operations section with four tab rows
 02 States And References
 ```
 
@@ -326,7 +326,7 @@ Mobile:
 - audit timeline cards
 - export action lower in flow
 
-### 07 Integrations And Demo Readiness
+### 07 Integrations And Operations
 
 Desktop:
 

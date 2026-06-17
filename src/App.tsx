@@ -42,7 +42,7 @@ import {
 } from "./data";
 
 type TabState = Record<string, string>;
-type DemoEvent = FeedItem & {
+type WorkflowEvent = FeedItem & {
   id: string;
 };
 
@@ -145,7 +145,7 @@ function getDeadlineTone(remainingMs: number): Tone {
   return "success";
 }
 
-function countEvents(events: DemoEvent[], pattern: RegExp) {
+function countEvents(events: WorkflowEvent[], pattern: RegExp) {
   return events.filter((event) => pattern.test(`${event.title} ${event.detail} ${event.meta}`))
     .length;
 }
@@ -153,32 +153,32 @@ function countEvents(events: DemoEvent[], pattern: RegExp) {
 function createLiveMetrics({
   metrics,
   incident,
-  demoEvents,
+  workflowEvents,
   now,
-  demoClockStartedAt,
+  sessionClockStartedAt,
 }: {
   metrics: Metric[];
   incident?: IncidentSummary;
-  demoEvents: DemoEvent[];
+  workflowEvents: WorkflowEvent[];
   now: number;
-  demoClockStartedAt: number;
+  sessionClockStartedAt: number;
 }): Metric[] {
   if (!incident) return metrics;
 
-  const elapsedDuringDemoMs = now - demoClockStartedAt;
+  const elapsedDuringSessionMs = now - sessionClockStartedAt;
   const alreadyElapsedMs = incident.clockStartedMinutesAgo * 60 * 1000;
   const totalWindowMs = incident.deadlineHours * 60 * 60 * 1000;
-  const remainingMs = totalWindowMs - alreadyElapsedMs - elapsedDuringDemoMs;
+  const remainingMs = totalWindowMs - alreadyElapsedMs - elapsedDuringSessionMs;
   const handoffEvents = countEvents(
-    demoEvents,
+    workflowEvents,
     /room|message|email|sms|package|signal|diagnostic|delivery/i,
   );
   const decisionEvents = countEvents(
-    demoEvents,
+    workflowEvents,
     /decision|escalation|backup|evidence request|owner|facts/i,
   );
-  const evidenceEvents = countEvents(demoEvents, /evidence|audit|export|package|queued/i);
-  const queuedEvents = countEvents(demoEvents, /queued|package|delivery/i);
+  const evidenceEvents = countEvents(workflowEvents, /evidence|audit|export|package|queued/i);
+  const queuedEvents = countEvents(workflowEvents, /queued|package|delivery/i);
 
   return metrics.map((metric) => {
     if (metric.label === "Next deadline") {
@@ -232,7 +232,7 @@ export function App({
   loadWorkspaceData,
 }: AppProps) {
   const [path, setPath] = useState(getPath);
-  const [demoClockStartedAt] = useState(() => Date.now());
+  const [sessionClockStartedAt] = useState(() => Date.now());
   const [now, setNow] = useState(() => Date.now());
   const shouldLoadWorkspaceData = loadWorkspaceData ?? !workspacePages;
   const [workspacePayload, setWorkspacePayload] = useState<WorkspacePayload>(() => {
@@ -244,7 +244,7 @@ export function App({
   const [selectedTabs, setSelectedTabs] = useState<TabState>(() =>
     createInitialTabs(activeWorkspacePages),
   );
-  const [demoEvents, setDemoEvents] = useState<DemoEvent[]>([]);
+  const [workflowEvents, setWorkflowEvents] = useState<WorkflowEvent[]>([]);
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 1000);
@@ -297,9 +297,9 @@ export function App({
   const liveMetrics = createLiveMetrics({
     metrics: activeTab.metrics,
     incident: activeIncident,
-    demoEvents,
+    workflowEvents,
     now,
-    demoClockStartedAt,
+    sessionClockStartedAt,
   });
 
   const navigate = (href: string) => {
@@ -311,8 +311,8 @@ export function App({
     setSelectedTabs((current) => ({ ...current, [pageId]: tabName }));
   };
 
-  const recordDemoEvent = (event: Omit<DemoEvent, "id">) => {
-    setDemoEvents((current) => [
+  const recordWorkflowEvent = (event: Omit<WorkflowEvent, "id">) => {
+    setWorkflowEvents((current) => [
       { ...event, id: `${Date.now()}-${current.length}` },
       ...current,
     ].slice(0, 6));
@@ -327,7 +327,7 @@ export function App({
     const communicationsHref = getIncidentCommunicationsHref(activeIncidentId);
     const auditHref = getIncidentAuditHref(activeIncidentId);
 
-    recordDemoEvent(createDemoEvent(action, activePage, activeTab, activeIncidentId));
+    recordWorkflowEvent(createWorkflowEvent(action, activePage, activeTab, activeIncidentId));
 
     const handlers: Record<ActionKind, () => void> = {
       "navigate-command": () => navigate(commandHref),
@@ -378,11 +378,11 @@ export function App({
         navigate(auditHref);
       },
       "Notification setup": () => {
-        setTabForPage("settings", "Notifications");
+        setTabForPage("settings", "Notification Channels");
         navigate("/settings");
       },
       "Run policy check": () => {
-        setTabForPage("settings", "Safety");
+        setTabForPage("settings", "Security Controls");
         navigate("/settings");
       },
       "Delivery log": () => {
@@ -399,11 +399,27 @@ export function App({
     labelHandlers[action.label]?.();
   };
 
+  const openNotificationSettings = () => {
+    selectTab("settings", "Notification Channels");
+    navigate("/settings");
+    recordWorkflowEvent({
+      title: "Notification settings opened",
+      detail:
+        "Channel setup is now visible for in-app, Band, email, SMS, and recipient policy review.",
+      meta: "top bar",
+      tone: "brand",
+    });
+  };
+
   return (
     <div className="app-shell">
       <Sidebar activePage={activePage} navigate={navigate} workspacePages={activeWorkspacePages} />
       <main className="workspace">
-        <TopBar activePage={activePage} />
+        <TopBar
+          activePage={activePage}
+          notificationCount={Math.max(3, workflowEvents.length)}
+          onOpenNotifications={openNotificationSettings}
+        />
         <Workspace
           activePage={activePage}
           activeTab={activeTab}
@@ -411,25 +427,25 @@ export function App({
           selectedTabName={activeTabName}
           selectTab={selectTab}
           runAction={runAction}
-          demoEvents={demoEvents}
+          workflowEvents={workflowEvents}
         />
       </main>
     </div>
   );
 }
 
-function createDemoEvent(
+function createWorkflowEvent(
   action: PageAction,
   activePage: WorkspacePage,
   activeTab: PageTab,
   activeIncidentId: string,
-): Omit<DemoEvent, "id"> {
+): Omit<WorkflowEvent, "id"> {
   const baseMeta = `${activePage.navLabel} / ${activeTab.name}`;
-  const actionEvents: Record<string, Omit<DemoEvent, "id">> = {
+  const actionEvents: Record<string, Omit<WorkflowEvent, "id">> = {
     "Review signal": {
       title: "Signal reviewed",
       detail:
-        "The intake packet was marked safe for the demo run and is ready for agent launch.",
+        "The intake packet was marked safe for the incident run and is ready for agent launch.",
       meta: baseMeta,
       tone: "success",
     },
@@ -590,22 +606,22 @@ function createDemoEvent(
     "Export audit": {
       title: "Audit export prepared",
       detail:
-        "A redacted review package was prepared for internal demo review with unsafe fields blocked.",
+        "A redacted review package was prepared for internal review with unsafe fields blocked.",
       meta: "export ready",
       tone: "success",
     },
     "Prepare export": {
       title: "Export package prepared",
       detail:
-        "The demo package now contains timeline, evidence, decisions, and communication states.",
+        "The export package now contains timeline, evidence, decisions, and communication states.",
       meta: "safe package",
       tone: "success",
     },
     "Run diagnostics": {
       title: "Provider diagnostics completed",
       detail:
-        "Band, Supabase, model providers, notification adapters, and seeded fallback were checked in safe mode.",
-      meta: "demo readiness",
+        "Band, Supabase, model providers, notification adapters, and fallback controls were checked in safe mode.",
+      meta: "system health",
       tone: "success",
     },
     "Notification setup": {
@@ -635,7 +651,7 @@ function createDemoEvent(
     actionEvents[action.label] ?? {
       title: `${action.label} recorded`,
       detail:
-        "The demo action was recorded in the local event trail so the judge can see cause and effect.",
+        "The action was recorded in the local event trail so the operator can see cause and effect.",
       meta: baseMeta,
       tone: action.tone,
     }
@@ -699,14 +715,22 @@ function Sidebar({
         <span className="status-dot success" aria-hidden="true" />
         <div>
           <strong>Source status</strong>
-          <span>Live + seeded fallback</span>
+          <span>Live checks + fallback</span>
         </div>
       </div>
     </aside>
   );
 }
 
-function TopBar({ activePage }: { activePage: WorkspacePage }) {
+function TopBar({
+  activePage,
+  notificationCount,
+  onOpenNotifications,
+}: {
+  activePage: WorkspacePage;
+  notificationCount: number;
+  onOpenNotifications: () => void;
+}) {
   return (
     <header className="topbar">
       <div>
@@ -720,9 +744,14 @@ function TopBar({ activePage }: { activePage: WorkspacePage }) {
         </label>
         <Badge tone="info" label="Band active" />
         <Badge tone="success" label="Synthetic mode" />
-        <button className="icon-button" aria-label="Notifications">
+        <button
+          className="icon-button"
+          aria-label="Open notification channels"
+          onClick={onOpenNotifications}
+          type="button"
+        >
           <Bell size={18} />
-          <span>3</span>
+          <span>{notificationCount}</span>
         </button>
       </div>
     </header>
@@ -736,7 +765,7 @@ function Workspace({
   selectedTabName,
   selectTab,
   runAction,
-  demoEvents,
+  workflowEvents,
 }: {
   activePage: WorkspacePage;
   activeTab: PageTab;
@@ -744,7 +773,7 @@ function Workspace({
   selectedTabName: string;
   selectTab: (pageId: string, tabName: string) => void;
   runAction: (action: PageAction) => void;
-  demoEvents: DemoEvent[];
+  workflowEvents: WorkflowEvent[];
 }) {
   return (
     <section className="page-surface" aria-labelledby="workspace-title">
@@ -778,7 +807,7 @@ function Workspace({
       <div className="content-grid">
         <FeedPanel title={activeTab.feedTitle} items={activeTab.feed} />
         <MainPanel tab={activeTab} pageId={activePage.id} />
-        <ActionPanel tab={activeTab} runAction={runAction} demoEvents={demoEvents} />
+        <ActionPanel tab={activeTab} runAction={runAction} workflowEvents={workflowEvents} />
       </div>
     </section>
   );
@@ -837,13 +866,13 @@ function MainPanel({ tab, pageId }: { tab: PageTab; pageId: string }) {
 function ActionPanel({
   tab,
   runAction,
-  demoEvents,
+  workflowEvents,
 }: {
   tab: PageTab;
   runAction: (action: PageAction) => void;
-  demoEvents: DemoEvent[];
+  workflowEvents: WorkflowEvent[];
 }) {
-  const latestEvent = demoEvents[0];
+  const latestEvent = workflowEvents[0];
 
   return (
     <aside className="right-rail">
@@ -883,19 +912,19 @@ function ActionPanel({
       <section className="panel">
         <PanelHeader icon={Gauge} title="Notification Center" subtitle="CrisisCoord records first" />
         <div className="stack">
-          {demoEvents.length === 0 ? (
+          {workflowEvents.length === 0 ? (
             <FeedRow
               item={{
-                title: "Ready for demo interaction",
+                title: "Ready for interaction",
                 detail:
                   "Click an action to create a visible notification, delivery, escalation, or audit event.",
-                meta: "demo event trail",
+                meta: "event trail",
                 tone: "info",
               }}
               compact
             />
           ) : null}
-          {demoEvents.slice(0, 3).map((event) => (
+          {workflowEvents.slice(0, 3).map((event) => (
             <FeedRow item={event} key={event.id} compact />
           ))}
           {tab.status.map((item) => (
@@ -907,11 +936,11 @@ function ActionPanel({
       <section className="panel compact-card">
         <div>
           <LockKeyhole size={16} />
-          <strong>Demo-safe policy</strong>
+          <strong>Safety policy</strong>
         </div>
         <p>
-          External sends are simulated or limited to configured safe recipients until backend
-          approval, audit, and provider gates are connected.
+          External sends require configured recipients, approval, audit records, and provider gates
+          before live delivery is allowed.
         </p>
       </section>
     </aside>

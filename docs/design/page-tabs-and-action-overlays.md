@@ -64,7 +64,7 @@ Sources:
 | `/communications` | Communications Review | Drafts, Email, SMS, Delivery Log |
 | `/decisions` | Decision Desk | Pending, Evidence Needed, Escalations, Resolved |
 | `/audit` | Evidence And Audit | Timeline, Evidence, Agent Reasoning, Exports |
-| `/settings` | Integrations And Demo Readiness | Providers, Notification Channels, Secrets And Policies, Demo Readiness |
+| `/settings` | Integrations And Operations | Providers, Notification Channels, Security Controls, System Health |
 
 Tabs are local UI states. They should not become new top-level routes in the MVP unless deep linking becomes necessary later.
 The active incident is workspace context, not part of the visible page route.

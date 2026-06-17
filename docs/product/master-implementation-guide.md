@@ -538,7 +538,7 @@ The UI should render:
 - provider badges
 - seeded/live demo state
 
-### Step 11: Add Verification And Demo Readiness
+### Step 11: Add Verification And Operational Health
 
 Required checks:
 

@@ -102,7 +102,7 @@ The seven-workspace model is:
 4. `/communications` - Communications Review
 5. `/decisions` - Decision Desk
 6. `/audit` - Evidence And Audit
-7. `/settings` - Integrations And Demo Readiness
+7. `/settings` - Integrations And Operations
 
 Selected incident context comes from Signal Intake, Incident Registry, or the backend workspace payload. Do not expose incident record IDs in the main page URLs.
 
@@ -168,7 +168,7 @@ Create these before frontend polish:
 6. Desktop communications review: approved draft queued for simulated send.
 7. Desktop audit tab: provider metadata, Band references, and notification delivery log.
 8. Mobile command room: active decision and escalation ladder.
-9. Settings: partner/demo readiness diagnostics.
+9. Settings: partner/system health diagnostics.
 10. Click-result states for launch, open incident, notification, email/SMS, escalation, export, and provider setup.
 
 ## Required Components

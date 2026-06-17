@@ -82,7 +82,7 @@ No new pages are added.
 | `/communications` Communications Review | facts used, missing facts, legal warnings, confidence labels, source references | Supabase evidence, Legal/Technical agent outputs, Band refs |
 | `/decisions` Decision Desk | mobile-first approval cards, risk of approving, risk of waiting, confidence and last-updated labels | Supabase decisions, agent outputs, audit events |
 | `/audit` Evidence And Audit | real event ledger, source snapshots, provider/model metadata, Band references, export status | Supabase audit/events/evidence/provider tables |
-| `/settings` Integrations And Demo Readiness | provider/feed health cards, last successful sync, fallback mode, latency, key status | health checks, source sync logs, Vercel diagnostics |
+| `/settings` Integrations And Operations | provider/feed health cards, last successful sync, fallback mode, latency, key status | health checks, source sync logs, Vercel diagnostics |
 
 ## Component Decisions
 

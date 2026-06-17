@@ -30,7 +30,7 @@ Current Figma status:
 - The current source of truth for the responsive board is [figma-imports/crisiscoord-responsive-triptychs.svg](./figma-imports/crisiscoord-responsive-triptychs.svg).
 - That generated board has seven workspace sections, four working tabs per section, and three responsive frames per tab.
 - The board now has 84 responsive frames total: 7 routes x 4 tabs x desktop/tablet/mobile.
-- The generated board now includes real tab states for messaging, email, SMS, delivery status, decisions, evidence, agent reasoning, provider diagnostics, and demo readiness.
+- The generated board now includes real tab states for messaging, email, SMS, delivery status, decisions, evidence, agent reasoning, provider diagnostics, and system health.
 - The June 13 repair pass removed the repeated map from non-command pages, centered contextual buttons, added visible post-click outcomes, and replaced generic panels with page-specific working panels.
 - The latest pass replaced the one-overlay-per-page model with a tab-detail matrix, so actions like Email, SMS, Message Owner, Send Test, Queue, Escalate, and Open Audit have visible in-page destinations.
 - Re-import the generated SVG into Figma whenever the source changes, so the team does not rebuild the structure by hand.
@@ -70,9 +70,9 @@ Current references:
 
 ![Evidence And Audit](./mockups/screenshots/audit.png)
 
-### Integrations And Demo Readiness
+### Integrations And Operations
 
-![Integrations And Demo Readiness](./mockups/screenshots/settings.png)
+![Integrations And Operations](./mockups/screenshots/settings.png)
 
 ## Export Command
 
@@ -108,7 +108,7 @@ Start from the `01 Responsive Workspaces` board in Figma or from the generated S
 4. Communications Review: desktop, tablet, mobile.
 5. Decision Desk: desktop, tablet, mobile.
 6. Evidence And Audit: desktop, tablet, mobile.
-7. Integrations And Demo Readiness: desktop, tablet, mobile.
+7. Integrations And Operations: desktop, tablet, mobile.
 8. Interaction state for each workspace section.
 
 The Crisis Command Room remains the hero frame. Other pages should support the demo story without becoming broad admin dashboards.
