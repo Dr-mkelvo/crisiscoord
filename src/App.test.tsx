@@ -58,6 +58,7 @@ describe("CrisisCoord app routing and workspace data", () => {
     renderAt("/decisions");
 
     expect(screen.getAllByRole("heading", { name: "Decision Desk" }).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/CrisisCoord \//)).not.toBeInTheDocument();
     expect(getSelectedTab("Pending")).toHaveAttribute("aria-selected", "true");
     expect(screen.getByText("Pending decisions")).toBeInTheDocument();
     expect(screen.getByText("Notification Center")).toBeInTheDocument();
@@ -110,6 +111,16 @@ describe("CrisisCoord app routing and workspace data", () => {
       "/incidents/product-recall-safety/audit",
     );
     expect(communicationsHref).not.toContain("payment-breach");
+  });
+
+  test("renders actual incident routes instead of placeholder route labels", () => {
+    const incidentId = "product-recall-safety";
+    const payload = createWorkspacePayload(incidentId);
+
+    renderAt(getIncidentCommandHref(incidentId), payload.pages);
+
+    expect(screen.getByText(getIncidentCommandHref(incidentId))).toBeInTheDocument();
+    expect(screen.queryByText("/incidents/:incidentId")).not.toBeInTheDocument();
   });
 
   test("renders supplied workspace data so the backend can replace seeded data later", () => {

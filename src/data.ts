@@ -740,7 +740,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       title: "Crisis Command Room",
       subtitle:
         "The primary workspace for Band handoffs, agent state, human decisions, and safe communications.",
-      routeLabel: "/incidents/:incidentId",
+      routeLabel: commandHref,
       activeBadge: incident.shortTitle,
       tone: "review",
       tabs: [
@@ -869,7 +869,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Communications",
       title: "Communications Review",
       subtitle: "Draft, review, test, queue, and audit outbound communications from verified facts.",
-      routeLabel: "/incidents/:incidentId/communications",
+      routeLabel: communicationsHref,
       activeBadge: "Drafts gated",
       tone: "warning",
       tabs: [
@@ -1151,7 +1151,7 @@ function createWorkspacePages(incident: IncidentScenario): WorkspacePage[] {
       navLabel: "Evidence And Audit",
       title: "Evidence And Audit",
       subtitle: "Trace every source fact, model/provider output, Band reference, human decision, and delivery attempt.",
-      routeLabel: "/incidents/:incidentId/audit",
+      routeLabel: auditHref,
       activeBadge: "Audit ready",
       tone: "success",
       tabs: [

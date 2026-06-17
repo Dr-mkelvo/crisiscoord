@@ -312,7 +312,6 @@ function TopBar({ activePage }: { activePage: WorkspacePage }) {
   return (
     <header className="topbar">
       <div>
-        <span className="breadcrumb">CrisisCoord / {activePage.navLabel}</span>
         <h1>{activePage.title}</h1>
       </div>
       <div className="topbar-actions">
