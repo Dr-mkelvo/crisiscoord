@@ -211,15 +211,9 @@ a {
 }
 
 .topbar h1 {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 22px;
   line-height: 1.16;
-}
-
-.breadcrumb {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
 }
 
 .topbar-actions {
