@@ -31,6 +31,7 @@ yarn-error.log*
 # Local tool output
 .local/
 .cache/
+.vite/
 coverage/
 playwright-report/
 test-results/
