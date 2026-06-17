@@ -50,6 +50,25 @@ Current seeded incident scenarios:
 4. Frontend keeps a local seeded fallback if the API is unavailable.
 5. Actions such as Email, Audit, Messaging, and Command preserve the active incident id.
 
+## Exa Research Cross-Check
+
+The generic route and backend direction were checked against an Exa research pass on current incident-response guidance and nearby product patterns. The research confirmed that CrisisCoord should stay generic, global, and signal-first.
+
+Key takeaways:
+
+- NIST SP 800-61 Rev. 3 treats incident response as organization-wide cybersecurity risk management, not a single breach playbook. It supports a broad scenario catalog across SaaS compromise, ransomware, phishing fraud, vulnerability exploitation, supply-chain compromise, and data exposure.
+- CISA guidance reinforces named human roles, stakeholder plans, communications ownership, out-of-band notification options, contact lists, tabletop exercises, retrospectives, and evidence preservation.
+- Cortex XSOAR and Splunk SOAR validate per-incident war rooms, incident-specific layouts, tabs, playbooks, integrations, evidence tagging, auto-documentation, and action history.
+- GDPR, SEC, and HIPAA sources confirm that deadline clocks and notification duties are contextual. The Legal & Regulatory Agent should produce candidate obligations for human review, not final legal determinations.
+
+Implementation rule:
+
+```text
+No top-level route, backend endpoint, UI action, seeded fixture, or browser test should depend on one permanent incident category.
+```
+
+See [../research/exa-generic-incident-research.md](../research/exa-generic-incident-research.md).
+
 ## Next Backend Roadmap
 
 ### Phase 1: Contracts And Persistence
