@@ -140,7 +140,7 @@
           </aside>
           <section class="workspace">
             <header class="topbar">
-              <div class="breadcrumbs">CrisisCoord / Signal Intake</div>
+              <div class="breadcrumbs">Signal intake</div>
               <div class="top-actions">
                 <span class="badge badge-success"><span class="dot"></span>Band ready</span>
                 <span class="badge badge-brand"><span class="dot"></span>AI/ML API ready</span>
@@ -163,8 +163,8 @@
               <div class="cards-grid">
                 <div class="signal-card active">
                   <span class="badge badge-danger"><span class="dot"></span>Security alert</span>
-                  <h4>Payment system access anomaly</h4>
-                  <p>Unauthorized access detected at 2:47 AM. Potential card-record exposure.</p>
+                  <h4>Vendor credential compromise</h4>
+                  <p>Integration credentials may have been used outside the approved network boundary.</p>
                 </div>
                 <div class="signal-card">
                   <span class="badge badge-warning"><span class="dot"></span>Vendor notice</span>
@@ -185,19 +185,19 @@
                       <h3>Incident signal</h3>
                       <p>Use synthetic facts only. Evidence can be attached after the room exists.</p>
                     </div>
-                    <span class="route-pill">/signals</span>
+                    <span class="route-pill">Signal intake</span>
                   </div>
                   <div class="panel-body">
                     <div class="textarea-like">
-                      At 2:47 AM, unauthorized access was detected in the payment system.
-                      50,000 card records are potentially exposed. Initial monitoring suggests
-                      the affected service handles EU and US payment flows. Containment is not yet
-                      confirmed.
+                      A third-party platform reports that integration credentials may have been
+                      used outside the approved network boundary. Customer export logs and service
+                      account activity still need final reconciliation before external language is
+                      approved.
                     </div>
                     <div class="chip-row" style="margin-top:14px">
                       <span class="badge badge-danger">Critical</span>
-                      <span class="badge badge-brand">Finance sandbox</span>
-                      <span class="badge badge-muted">Payment data</span>
+                      <span class="badge badge-brand">Third-party sandbox</span>
+                      <span class="badge badge-muted">Customer metadata</span>
                       <span class="badge badge-warning">Scope unknown</span>
                     </div>
                   </div>
@@ -243,7 +243,7 @@
           </aside>
           <section class="workspace">
             <header class="topbar">
-              <div class="breadcrumbs">CrisisCoord / Incident Registry</div>
+              <div class="breadcrumbs">Incident registry</div>
               <div class="top-actions">
                 <button class="button secondary">Filter</button>
                 <button class="button">Open active room</button>
@@ -270,7 +270,7 @@
                     <h3>Active and demo incidents</h3>
                     <p>Open the command room to see agent handoffs and decision state.</p>
                   </div>
-                  <span class="route-pill">/incidents</span>
+                  <span class="route-pill">Incident registry</span>
                 </div>
                 <table class="table">
                   <thead>
@@ -288,8 +288,8 @@
                   <tbody>
                     <tr>
                       <td><span class="badge badge-danger">Critical</span></td>
-                      <td>Payment system unauthorized access</td>
-                      <td>Data breach</td>
+                      <td>Vendor credential compromise</td>
+                      <td>Third-party access</td>
                       <td><span class="status-badge status-running">Technical running</span></td>
                       <td><span class="status-badge status-review">Pending</span></td>
                       <td>71h 12m</td>
@@ -349,7 +349,7 @@
           <section class="workspace">
             <header class="topbar">
               <div>
-                <div class="breadcrumbs">Incidents / Payment system unauthorized access</div>
+                <div class="breadcrumbs">Selected incident command room</div>
                 <div class="chip-row" style="margin-top:8px">
                   <span class="badge badge-danger">Critical</span>
                   <span class="badge badge-warning">Disclosure clock 71h 12m</span>
@@ -385,7 +385,7 @@
                     <h3>Band timeline and handoffs</h3>
                     <p>The workflow is visible through room messages and events.</p>
                   </div>
-                  <span class="route-pill">/incidents/:incidentId</span>
+                  <span class="route-pill">Command room</span>
                 </div>
                 <div class="panel-body">
                   <div class="dependency-gate" style="margin-bottom:14px">
@@ -400,7 +400,7 @@
                   <div class="timeline">
                     <div class="timeline-item">
                       <div class="timeline-time">02:47</div>
-                      <div><h4>Signal received</h4><p>Unauthorized access detected in payment system. Synthetic demo data only.</p></div>
+                      <div><h4>Signal received</h4><p>Vendor credential compromise reported. Synthetic demo data only.</p></div>
                       <span class="badge badge-danger">Critical</span>
                     </div>
                     <div class="timeline-item">
@@ -415,7 +415,7 @@
                     </div>
                     <div class="timeline-item">
                       <div class="timeline-time">02:54</div>
-                      <div><h4>Technical confirming scope</h4><p>12,400 EU records indicated by logs. Containment confidence is still pending.</p></div>
+                      <div><h4>Technical confirming scope</h4><p>Export-log scope is still being reconciled. Containment confidence is positive.</p></div>
                       <span class="badge badge-brand">Running</span>
                     </div>
                   </div>
@@ -472,7 +472,7 @@
           </aside>
           <section class="workspace">
             <header class="topbar">
-              <div class="breadcrumbs">Incidents / Payment access / Communications Review</div>
+              <div class="breadcrumbs">Selected incident communications review</div>
               <div class="top-actions">
                 <span class="badge badge-review">Draft only</span>
                 <button class="button secondary">Compare facts</button>
@@ -486,13 +486,13 @@
                     <h3>Regulator notification draft</h3>
                     <p>Generated after Legal and Technical outputs validate.</p>
                   </div>
-                  <span class="route-pill">/incidents/:incidentId/communications</span>
+                  <span class="route-pill">Communications review</span>
                 </div>
                 <div class="panel-body">
                   <div class="draft-body">
                     <h4>Draft notice for human review</h4>
-                    <p>We are notifying you of a cybersecurity incident involving unauthorized access to a payment processing environment.</p>
-                    <p>Current technical review indicates that approximately 12,400 EU card records may be in scope. Containment steps have been initiated and final scope remains under review.</p>
+                    <p>We are notifying you of a cybersecurity incident involving a third-party integration credential.</p>
+                    <p>Current technical review indicates that customer export logs may be in scope. Credential rotation is complete and final export reconciliation remains under review.</p>
                     <p>This notice is a draft. Legal, technical, and executive approval are required before external delivery.</p>
                   </div>
                   <div class="chip-row" style="margin-top:14px">
@@ -511,7 +511,7 @@
                 </div>
                 <div class="panel-body mini-list">
                   <div class="mini-row"><div><strong>Legal finding</strong><span>72-hour clock candidate. Human review required.</span></div><span class="status-badge status-review">Review</span></div>
-                  <div class="mini-row"><div><strong>Technical finding</strong><span>12,400 EU records indicated by logs.</span></div><span class="status-badge status-complete">Confirmed</span></div>
+                  <div class="mini-row"><div><strong>Technical finding</strong><span>Credential rotation is complete; export scope is still under review.</span></div><span class="status-badge status-running">Running</span></div>
                   <div class="mini-row"><div><strong>Unknown</strong><span>Final containment confidence not yet approved.</span></div><span class="status-badge status-blocked">Missing</span></div>
                   <div class="mini-row"><div><strong>Provider</strong><span>AI/ML API generated draft, Zod schema validated.</span></div><span class="status-badge status-running">Model</span></div>
                 </div>
@@ -540,7 +540,7 @@
                 <span class="badge badge-review">Needs human approval</span>
                 <h2 style="font-size:22px;margin:14px 0 8px">Notify customers proactively?</h2>
                 <p style="color:var(--text-muted);line-height:1.5;margin:0">
-                  Incident: payment system unauthorized access. Communications is ready to draft customer notice after final technical confirmation.
+                  Incident: vendor credential compromise. Communications is ready to draft customer notice after final technical confirmation.
                 </p>
               </div>
             </div>
@@ -584,7 +584,7 @@
           </aside>
           <section class="workspace">
             <header class="topbar">
-              <div class="breadcrumbs">Incidents / Payment access / Evidence And Audit</div>
+              <div class="breadcrumbs">Selected incident evidence and audit</div>
               <div class="top-actions">
                 <button class="button secondary">Filter timeline</button>
                 <button class="button">Export packet</button>
@@ -604,7 +604,7 @@
                       <h3>Audit events</h3>
                       <p>Authoritative record for review and later reporting.</p>
                     </div>
-                    <span class="route-pill">/incidents/:incidentId/audit</span>
+                    <span class="route-pill">Evidence and audit</span>
                   </div>
                   <table class="table">
                     <thead>
@@ -669,7 +669,7 @@ human_required: true</div>
           </aside>
           <section class="workspace">
             <header class="topbar">
-              <div class="breadcrumbs">CrisisCoord / Integrations And Demo Readiness</div>
+              <div class="breadcrumbs">Integrations and demo readiness</div>
               <div class="top-actions">
                 <span class="badge badge-success"><span class="dot"></span>Ready for seeded demo</span>
                 <button class="button secondary">Run check</button>
@@ -693,7 +693,7 @@ human_required: true</div>
                     <h3>Provider diagnostics</h3>
                     <p>No API keys or secrets shown in browser screenshots.</p>
                   </div>
-                  <span class="route-pill">/settings</span>
+                  <span class="route-pill">Integrations</span>
                 </div>
                 <table class="table">
                   <thead>
