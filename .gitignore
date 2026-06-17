@@ -7,6 +7,9 @@ dist/
 build/
 .output/
 .vercel/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 
 # Environment
 .env
