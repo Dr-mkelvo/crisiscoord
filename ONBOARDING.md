@@ -33,11 +33,11 @@ The product UI must support mobile, tablet, laptop, desktop, and wide desktop sc
 Normal development commands should run through package scripts once implementation starts:
 
 ```bash
-pnpm install
-pnpm dev
-pnpm test
-pnpm lint
-pnpm build
+npm install
+npm run dev
+npm run test
+npm run test:e2e
+npm run build
 ```
 
 Do not add bash-only commands to normal project scripts unless there is a Windows-compatible wrapper.
@@ -174,26 +174,32 @@ FEATHERLESS_DEFAULT_MODEL=Qwen/Qwen2.5-7B-Instruct
 
 Never commit `.env.local`, Band API keys, Supabase service-role keys, model API keys, or deployment tokens.
 
-## Local Setup Placeholder
+## Local Setup
 
-Implementation has not started yet. Once the app is scaffolded, setup should look like:
+The app is scaffolded with React, TypeScript, and Vite. Use npm because the repo has a committed `package-lock.json`.
 
 ```bash
-pnpm install
+npm install
 cp .env.example .env.local
-pnpm dev
+npx playwright install chromium
+npm run dev
 ```
 
-Planned scripts:
+Project scripts:
 
 ```bash
-pnpm dev
-pnpm test
-pnpm lint
-pnpm build
-pnpm db:migrate
-pnpm db:seed
+npm run dev
+npm run test
+npm run test:e2e
+npm run test:all
+npm run build
 ```
+
+Testing expectations before opening a pull request:
+
+- `npm run test` covers unit behavior: route resolution, tab state, action routing, and backend-shaped workspace data injection.
+- `npm run test:e2e` covers desktop, tablet, and mobile browser flows for all seven workspaces plus key command-room and communication actions.
+- `npm run test:all` runs unit tests, viewport browser checks, and the production build in one command.
 
 ## First Research Tasks
 
