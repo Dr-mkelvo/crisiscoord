@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  { path: "/signals", heading: "Signal Intake And Sandbox Launcher" },
-  { path: "/incidents", heading: "Incident Registry" },
-  { path: "/command", heading: "Crisis Command Room" },
-  { path: "/communications", heading: "Communications Review" },
-  { path: "/decisions", heading: "Decision Desk" },
-  { path: "/audit", heading: "Evidence And Audit" },
-  { path: "/settings", heading: "Integrations And Operations" },
+  { path: "/signals", heading: "Signal Intake And Sandbox Launcher", navLabel: "Signal Intake" },
+  { path: "/incidents", heading: "Incident Registry", navLabel: "Incident Registry" },
+  { path: "/command", heading: "Crisis Command Room", navLabel: "Command Room" },
+  { path: "/communications", heading: "Communications Review", navLabel: "Communications" },
+  { path: "/decisions", heading: "Decision Desk", navLabel: "Decision Desk" },
+  { path: "/audit", heading: "Evidence And Audit", navLabel: "Evidence And Audit" },
+  { path: "/settings", heading: "Integrations And Operations", navLabel: "Integrations" },
 ];
 
 async function expectNoDocumentOverflow(page: import("@playwright/test").Page) {
@@ -33,10 +33,26 @@ test.describe("responsive workspace shell", () => {
       expect(routePillText).not.toContain(":incidentId");
       await expect(page.getByRole("navigation", { name: "Workspaces" })).toBeVisible();
       await expect(page.getByRole("tablist")).toBeVisible();
-      await expect(page.getByText("Notification Center")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Action Trail" })).toBeVisible();
+      await expect(page.getByRole("link", { name: route.navLabel })).toBeVisible();
       await expectNoDocumentOverflow(page);
     });
   }
+
+  test("global search opens relevant workspace tabs", async ({ page }) => {
+    await page.goto("/command");
+
+    await page.getByRole("textbox", { name: "Search incidents, evidence, owners" }).fill("sms");
+    await page.getByRole("button", { name: /Communications \/ SMS/ }).click();
+
+    await expect(page).toHaveURL(/\/communications$/);
+    await expect(page.getByRole("tab", { name: "SMS" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("heading", { name: "Search result opened" })).toBeVisible();
+    await expectNoDocumentOverflow(page);
+  });
 
   test("keeps decision tabs and action routing usable", async ({ page }) => {
     await page.goto("/decisions");
