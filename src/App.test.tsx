@@ -100,6 +100,45 @@ describe("CrisisCoord app routing and workspace data", () => {
     expect(screen.getByText("Evidence detail")).toBeInTheDocument();
   });
 
+  test("records a visible result when reviewing a signal", async () => {
+    const user = userEvent.setup();
+    renderAt("/signals");
+
+    await user.click(screen.getByRole("button", { name: "Review signal" }));
+
+    expect(screen.getByRole("heading", { name: "Signal reviewed" })).toBeInTheDocument();
+    expect(screen.getAllByText("Signal Intake / Signals").length).toBeGreaterThan(0);
+  });
+
+  test("queues a communication package and records the delivery event", async () => {
+    const user = userEvent.setup();
+    const incidentId = "vendor-credential-compromise";
+    const payload = createWorkspacePayload(incidentId);
+    renderAt(getIncidentCommunicationsHref(incidentId), payload.pages);
+
+    await user.click(getSelectedTab("Email"));
+    await user.click(screen.getByRole("button", { name: "Queue package" }));
+
+    expect(getSelectedTab("Delivery Log")).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("heading", { name: "Communication package queued" })).toBeInTheDocument();
+    expect(screen.getAllByText("delivery log updated").length).toBeGreaterThan(0);
+  });
+
+  test("records escalation and backup notification events", async () => {
+    const user = userEvent.setup();
+    renderAt("/decisions");
+
+    await user.click(screen.getByRole("button", { name: "Escalate" }));
+
+    expect(getSelectedTab("Escalations")).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("heading", { name: "Escalation package created" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Notify backup" }));
+
+    expect(screen.getByRole("heading", { name: "Backup owner notified" })).toBeInTheDocument();
+    expect(screen.getAllByText("notification logged").length).toBeGreaterThan(0);
+  });
+
   test("keeps audit and communications URLs tied to the selected incident", () => {
     expect(getIncidentCommandHref("product-recall-safety")).toBe(
       "/incidents/product-recall-safety",

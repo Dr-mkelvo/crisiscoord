@@ -56,7 +56,7 @@ test.describe("responsive workspace shell", () => {
       "aria-selected",
       "true",
     );
-    await expect(page.getByRole("heading", { name: "Email composer" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Email composer", exact: true })).toBeVisible();
     await expectNoDocumentOverflow(page);
   });
 
@@ -73,6 +73,29 @@ test.describe("responsive workspace shell", () => {
       "true",
     );
     await expect(page.getByText("safe email composer")).toBeVisible();
+    await expectNoDocumentOverflow(page);
+  });
+
+  test("turns action clicks into visible workflow events", async ({ page }) => {
+    await page.goto("/signals");
+
+    await page.getByRole("button", { name: "Review signal" }).click();
+    await expect(page.getByRole("heading", { name: "Signal reviewed" })).toBeVisible();
+
+    await page.goto("/incidents/vendor-credential-compromise/communications");
+    await page.getByRole("tab", { name: "Email" }).click();
+    await page.getByRole("button", { name: "Queue package" }).click();
+    await expect(page.getByRole("tab", { name: "Delivery Log" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("heading", { name: "Communication package queued" })).toBeVisible();
+
+    await page.goto("/decisions");
+    await page.getByRole("button", { name: "Escalate" }).click();
+    await expect(page.getByRole("heading", { name: "Escalation package created" })).toBeVisible();
+    await page.getByRole("button", { name: "Notify backup" }).click();
+    await expect(page.getByRole("heading", { name: "Backup owner notified" })).toBeVisible();
     await expectNoDocumentOverflow(page);
   });
 

@@ -660,6 +660,61 @@ a {
   color: var(--text);
 }
 
+.action-result {
+  display: grid;
+  gap: 8px;
+  border-color: rgba(8, 145, 178, 0.28);
+  background: #f0f9ff;
+}
+
+.action-result > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.action-result h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.action-result p {
+  margin: 0;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.action-result small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.action-result.tone-success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.action-result.tone-warning,
+.action-result.tone-risk {
+  border-color: #fed7aa;
+  background: #fff7ed;
+}
+
+.action-result.tone-danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.action-result.tone-review {
+  border-color: #ddd6fe;
+  background: #faf5ff;
+}
+
 .compact-card {
   display: grid;
   gap: 8px;

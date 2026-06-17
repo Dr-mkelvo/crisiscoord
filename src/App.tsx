@@ -40,6 +40,10 @@ import {
 } from "./data";
 
 type TabState = Record<string, string>;
+type DemoEvent = FeedItem & {
+  id: string;
+};
+
 type AppProps = {
   workspacePages?: WorkspacePage[];
   initialWorkspacePayload?: WorkspacePayload;
@@ -133,6 +137,7 @@ export function App({
   const [selectedTabs, setSelectedTabs] = useState<TabState>(() =>
     createInitialTabs(activeWorkspacePages),
   );
+  const [demoEvents, setDemoEvents] = useState<DemoEvent[]>([]);
 
   useEffect(() => {
     const normalizedPath = getPath();
@@ -184,8 +189,14 @@ export function App({
     setSelectedTabs((current) => ({ ...current, [pageId]: tabName }));
   };
 
+  const recordDemoEvent = (event: Omit<DemoEvent, "id">) => {
+    setDemoEvents((current) => [
+      { ...event, id: `${Date.now()}-${current.length}` },
+      ...current,
+    ].slice(0, 6));
+  };
+
   const runAction = (action: PageAction) => {
-    if (!action.kind) return;
     const setTabForPage = (pageId: string, tabName: string) => {
       setSelectedTabs((current) => ({ ...current, [pageId]: tabName }));
     };
@@ -193,6 +204,8 @@ export function App({
     const commandHref = getIncidentCommandHref(activeIncidentId);
     const communicationsHref = getIncidentCommunicationsHref(activeIncidentId);
     const auditHref = getIncidentAuditHref(activeIncidentId);
+
+    recordDemoEvent(createDemoEvent(action, activePage, activeTab, activeIncidentId));
 
     const handlers: Record<ActionKind, () => void> = {
       "navigate-command": () => navigate(commandHref),
@@ -224,7 +237,44 @@ export function App({
       },
     };
 
-    handlers[action.kind]?.();
+    const labelHandlers: Record<string, () => void> = {
+      "Open registry": () => navigate("/incidents"),
+      "Open exports": () => {
+        setTabForPage("audit", "Exports");
+        navigate(auditHref);
+      },
+      "Inspect reasoning": () => {
+        setTabForPage("audit", "Agent Reasoning");
+        navigate(auditHref);
+      },
+      "Open evidence": () => {
+        setTabForPage("audit", "Evidence");
+        navigate(auditHref);
+      },
+      "Export audit": () => {
+        setTabForPage("audit", "Exports");
+        navigate(auditHref);
+      },
+      "Notification setup": () => {
+        setTabForPage("settings", "Notifications");
+        navigate("/settings");
+      },
+      "Run policy check": () => {
+        setTabForPage("settings", "Safety");
+        navigate("/settings");
+      },
+      "Delivery log": () => {
+        setTabForPage("communications", "Delivery Log");
+        navigate(communicationsHref);
+      },
+    };
+
+    if (action.kind) {
+      handlers[action.kind]?.();
+      return;
+    }
+
+    labelHandlers[action.label]?.();
   };
 
   return (
@@ -238,9 +288,234 @@ export function App({
           selectedTabName={activeTabName}
           selectTab={selectTab}
           runAction={runAction}
+          demoEvents={demoEvents}
         />
       </main>
     </div>
+  );
+}
+
+function createDemoEvent(
+  action: PageAction,
+  activePage: WorkspacePage,
+  activeTab: PageTab,
+  activeIncidentId: string,
+): Omit<DemoEvent, "id"> {
+  const baseMeta = `${activePage.navLabel} / ${activeTab.name}`;
+  const actionEvents: Record<string, Omit<DemoEvent, "id">> = {
+    "Review signal": {
+      title: "Signal reviewed",
+      detail:
+        "The intake packet was marked safe for the demo run and is ready for agent launch.",
+      meta: baseMeta,
+      tone: "success",
+    },
+    "Validate packet": {
+      title: "Prompt packet validated",
+      detail:
+        "Private fields stayed blocked and the agent-scoped prompt packet passed the safe-input gate.",
+      meta: baseMeta,
+      tone: "success",
+    },
+    "Launch room": {
+      title: "Command room launched",
+      detail:
+        "Assessment can post context first, then Legal and Technical can work in parallel from the same room.",
+      meta: `incident: ${activeIncidentId}`,
+      tone: "success",
+    },
+    "Launch command room": {
+      title: "Command room launched",
+      detail:
+        "A shared room state was created for agents, human decisions, notifications, and audit events.",
+      meta: `incident: ${activeIncidentId}`,
+      tone: "success",
+    },
+    "Open command room": {
+      title: "Command room opened",
+      detail:
+        "The selected incident is now in the shared room where agent handoffs and human decisions are visible.",
+      meta: `incident: ${activeIncidentId}`,
+      tone: "brand",
+    },
+    "Open room": {
+      title: "Command room opened",
+      detail:
+        "The selected incident is now in the shared room where agent handoffs and human decisions are visible.",
+      meta: `incident: ${activeIncidentId}`,
+      tone: "brand",
+    },
+    "Open registry": {
+      title: "Incident registry opened",
+      detail:
+        "The operator can compare scenario severity, owners, phases, deadlines, and open actions.",
+      meta: "registry",
+      tone: "brand",
+    },
+    "Open messaging": {
+      title: "Owner message thread opened",
+      detail:
+        "The in-app thread is the system of record before Band, email, or SMS adapters are used.",
+      meta: "notification center",
+      tone: "brand",
+    },
+    "Message owner": {
+      title: "Owner message prepared",
+      detail:
+        "A structured request with the decision, risk, owner, and evidence links is ready in the command room.",
+      meta: "human owner",
+      tone: "review",
+    },
+    "Open decisions": {
+      title: "Decision desk opened",
+      detail:
+        "The unresolved human decision is now visible with risk of approving, risk of waiting, and escalation path.",
+      meta: "human-in-the-loop",
+      tone: "review",
+    },
+    Escalate: {
+      title: "Escalation package created",
+      detail:
+        "The primary owner path was marked unresolved and the backup owner receives the same decision packet.",
+      meta: "backup owner ready",
+      tone: "review",
+    },
+    "Notify backup": {
+      title: "Backup owner notified",
+      detail:
+        "A simulated in-app and Band notification was recorded for the backup approver with evidence attached.",
+      meta: "notification logged",
+      tone: "review",
+    },
+    "Open email draft": {
+      title: "Email draft opened",
+      detail:
+        "The communications agent can draft only from verified facts and visible missing-fact warnings.",
+      meta: "communications gate",
+      tone: "warning",
+    },
+    "Open email": {
+      title: "Email composer opened",
+      detail:
+        "The draft stays in safe mode with allowlisted recipients until human approval and provider setup exist.",
+      meta: "safe email composer",
+      tone: "brand",
+    },
+    "Open SMS": {
+      title: "SMS composer opened",
+      detail:
+        "SMS is limited to internal owner acknowledgement in the MVP and remains simulated by default.",
+      meta: "safe SMS composer",
+      tone: "warning",
+    },
+    "Send test": {
+      title: "Safe test email recorded",
+      detail:
+        "The app simulated an allowlisted internal email test and wrote the result to the incident trail.",
+      meta: "no external send",
+      tone: "success",
+    },
+    "Queue package": {
+      title: "Communication package queued",
+      detail:
+        "The reviewed draft package moved to the delivery log with provider, owner, and audit metadata.",
+      meta: "delivery log updated",
+      tone: "success",
+    },
+    "Simulate SMS": {
+      title: "SMS simulation recorded",
+      detail:
+        "The owner acknowledgement message was simulated and stored as a notification attempt.",
+      meta: "internal escalation only",
+      tone: "success",
+    },
+    "Request facts": {
+      title: "Evidence request sent",
+      detail:
+        "The missing fact was routed to the technical or legal owner and linked to the audit trail.",
+      meta: "evidence request",
+      tone: "brand",
+    },
+    "Open audit": {
+      title: "Audit trail opened",
+      detail:
+        "The operator can inspect source facts, human decisions, provider metadata, and notification attempts.",
+      meta: "traceability",
+      tone: "brand",
+    },
+    "Open exports": {
+      title: "Audit exports opened",
+      detail:
+        "The export package shows what can be shared safely and what remains blocked.",
+      meta: "redacted package",
+      tone: "brand",
+    },
+    "Inspect reasoning": {
+      title: "Reasoning packet opened",
+      detail:
+        "The UI shows inputs, structured outputs, confidence, unknowns, and source links without exposing private data.",
+      meta: "agent audit",
+      tone: "review",
+    },
+    "Open evidence": {
+      title: "Evidence detail opened",
+      detail:
+        "Confirmed facts, assumptions, unknowns, and source references are separated before drafts use them.",
+      meta: "source facts",
+      tone: "brand",
+    },
+    "Export audit": {
+      title: "Audit export prepared",
+      detail:
+        "A redacted review package was prepared for internal demo review with unsafe fields blocked.",
+      meta: "export ready",
+      tone: "success",
+    },
+    "Prepare export": {
+      title: "Export package prepared",
+      detail:
+        "The demo package now contains timeline, evidence, decisions, and communication states.",
+      meta: "safe package",
+      tone: "success",
+    },
+    "Run diagnostics": {
+      title: "Provider diagnostics completed",
+      detail:
+        "Band, Supabase, model providers, notification adapters, and seeded fallback were checked in safe mode.",
+      meta: "demo readiness",
+      tone: "success",
+    },
+    "Notification setup": {
+      title: "Notification setup opened",
+      detail:
+        "The operator can configure in-app, Band, email, SMS, allowlist, and live-send defaults.",
+      meta: "channel setup",
+      tone: "review",
+    },
+    "Delivery log": {
+      title: "Delivery log opened",
+      detail:
+        "Queued, acknowledged, timed-out, and simulated notification attempts are visible in one ledger.",
+      meta: "delivery audit",
+      tone: "brand",
+    },
+    "Run policy check": {
+      title: "Safety policy check passed",
+      detail:
+        "The app confirmed no secrets or real personal data should be shown in browser screenshots or prompts.",
+      meta: "safe mode",
+      tone: "success",
+    },
+  };
+
+  return (
+    actionEvents[action.label] ?? {
+      title: `${action.label} recorded`,
+      detail:
+        "The demo action was recorded in the local event trail so the judge can see cause and effect.",
+      meta: baseMeta,
+      tone: action.tone,
+    }
   );
 }
 
@@ -337,12 +612,14 @@ function Workspace({
   selectedTabName,
   selectTab,
   runAction,
+  demoEvents,
 }: {
   activePage: WorkspacePage;
   activeTab: PageTab;
   selectedTabName: string;
   selectTab: (pageId: string, tabName: string) => void;
   runAction: (action: PageAction) => void;
+  demoEvents: DemoEvent[];
 }) {
   return (
     <section className="page-surface" aria-labelledby="workspace-title">
@@ -376,7 +653,7 @@ function Workspace({
       <div className="content-grid">
         <FeedPanel title={activeTab.feedTitle} items={activeTab.feed} />
         <MainPanel tab={activeTab} pageId={activePage.id} />
-        <ActionPanel tab={activeTab} runAction={runAction} />
+        <ActionPanel tab={activeTab} runAction={runAction} demoEvents={demoEvents} />
       </div>
     </section>
   );
@@ -435,10 +712,14 @@ function MainPanel({ tab, pageId }: { tab: PageTab; pageId: string }) {
 function ActionPanel({
   tab,
   runAction,
+  demoEvents,
 }: {
   tab: PageTab;
   runAction: (action: PageAction) => void;
+  demoEvents: DemoEvent[];
 }) {
+  const latestEvent = demoEvents[0];
+
   return (
     <aside className="right-rail">
       <section className="panel decision-card">
@@ -462,9 +743,36 @@ function ActionPanel({
         </div>
       </section>
 
+      {latestEvent ? (
+        <section className={`panel action-result tone-${latestEvent.tone}`} aria-live="polite">
+          <div>
+            <span className={`status-dot ${latestEvent.tone}`} aria-hidden="true" />
+            <strong>Last action result</strong>
+          </div>
+          <h3>{latestEvent.title}</h3>
+          <p>{latestEvent.detail}</p>
+          <small>{latestEvent.meta}</small>
+        </section>
+      ) : null}
+
       <section className="panel">
         <PanelHeader icon={Gauge} title="Notification Center" subtitle="CrisisCoord records first" />
         <div className="stack">
+          {demoEvents.length === 0 ? (
+            <FeedRow
+              item={{
+                title: "Ready for demo interaction",
+                detail:
+                  "Click an action to create a visible notification, delivery, escalation, or audit event.",
+                meta: "demo event trail",
+                tone: "info",
+              }}
+              compact
+            />
+          ) : null}
+          {demoEvents.slice(0, 3).map((event) => (
+            <FeedRow item={event} key={event.id} compact />
+          ))}
           {tab.status.map((item) => (
             <FeedRow item={item} key={`${item.title}-${item.meta}`} compact />
           ))}
