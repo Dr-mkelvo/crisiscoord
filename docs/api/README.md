@@ -4,6 +4,32 @@ Last updated: June 13, 2026.
 
 This folder documents the external APIs and SDK surfaces CrisisCoord expects to use. Keep these notes current as implementation decisions change.
 
+## API Tiers
+
+The project does not need every documented API key to run v1.
+
+Use this categorization when setting up credentials:
+
+| Tier | APIs | Required for v1? | Why it exists |
+| --- | --- | --- | --- |
+| Default v1 | Band, Supabase, AI/ML API, Featherless | Yes | Core crisis room, persistence, agent reasoning, and required partner proof. |
+| Default optional | Resend | No | Only needed if the team wants safe test email instead of simulated sends. |
+| Public live-data add-ons | CISA KEV, NVD, FIRST EPSS, OSV, GitHub Advisories, SEC EDGAR, openFDA | No | Evidence enrichment for more realistic source snapshots. These should not block the app. |
+| Keyed threat-intel add-ons | OTX, AbuseIPDB, URLhaus | No | Deeper IOC enrichment if keys are available. Keep behind feature flags. |
+| Enterprise workflow add-ons | Twilio, Slack, Teams, Jira, ServiceNow, alternate email providers | No | Future customer-style integrations for escalation, ticketing, and communications. |
+| Runtime/observability add-ons | Vercel runtime controls, optional AgentOps | No | Hosting, rate limits, logs, and debugging once the core app works. |
+
+For v1 setup, start with only:
+
+```text
+BAND_*
+SUPABASE_*
+AI_ML_API_KEY
+FEATHERLESS_API_KEY
+```
+
+Add `RESEND_*` only if live test email is needed. Everything else is an add-on and should remain disabled until deliberately selected.
+
 ## API Map
 
 | Area | Provider | Purpose | Primary docs |
@@ -19,16 +45,16 @@ This folder documents the external APIs and SDK surfaces CrisisCoord expects to 
 
 ## Implementation Order
 
-1. Wire environment validation for Band, Supabase, and model-provider keys.
+1. Wire environment validation for the default v1 keys: Band, Supabase, AI/ML API, and Featherless.
 2. Build a Band connection check: `GET /me` relative to the Band agent base URL for each remote agent key.
 3. Build one model-provider client that accepts `baseURL`, `apiKey`, and `model`.
 4. Create Supabase schema for incidents, rooms, agent outputs, evidence artifacts, human decisions, and audit events.
-5. Implement live-data adapters for CISA KEV, NVD, EPSS, OSV, GitHub Advisories, SEC EDGAR, and openFDA.
+5. Keep outbound communications simulated unless `RESEND_*` is configured with safe test recipients.
 6. Implement the crisis signal API that creates or seeds a Band room and records the incident in Supabase.
 7. Add in-app notification and human decision records before external sending.
 8. Add agent workers that process Band messages, write structured output, and post events back to Band.
 9. Prove AI/ML API and Featherless both appear in `agent_runs` and the UI/audit trail.
-10. Add simulated outbound communication queueing for demo-safe email/SMS flows.
+10. Add live-data adapters only after the default v1 loop works.
 11. Add Vercel rate limits, cache rules, and observability before the public demo link is shared.
 
 ## Data Rules

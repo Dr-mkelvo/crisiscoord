@@ -138,7 +138,7 @@ Key guides:
 
 Create `.env.local` for local app values.
 
-Expected variables once implementation starts:
+Default v1 variables once implementation starts:
 
 ```bash
 BAND_API_BASE_URL=https://app.band.ai/api/v1/agent
@@ -169,11 +169,22 @@ FEATHERLESS_API_BASE_URL=https://api.featherless.ai/v1
 FEATHERLESS_API_KEY=
 FEATHERLESS_DEFAULT_MODEL=Qwen/Qwen2.5-7B-Instruct
 
-# Optional live-data providers are listed in .env.example.
+# Optional live-data, email, SMS, Slack, Teams, Jira, and ServiceNow providers
+# are listed in .env.example. Do not configure them unless the team explicitly
+# chooses that add-on.
 # Keep all provider keys server-side.
 ```
 
 Never commit `.env.local`, Band API keys, Supabase service-role keys, model API keys, or deployment tokens.
+
+The default v1 credential set is intentionally small:
+
+- Band for the shared crisis room and agent handoff flow.
+- Supabase for app persistence, auth, audit, decisions, and notification state.
+- AI/ML API for main-path agent reasoning.
+- Featherless for the visible open-model partner path.
+
+Add-ons are not blockers. Use Resend only if safe test email is needed. Use live-data sources, threat-intel providers, SMS, chat, ticketing, or enterprise workflow connectors only after the default loop works.
 
 ## Local Setup
 
